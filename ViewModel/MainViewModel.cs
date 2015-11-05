@@ -20,13 +20,14 @@ namespace PG5200_Innlevering2.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region Commands
-
-        public ICommand NewCommand { get; private set; }
-        public ICommand RemoveCommand { get; private set; }
-        public ICommand DefaultCommand { get; private set; }
+        
         public ICommand SaveCommand { get; private set; }
         public ICommand LoadCommand { get; private set; }
-
+        private void CreateCommands()
+        {
+            SaveCommand = new RelayCommand(Save);
+            LoadCommand = new RelayCommand(Load);
+        }
         #endregion
 
         /// <summary>
@@ -39,11 +40,7 @@ namespace PG5200_Innlevering2.ViewModel
             Load();
         }
 
-        private void CreateCommands()
-        {
-            SaveCommand = new RelayCommand(Save);
-            LoadCommand = new RelayCommand(Load);
-        }
+        
 
         private bool CanRemove()
         {
