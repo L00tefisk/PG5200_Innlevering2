@@ -4,13 +4,12 @@ using System.IO;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using PG5200_Innlevering1.SettingsEditor.Model;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows;
 
-namespace PG5200_Innlevering1.SettingsEditor.ViewModel
+namespace PG5200_Innlevering2.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.
