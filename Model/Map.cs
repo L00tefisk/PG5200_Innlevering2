@@ -34,9 +34,7 @@ namespace LevelEditor.Model
                     }
                 }
             }
-			
         }
-
         public void Load()
         {
             using (BinaryReader binaryReader = new BinaryReader(File.Open(Filename, FileMode.Open)))

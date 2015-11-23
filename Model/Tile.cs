@@ -23,7 +23,7 @@ namespace LevelEditor.Model
             BitmapID = bitmapid;
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
-            bi.UriSource = new Uri(pathToImage, UriKind.RelativeOrAbsolute);
+            //bi.UriSource = new Uri(pathToImage, UriKind.RelativeOrAbsolute);
             bi.EndInit();
             Img.Source = bi;
             Collidable = collidable;
