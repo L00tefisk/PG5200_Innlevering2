@@ -20,22 +20,30 @@ namespace LevelEditor.Model
         }
         public ModelClass()
         {
-            int numElements = 50;
+            int numElements = 500;
             TilePanel = new WrapPanel();
-            TilePanel.Width = 200;
 
             int row = 0;
 
             for (int i = 0; i < numElements; i++)
             {
+                string text = "";
 
-                TextBlock ageText = new TextBlock
+                if (i < 10)
+                    text += 0;
+                if (i+1 < 100)
+                    text += 0;
+                text += (i+1).ToString();
+
+                TextBlock textField = new TextBlock
                 {
-                    Text = i.ToString(),
+                    Margin = new System.Windows.Thickness(10),
+                    Text = text,
                     FontSize = 12,
                     FontWeight = FontWeights.Bold
                 };
-                TilePanel.Children.Add(ageText);
+
+                TilePanel.Children.Add(textField);
             }
         }
 
