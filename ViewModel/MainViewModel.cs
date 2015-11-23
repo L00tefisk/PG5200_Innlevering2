@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System;
+using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
 using LevelEditor.Model;
 
@@ -26,6 +27,22 @@ namespace LevelEditor.ViewModel
             }
         }
 
+        public WrapPanel DynamicGrid
+        {
+            get
+            {
+                return _model.TilePanel;
+            }
+            set
+            {
+                if (_model.TilePanel != value)
+                {
+                    _model.TilePanel = value;
+                    RaisePropertyChanged(() => DynamicGrid);
+                }
+            }
+
+        }
 
         public string Name
         {
@@ -65,9 +82,10 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
+            CreateCommands();
             _model = new ModelClass();
 
-            CreateCommands();
+            
         }
 
         private bool CanPerform()

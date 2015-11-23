@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
+        Width="800"
+        Height="450"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,6 +19,10 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
 
         <TextBlock FontSize="36"
                    FontWeight="Bold"
@@ -26,7 +30,13 @@
                    Text="{Binding WelcomeTitle}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
+                   TextWrapping="Wrap" Margin="388,186,104,185" Height="48" Width="0" />
+
+        <Border Grid.Row="0" Grid.Column="1" Background="SteelBlue" />
+        <ScrollViewer Content="{Binding DynamicGrid}" Grid.Column="1" Margin="10" BorderThickness="5" BorderBrush="Black" Background="DodgerBlue">
+            
+        </ScrollViewer>
+        <WrapPanel HorizontalAlignment="Left" Height="100" Margin="345,309,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
