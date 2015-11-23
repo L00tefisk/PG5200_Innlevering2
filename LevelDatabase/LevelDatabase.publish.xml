@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
-    <TargetDatabaseName>C:\USERS\EIVIND\DOCUMENTS\DEVELOPMENT\PG5200_INNLEVERING2\LEVELDATABASE\LEVELDATABASE.MDF</TargetDatabaseName>
+    <TargetDatabaseName>Leveldatabase</TargetDatabaseName>
     <DeployScriptFileName>LevelDatabase.sql</DeployScriptFileName>
     <TargetConnectionString>Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True;Pooling=False</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
