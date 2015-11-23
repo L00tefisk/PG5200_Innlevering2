@@ -1,33 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using System.Collections.Generic;
+using System;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Windows;
+using LevelEditor.Model;
 
-namespace PG5200_Innlevering2.ViewModel
+namespace LevelEditor.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.
     /// <para>
-    /// See http://www.mvvmlight.net
+    /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        #region Properties
+        private ModelClass _model;
+
+        public IEnumerable<ModelClass.Shapes> Shapes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ModelClass.Shapes)) as IEnumerable<ModelClass.Shapes>;
+            }
+        }
+
+
+        public string Name
+        {
+            get
+            {
+                return _model.Name;
+            }
+
+            set
+            {
+                if (_model.Name != value)
+                {
+                    _model.Name = value;
+                    RaisePropertyChanged(() => Name);
+                }
+            }
+        }
+
+
+        #endregion
+
         #region Commands
-        
-        public ICommand SaveCommand { get; private set; }
-        public ICommand LoadCommand { get; private set; }
+
+        public ICommand NewCommand
+        {
+            get; private set;
+        }
         private void CreateCommands()
         {
-            SaveCommand = new RelayCommand(Save);
-            LoadCommand = new RelayCommand(Load);
+            NewCommand = new RelayCommand(NewModel, CanPerform);
         }
+
         #endregion
 
         /// <summary>
@@ -35,37 +65,28 @@ namespace PG5200_Innlevering2.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            CreateCommands();
+            _model = new ModelClass();
 
-            Load();
+            CreateCommands();
         }
 
-        
-
-        private bool CanRemove()
+        private bool CanPerform()
         {
-            //return SelectedItem != null;
+            //TODO: Additional validation
             return true;
         }
 
-        public void Default()
+        public void NewModel()
         {
-            PopulateView();
+            PopulateView(new ModelClass());
         }
 
-        public void Save()
+        /// <summary>
+        /// Populates View with the specified data.
+        /// </summary>
+        public void PopulateView(ModelClass model)
         {
-        
-        }
-
-        public void Load()
-        {
-            
-        }
-
-        public void PopulateView()
-        {
-           
+            Name = model.Name;
         }
     }
 }

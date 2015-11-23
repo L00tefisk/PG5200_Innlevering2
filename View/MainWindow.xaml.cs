@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using PG5200_Innlevering2.ViewModel;
+using LevelEditor.ViewModel;
 
-namespace PG5200_Innlevering2
+namespace LevelEditor.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

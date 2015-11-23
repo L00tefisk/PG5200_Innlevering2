@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PG5200_Innlevering2.Properties
+namespace LevelEditor.Properties
 {
 
 

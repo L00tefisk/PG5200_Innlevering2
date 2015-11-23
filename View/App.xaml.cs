@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
-namespace PG5200_Innlevering2
+namespace LevelEditor.View
 {
     /// <summary>
     /// Interaction logic for App.xaml
