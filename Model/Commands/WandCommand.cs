@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class WandCommand : ICommand
+    class WandCommand : ICommandPattern
     {
         private Map _map;
         private List<Tile> _selectedTiles; 

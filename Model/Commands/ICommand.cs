@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model
 {
-    interface ICommand
+    interface ICommandPattern
     {
         void Execute();
         void Undo();

@@ -91,6 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LevelEditorDatabase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Renderer.cs" />
     <Compile Include="Model\Tools\EraserTool.cs" />
     <Compile Include="Model\Tools\StampTool.cs" />
     <Compile Include="Model\Tools\Tool.cs" />
