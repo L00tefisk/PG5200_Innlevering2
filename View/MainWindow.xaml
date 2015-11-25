@@ -23,11 +23,23 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="320"/>
         </Grid.ColumnDefinitions>
-        
-        <ScrollViewer Content="{Binding LevelView}" Grid.Column="0" HorizontalScrollBarVisibility="Visible"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="1" Background="SteelBlue" />
-        <ScrollViewer Content="{Binding DynamicGrid}"   Grid.Column="1" Margin="10" Background="DodgerBlue"/>
+        <Menu IsMainMenu="True" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Header="_File" />
+            <MenuItem Header="_Edit" />
+            <MenuItem Header="_View" />
+            <MenuItem Header="_Window" />
+            <MenuItem Header="_Help" />
+        </Menu>
+
+        <ScrollViewer Content="{Binding LevelView}" Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Visible"/>
+
+        <Border Grid.Row="1" Grid.Column="1" Background="SteelBlue" />
+        <ScrollViewer Content="{Binding DynamicGrid}"  Grid.Row="1" Grid.Column="1" Margin="10" Background="DodgerBlue"/>
             
 
     </Grid>
