@@ -14,6 +14,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +64,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\MvvmLightLibs.5.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -129,12 +145,387 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Sprites\Player\p1_walk\p1_walk.json" />
+    <None Include="Sprites\Player\p2_walk\p2_walk.json" />
+    <None Include="Sprites\Player\p3_walk\p3_walk.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sprites\bg.png" />
+    <Resource Include="Sprites\bg_castle.png" />
+    <Resource Include="Sprites\Enemies\blockerBody.png" />
+    <Resource Include="Sprites\Enemies\blockerMad.png" />
+    <Resource Include="Sprites\Enemies\blockerSad.png" />
+    <Resource Include="Sprites\Enemies\enemies_spritesheet.png" />
+    <Resource Include="Sprites\Enemies\enemies_spritesheet.txt" />
+    <Resource Include="Sprites\Enemies\fishDead.png" />
+    <Resource Include="Sprites\Enemies\fishSwim1.png" />
+    <Resource Include="Sprites\Enemies\fishSwim2.png" />
+    <Resource Include="Sprites\Enemies\flyDead.png" />
+    <Resource Include="Sprites\Enemies\flyFly1.png" />
+    <Resource Include="Sprites\Enemies\flyFly2.png" />
+    <Resource Include="Sprites\Enemies\pokerMad.png" />
+    <Resource Include="Sprites\Enemies\pokerSad.png" />
+    <Resource Include="Sprites\Enemies\slimeDead.png" />
+    <Resource Include="Sprites\Enemies\slimeWalk1.png" />
+    <Resource Include="Sprites\Enemies\slimeWalk2.png" />
+    <Resource Include="Sprites\Enemies\snailShell.png" />
+    <Resource Include="Sprites\Enemies\snailShell_upsidedown.png" />
+    <Resource Include="Sprites\Enemies\snailWalk1.png" />
+    <Resource Include="Sprites\Enemies\snailWalk2.png" />
+    <Resource Include="Sprites\HUD\hud_0.png" />
+    <Resource Include="Sprites\HUD\hud_1.png" />
+    <Resource Include="Sprites\HUD\hud_2.png" />
+    <Resource Include="Sprites\HUD\hud_3.png" />
+    <Resource Include="Sprites\HUD\hud_4.png" />
+    <Resource Include="Sprites\HUD\hud_5.png" />
+    <Resource Include="Sprites\HUD\hud_6.png" />
+    <Resource Include="Sprites\HUD\hud_7.png" />
+    <Resource Include="Sprites\HUD\hud_8.png" />
+    <Resource Include="Sprites\HUD\hud_9.png" />
+    <Resource Include="Sprites\HUD\hud_coins.png" />
+    <Resource Include="Sprites\HUD\hud_gem_blue.png" />
+    <Resource Include="Sprites\HUD\hud_gem_green.png" />
+    <Resource Include="Sprites\HUD\hud_gem_red.png" />
+    <Resource Include="Sprites\HUD\hud_gem_yellow.png" />
+    <Resource Include="Sprites\HUD\hud_heartEmpty.png" />
+    <Resource Include="Sprites\HUD\hud_heartFull.png" />
+    <Resource Include="Sprites\HUD\hud_heartHalf.png" />
+    <Resource Include="Sprites\HUD\hud_keyBlue.png" />
+    <Resource Include="Sprites\HUD\hud_keyBlue_disabled.png" />
+    <Resource Include="Sprites\HUD\hud_keyGreem_disabled.png" />
+    <Resource Include="Sprites\HUD\hud_keyGreen.png" />
+    <Resource Include="Sprites\HUD\hud_keyRed.png" />
+    <Resource Include="Sprites\HUD\hud_keyRed_disabled.png" />
+    <Resource Include="Sprites\HUD\hud_keyYellow.png" />
+    <Resource Include="Sprites\HUD\hud_keyYellow_disabled.png" />
+    <Resource Include="Sprites\HUD\hud_p1.png" />
+    <Resource Include="Sprites\HUD\hud_p1Alt.png" />
+    <Resource Include="Sprites\HUD\hud_p2.png" />
+    <Resource Include="Sprites\HUD\hud_p2Alt.png" />
+    <Resource Include="Sprites\HUD\hud_p3.png" />
+    <Resource Include="Sprites\HUD\hud_p3Alt.png" />
+    <Resource Include="Sprites\HUD\hud_spritesheet.png" />
+    <Resource Include="Sprites\HUD\hud_spritesheet.xml" />
+    <Resource Include="Sprites\HUD\hud_x.png" />
+    <Resource Include="Sprites\Items\bomb.png" />
+    <Resource Include="Sprites\Items\bombFlash.png" />
+    <Resource Include="Sprites\Items\bush.png" />
+    <Resource Include="Sprites\Items\buttonBlue.png" />
+    <Resource Include="Sprites\Items\buttonBlue_pressed.png" />
+    <Resource Include="Sprites\Items\buttonGreen.png" />
+    <Resource Include="Sprites\Items\buttonGreen_pressed.png" />
+    <Resource Include="Sprites\Items\buttonRed.png" />
+    <Resource Include="Sprites\Items\buttonRed_pressed.png" />
+    <Resource Include="Sprites\Items\buttonYellow.png" />
+    <Resource Include="Sprites\Items\buttonYellow_pressed.png" />
+    <Resource Include="Sprites\Items\cactus.png" />
+    <Resource Include="Sprites\Items\chain.png" />
+    <Resource Include="Sprites\Items\cloud1.png" />
+    <Resource Include="Sprites\Items\cloud2.png" />
+    <Resource Include="Sprites\Items\cloud3.png" />
+    <Resource Include="Sprites\Items\coinBronze.png" />
+    <Resource Include="Sprites\Items\coinGold.png" />
+    <Resource Include="Sprites\Items\coinSilver.png" />
+    <Resource Include="Sprites\Items\fireball.png" />
+    <Resource Include="Sprites\Items\flagBlue.png" />
+    <Resource Include="Sprites\Items\flagBlue2.png" />
+    <Resource Include="Sprites\Items\flagBlueHanging.png" />
+    <Resource Include="Sprites\Items\flagGreen.png" />
+    <Resource Include="Sprites\Items\flagGreen2.png" />
+    <Resource Include="Sprites\Items\flagGreenHanging.png" />
+    <Resource Include="Sprites\Items\flagRed.png" />
+    <Resource Include="Sprites\Items\flagRed2.png" />
+    <Resource Include="Sprites\Items\flagRedHanging.png" />
+    <Resource Include="Sprites\Items\flagYellow.png" />
+    <Resource Include="Sprites\Items\flagYellow2.png" />
+    <Resource Include="Sprites\Items\flagYellowHanging.png" />
+    <Resource Include="Sprites\Items\gemBlue.png" />
+    <Resource Include="Sprites\Items\gemGreen.png" />
+    <Resource Include="Sprites\Items\gemRed.png" />
+    <Resource Include="Sprites\Items\gemYellow.png" />
+    <Resource Include="Sprites\Items\items_spritesheet.png" />
+    <Resource Include="Sprites\Items\items_spritesheet.xml" />
+    <Resource Include="Sprites\Items\keyBlue.png" />
+    <Resource Include="Sprites\Items\keyGreen.png" />
+    <Resource Include="Sprites\Items\keyRed.png" />
+    <Resource Include="Sprites\Items\keyYellow.png" />
+    <Resource Include="Sprites\Items\mushroomBrown.png" />
+    <Resource Include="Sprites\Items\mushroomRed.png" />
+    <Resource Include="Sprites\Items\particleBrick1a.png" />
+    <Resource Include="Sprites\Items\particleBrick1b.png" />
+    <Resource Include="Sprites\Items\particleBrick2a.png" />
+    <Resource Include="Sprites\Items\particleBrick2b.png" />
+    <Resource Include="Sprites\Items\plant.png" />
+    <Resource Include="Sprites\Items\plantPurple.png" />
+    <Resource Include="Sprites\Items\rock.png" />
+    <Resource Include="Sprites\Items\snowhill.png" />
+    <Resource Include="Sprites\Items\spikes.png" />
+    <Resource Include="Sprites\Items\springboardDown.png" />
+    <Resource Include="Sprites\Items\springboardUp.png" />
+    <Resource Include="Sprites\Items\star.png" />
+    <Resource Include="Sprites\Items\switchLeft.png" />
+    <Resource Include="Sprites\Items\switchMid.png" />
+    <Resource Include="Sprites\Items\switchRight.png" />
+    <Resource Include="Sprites\Items\weight.png" />
+    <Resource Include="Sprites\Items\weightChained.png" />
+    <Resource Include="Sprites\license.txt" />
+    <Resource Include="Sprites\Player\p1_duck.png" />
+    <Resource Include="Sprites\Player\p1_front.png" />
+    <Resource Include="Sprites\Player\p1_hurt.png" />
+    <Resource Include="Sprites\Player\p1_jump.png" />
+    <Resource Include="Sprites\Player\p1_spritesheet.png" />
+    <Resource Include="Sprites\Player\p1_spritesheet.txt" />
+    <Resource Include="Sprites\Player\p1_stand.png" />
+    <Resource Include="Sprites\Player\p1_walk\p1_walk.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk01.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk02.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk03.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk04.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk05.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk06.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk07.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk08.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk09.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk10.png" />
+    <Resource Include="Sprites\Player\p1_walk\PNG\p1_walk11.png" />
+    <Resource Include="Sprites\Player\p2_duck.png" />
+    <Resource Include="Sprites\Player\p2_front.png" />
+    <Resource Include="Sprites\Player\p2_hurt.png" />
+    <Resource Include="Sprites\Player\p2_jump.png" />
+    <Resource Include="Sprites\Player\p2_spritesheet.png" />
+    <Resource Include="Sprites\Player\p2_spritesheet.txt" />
+    <Resource Include="Sprites\Player\p2_stand.png" />
+    <Resource Include="Sprites\Player\p2_walk\p2_walk.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk01.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk02.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk03.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk04.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk05.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk06.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk07.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk08.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk09.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk10.png" />
+    <Resource Include="Sprites\Player\p2_walk\PNG\p2_walk11.png" />
+    <Resource Include="Sprites\Player\p3_duck.png" />
+    <Resource Include="Sprites\Player\p3_front.png" />
+    <Resource Include="Sprites\Player\p3_hurt.png" />
+    <Resource Include="Sprites\Player\p3_jump.png" />
+    <Resource Include="Sprites\Player\p3_spritesheet.png" />
+    <Resource Include="Sprites\Player\p3_spritesheet.txt" />
+    <Resource Include="Sprites\Player\p3_stand.png" />
+    <Resource Include="Sprites\Player\p3_walk\p3_walk.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk01.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk02.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk03.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk04.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk05.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk06.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk07.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk08.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk09.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk10.png" />
+    <Resource Include="Sprites\Player\p3_walk\PNG\p3_walk11.png" />
+    <Resource Include="Sprites\preview.png" />
+    <Resource Include="Sprites\sample.png" />
+    <Resource Include="Sprites\Tiles\box.png" />
+    <Resource Include="Sprites\Tiles\boxAlt.png" />
+    <Resource Include="Sprites\Tiles\boxCoin.png" />
+    <Resource Include="Sprites\Tiles\boxCoinAlt.png" />
+    <Resource Include="Sprites\Tiles\boxCoinAlt_disabled.png" />
+    <Resource Include="Sprites\Tiles\boxCoin_disabled.png" />
+    <Resource Include="Sprites\Tiles\boxEmpty.png" />
+    <Resource Include="Sprites\Tiles\boxExplosive.png" />
+    <Resource Include="Sprites\Tiles\boxExplosiveAlt.png" />
+    <Resource Include="Sprites\Tiles\boxExplosive_disabled.png" />
+    <Resource Include="Sprites\Tiles\boxItem.png" />
+    <Resource Include="Sprites\Tiles\boxItemAlt.png" />
+    <Resource Include="Sprites\Tiles\boxItemAlt_disabled.png" />
+    <Resource Include="Sprites\Tiles\boxItem_disabled.png" />
+    <Resource Include="Sprites\Tiles\boxWarning.png" />
+    <Resource Include="Sprites\Tiles\brickWall.png" />
+    <Resource Include="Sprites\Tiles\bridge.png" />
+    <Resource Include="Sprites\Tiles\bridgeLogs.png" />
+    <Resource Include="Sprites\Tiles\castle.png" />
+    <Resource Include="Sprites\Tiles\castleCenter.png" />
+    <Resource Include="Sprites\Tiles\castleCenter_rounded.png" />
+    <Resource Include="Sprites\Tiles\castleCliffLeft.png" />
+    <Resource Include="Sprites\Tiles\castleCliffLeftAlt.png" />
+    <Resource Include="Sprites\Tiles\castleCliffRight.png" />
+    <Resource Include="Sprites\Tiles\castleCliffRightAlt.png" />
+    <Resource Include="Sprites\Tiles\castleHalf.png" />
+    <Resource Include="Sprites\Tiles\castleHalfLeft.png" />
+    <Resource Include="Sprites\Tiles\castleHalfMid.png" />
+    <Resource Include="Sprites\Tiles\castleHalfRight.png" />
+    <Resource Include="Sprites\Tiles\castleHillLeft.png" />
+    <Resource Include="Sprites\Tiles\castleHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\castleHillRight.png" />
+    <Resource Include="Sprites\Tiles\castleHillRight2.png" />
+    <Resource Include="Sprites\Tiles\castleLedgeLeft.png" />
+    <Resource Include="Sprites\Tiles\castleLedgeRight.png" />
+    <Resource Include="Sprites\Tiles\castleLeft.png" />
+    <Resource Include="Sprites\Tiles\castleMid.png" />
+    <Resource Include="Sprites\Tiles\castleRight.png" />
+    <Resource Include="Sprites\Tiles\dirt.png" />
+    <Resource Include="Sprites\Tiles\dirtCenter.png" />
+    <Resource Include="Sprites\Tiles\dirtCenter_rounded.png" />
+    <Resource Include="Sprites\Tiles\dirtCliffLeft.png" />
+    <Resource Include="Sprites\Tiles\dirtCliffLeftAlt.png" />
+    <Resource Include="Sprites\Tiles\dirtCliffRight.png" />
+    <Resource Include="Sprites\Tiles\dirtCliffRightAlt.png" />
+    <Resource Include="Sprites\Tiles\dirtHalf.png" />
+    <Resource Include="Sprites\Tiles\dirtHalfLeft.png" />
+    <Resource Include="Sprites\Tiles\dirtHalfMid.png" />
+    <Resource Include="Sprites\Tiles\dirtHalfRight.png" />
+    <Resource Include="Sprites\Tiles\dirtHillLeft.png" />
+    <Resource Include="Sprites\Tiles\dirtHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\dirtHillRight.png" />
+    <Resource Include="Sprites\Tiles\dirtHillRight2.png" />
+    <Resource Include="Sprites\Tiles\dirtLedgeLeft.png" />
+    <Resource Include="Sprites\Tiles\dirtLedgeRight.png" />
+    <Resource Include="Sprites\Tiles\dirtLeft.png" />
+    <Resource Include="Sprites\Tiles\dirtMid.png" />
+    <Resource Include="Sprites\Tiles\dirtRight.png" />
+    <Resource Include="Sprites\Tiles\door_closedMid.png" />
+    <Resource Include="Sprites\Tiles\door_closedTop.png" />
+    <Resource Include="Sprites\Tiles\door_openMid.png" />
+    <Resource Include="Sprites\Tiles\door_openTop.png" />
+    <Resource Include="Sprites\Tiles\fence.png" />
+    <Resource Include="Sprites\Tiles\fenceBroken.png" />
+    <Resource Include="Sprites\Tiles\grass.png" />
+    <Resource Include="Sprites\Tiles\grassCenter.png" />
+    <Resource Include="Sprites\Tiles\grassCenter_rounded.png" />
+    <Resource Include="Sprites\Tiles\grassCliffLeft.png" />
+    <Resource Include="Sprites\Tiles\grassCliffLeftAlt.png" />
+    <Resource Include="Sprites\Tiles\grassCliffRight.png" />
+    <Resource Include="Sprites\Tiles\grassCliffRightAlt.png" />
+    <Resource Include="Sprites\Tiles\grassHalf.png" />
+    <Resource Include="Sprites\Tiles\grassHalfLeft.png" />
+    <Resource Include="Sprites\Tiles\grassHalfMid.png" />
+    <Resource Include="Sprites\Tiles\grassHalfRight.png" />
+    <Resource Include="Sprites\Tiles\grassHillLeft.png" />
+    <Resource Include="Sprites\Tiles\grassHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\grassHillRight.png" />
+    <Resource Include="Sprites\Tiles\grassHillRight2.png" />
+    <Resource Include="Sprites\Tiles\grassLedgeLeft.png" />
+    <Resource Include="Sprites\Tiles\grassLedgeRight.png" />
+    <Resource Include="Sprites\Tiles\grassLeft.png" />
+    <Resource Include="Sprites\Tiles\grassMid.png" />
+    <Resource Include="Sprites\Tiles\grassRight.png" />
+    <Resource Include="Sprites\Tiles\hill_large.png" />
+    <Resource Include="Sprites\Tiles\hill_largeAlt.png" />
+    <Resource Include="Sprites\Tiles\hill_small.png" />
+    <Resource Include="Sprites\Tiles\hill_smallAlt.png" />
+    <Resource Include="Sprites\Tiles\ladder_mid.png" />
+    <Resource Include="Sprites\Tiles\ladder_top.png" />
+    <Resource Include="Sprites\Tiles\liquidLava.png" />
+    <Resource Include="Sprites\Tiles\liquidLavaTop.png" />
+    <Resource Include="Sprites\Tiles\liquidLavaTop_mid.png" />
+    <Resource Include="Sprites\Tiles\liquidWater.png" />
+    <Resource Include="Sprites\Tiles\liquidWaterTop.png" />
+    <Resource Include="Sprites\Tiles\liquidWaterTop_mid.png" />
+    <Resource Include="Sprites\Tiles\lock_blue.png" />
+    <Resource Include="Sprites\Tiles\lock_green.png" />
+    <Resource Include="Sprites\Tiles\lock_red.png" />
+    <Resource Include="Sprites\Tiles\lock_yellow.png" />
+    <Resource Include="Sprites\Tiles\rockHillLeft.png" />
+    <Resource Include="Sprites\Tiles\rockHillRight.png" />
+    <Resource Include="Sprites\Tiles\ropeAttached.png" />
+    <Resource Include="Sprites\Tiles\ropeHorizontal.png" />
+    <Resource Include="Sprites\Tiles\ropeVertical.png" />
+    <Resource Include="Sprites\Tiles\sand.png" />
+    <Resource Include="Sprites\Tiles\sandCenter.png" />
+    <Resource Include="Sprites\Tiles\sandCenter_rounded.png" />
+    <Resource Include="Sprites\Tiles\sandCliffLeft.png" />
+    <Resource Include="Sprites\Tiles\sandCliffLeftAlt.png" />
+    <Resource Include="Sprites\Tiles\sandCliffRight.png" />
+    <Resource Include="Sprites\Tiles\sandCliffRightAlt.png" />
+    <Resource Include="Sprites\Tiles\sandHalf.png" />
+    <Resource Include="Sprites\Tiles\sandHalfLeft.png" />
+    <Resource Include="Sprites\Tiles\sandHalfMid.png" />
+    <Resource Include="Sprites\Tiles\sandHalfRight.png" />
+    <Resource Include="Sprites\Tiles\sandHillLeft.png" />
+    <Resource Include="Sprites\Tiles\sandHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\sandHillRight.png" />
+    <Resource Include="Sprites\Tiles\sandHillRight2.png" />
+    <Resource Include="Sprites\Tiles\sandLedgeLeft.png" />
+    <Resource Include="Sprites\Tiles\sandLedgeRight.png" />
+    <Resource Include="Sprites\Tiles\sandLeft.png" />
+    <Resource Include="Sprites\Tiles\sandMid.png" />
+    <Resource Include="Sprites\Tiles\sandRight.png" />
+    <Resource Include="Sprites\Tiles\sign.png" />
+    <Resource Include="Sprites\Tiles\signExit.png" />
+    <Resource Include="Sprites\Tiles\signLeft.png" />
+    <Resource Include="Sprites\Tiles\signRight.png" />
+    <Resource Include="Sprites\Tiles\snow.png" />
+    <Resource Include="Sprites\Tiles\snowCenter.png" />
+    <Resource Include="Sprites\Tiles\snowCenter_rounded.png" />
+    <Resource Include="Sprites\Tiles\snowCliffLeft.png" />
+    <Resource Include="Sprites\Tiles\snowCliffLeftAlt.png" />
+    <Resource Include="Sprites\Tiles\snowCliffRight.png" />
+    <Resource Include="Sprites\Tiles\snowCliffRightAlt.png" />
+    <Resource Include="Sprites\Tiles\snowHalf.png" />
+    <Resource Include="Sprites\Tiles\snowHalfLeft.png" />
+    <Resource Include="Sprites\Tiles\snowHalfMid.png" />
+    <Resource Include="Sprites\Tiles\snowHalfRight.png" />
+    <Resource Include="Sprites\Tiles\snowHillLeft.png" />
+    <Resource Include="Sprites\Tiles\snowHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\snowHillRight.png" />
+    <Resource Include="Sprites\Tiles\snowHillRight2.png" />
+    <Resource Include="Sprites\Tiles\snowLedgeLeft.png" />
+    <Resource Include="Sprites\Tiles\snowLedgeRight.png" />
+    <Resource Include="Sprites\Tiles\snowLeft.png" />
+    <Resource Include="Sprites\Tiles\snowMid.png" />
+    <Resource Include="Sprites\Tiles\snowRight.png" />
+    <Resource Include="Sprites\Tiles\stone.png" />
+    <Resource Include="Sprites\Tiles\stoneCenter.png" />
+    <Resource Include="Sprites\Tiles\stoneCenter_rounded.png" />
+    <Resource Include="Sprites\Tiles\stoneCliffLeft.png" />
+    <Resource Include="Sprites\Tiles\stoneCliffLeftAlt.png" />
+    <Resource Include="Sprites\Tiles\stoneCliffRight.png" />
+    <Resource Include="Sprites\Tiles\stoneCliffRightAlt.png" />
+    <Resource Include="Sprites\Tiles\stoneHalf.png" />
+    <Resource Include="Sprites\Tiles\stoneHalfLeft.png" />
+    <Resource Include="Sprites\Tiles\stoneHalfMid.png" />
+    <Resource Include="Sprites\Tiles\stoneHalfRight.png" />
+    <Resource Include="Sprites\Tiles\stoneHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\stoneHillRight2.png" />
+    <Resource Include="Sprites\Tiles\stoneLedgeLeft.png" />
+    <Resource Include="Sprites\Tiles\stoneLedgeRight.png" />
+    <Resource Include="Sprites\Tiles\stoneLeft.png" />
+    <Resource Include="Sprites\Tiles\stoneMid.png" />
+    <Resource Include="Sprites\Tiles\stoneRight.png" />
+    <Resource Include="Sprites\Tiles\stoneWall.png" />
+    <Resource Include="Sprites\Tiles\tochLit.png" />
+    <Resource Include="Sprites\Tiles\tochLit2.png" />
+    <Resource Include="Sprites\Tiles\torch.png" />
+    <Resource Include="Sprites\Tiles\window.png" />
+    <Resource Include="Sprites\tiles_spritesheet.png" />
+    <Resource Include="Sprites\tiles_spritesheet.xml" />
+    <Content Include="Sprites\Vector\characters.svg" />
+    <Content Include="Sprites\Vector\characters.swf" />
+    <Content Include="Sprites\Vector\enemies.svg" />
+    <Content Include="Sprites\Vector\enemies.swf" />
+    <Content Include="Sprites\Vector\tiles.svg" />
+    <Content Include="Sprites\Vector\tiles.swf" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LevelEditor.Model
 {
@@ -20,33 +21,33 @@ namespace LevelEditor.Model
         }
         public ModelClass()
         {
-            int numElements = 500;
+            LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
+            IOrderedQueryable<ImagePath> imagePaths =
+                (from a in db.ImagePaths orderby a.Id select a);
+
             TilePanel = new WrapPanel();
+            
 
-            int row = 0;
-
-            for (int i = 0; i < numElements; i++)
+            foreach(ImagePath ip in imagePaths)
             {
                 string text = "";
+                
+                Tile tile = new Tile((ushort)ip.Id, "../../" + ip.Path, false);
+                tile.Width = 50;
+                tile.Height = 50;
+                tile.Margin = new Thickness(10);
+                tile.Stretch = Stretch.Fill;
 
-                if (i < 10)
-                    text += 0;
-                if (i+1 < 100)
-                    text += 0;
-                text += (i+1).ToString();
-
-                TextBlock textField = new TextBlock
-                {
-                    Margin = new System.Windows.Thickness(10),
-                    Text = text,
-                    FontSize = 12,
-                    FontWeight = FontWeights.Bold
-                };
-
-                TilePanel.Children.Add(textField);
+                tile.Focusable = true;
+                tile.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)HandleTheClick);
+                TilePanel.Children.Add(tile);
             }
         }
 
-
+        private void HandleTheClick(object sender, RoutedEventArgs e)
+        {
+            Tile i = (Tile) sender;
+            Console.WriteLine(i.BitmapID);
+        }
     }
 }

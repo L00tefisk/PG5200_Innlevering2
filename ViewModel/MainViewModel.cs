@@ -88,7 +88,7 @@ namespace LevelEditor.ViewModel
             CreateCommands();
             _model = new ModelClass();
 
-            exportToDatabase();
+            //exportToDatabase();
         }
 
         private bool CanPerform()
@@ -108,6 +108,8 @@ namespace LevelEditor.ViewModel
         public void PopulateView(ModelClass model)
         {
             Name = model.Name;
+
+            
         }
 
         private void exportToDatabase()

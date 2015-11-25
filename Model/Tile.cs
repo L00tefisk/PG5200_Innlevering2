@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace LevelEditor.Model
 {
     [Serializable]
-    class Tile
+    class Tile : Image
     {
-        public byte BitmapID { get; set; }
-        public Image Img { get; set; }
+        public ushort BitmapID { get; set; }
         public bool Collidable { get; set; }
 
-        public Tile(byte bitmapid, bool collidable)
+        public Tile(ushort bitmapid, string path, bool collidable)
         {
-            string pathToImage;
             BitmapID = bitmapid;
-            BitmapImage bi = new BitmapImage();
-            bi.BeginInit();
-            //bi.UriSource = new Uri(pathToImage, UriKind.RelativeOrAbsolute);
-            bi.EndInit();
-            Img.Source = bi;
+
+            Source = new BitmapImage(new Uri(path, UriKind.Relative));
+
             Collidable = collidable;
         }
     }
