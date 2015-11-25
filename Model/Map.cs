@@ -14,19 +14,32 @@ namespace LevelEditor.Model
 {
     class Map
     {
-		string Filename { get; set; }
-		List<List<Tile>> level { get; set; }
-		public Map() { }
+		public string Filename { get; set; }
+		public List<List<Tile>> Level { get; set; }
 
+        public Map()
+        {
+            
+        }
+
+        public void ChangeTile(Tile t, int x, int y)
+        {
+            
+        }
+
+        public Tile GetTile(int x, int y)
+        {
+            
+        }
         public void Save()
         {
             using (BinaryWriter binaryWriter = new BinaryWriter(File.Open(Filename, FileMode.Create)))
             {
-				// Record how many rows and columns there are, then record how many bytes one Image uses.
-				binaryWriter.Write(level.Count);
-                binaryWriter.Write(level[0].Count);
-				binaryWriter.Write(SerializeToBytes(level[0][0]).Length);
-                foreach (List<Tile> tList in level)
+				// Record how many rows and columns there are, then record how many bytes one Tile uses.
+				binaryWriter.Write(Level.Count);
+                binaryWriter.Write(Level[0].Count);
+				binaryWriter.Write(SerializeToBytes(Level[0][0]).Length);
+                foreach (List<Tile> tList in Level)
                 {
                     foreach (Tile t in tList)
                     {
@@ -42,16 +55,16 @@ namespace LevelEditor.Model
                 int rows = binaryReader.ReadInt32();
                 int columns = binaryReader.ReadInt32();
                 int byteCount = binaryReader.ReadInt32();
-				level = new List<List<Tile>>();
+				Level = new List<List<Tile>>();
                 for (int y = 0; y < rows; y++)
                 {
-					level.Add(new List<Tile>());
+					Level.Add(new List<Tile>());
                     for (int x = 0; x < columns; x++)
                     {
                         Byte[] rawData = binaryReader.ReadBytes(byteCount);
                         Tile t = (Tile)DeserializeFromBytes(rawData);
 
-                        level[y].Add(t);
+                        Level[y].Add(t);
                     }
                 }
             }

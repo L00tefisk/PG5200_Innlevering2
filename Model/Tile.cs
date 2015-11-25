@@ -17,6 +17,8 @@ namespace LevelEditor.Model
     {
         public ushort BitmapID { get; set; }
         public bool Collidable { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public Tile(ushort bitmapid, string path, bool collidable)
         {
