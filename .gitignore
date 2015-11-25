@@ -6,7 +6,6 @@
 [Bb]in/
 [Oo]bj
 
-/*.dbmdl
 /*.userprefs
 /*.pidb
 /*.suo
@@ -14,6 +13,7 @@
 /*.unityproj
 /*.booproj
 
+*.dbmdl
  
 # ============ #
 # OS generated #
