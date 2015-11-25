@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LevelEditor.Model
+namespace LevelEditor.Model.Tools
 {
     class StampTool : Tool
     {
+        StampTool()
+        {
+            
+        }
     }
 }

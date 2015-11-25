@@ -91,10 +91,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LevelEditorDatabase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Tools\EraserTool.cs" />
+    <Compile Include="Model\Tools\StampTool.cs" />
+    <Compile Include="Model\Tools\Tool.cs" />
+    <Compile Include="Model\Tools\BucketTool.cs" />
+    <Compile Include="Model\Camera.cs" />
+    <Compile Include="Model\Commands\ChangeSelectedTilesCommand.cs" />
+    <Compile Include="Model\Commands\ChangeTileCommand.cs" />
+    <Compile Include="Model\Commands\ICommand.cs" />
+    <Compile Include="Model\Commands\WandCommand.cs" />
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\ModelClass.cs" />
-    <Compile Include="Model\Renderer.cs" />
     <Compile Include="Model\Tile.cs" />
+    <Compile Include="Model\Tools\WandTool.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="View\MainWindow.xaml">

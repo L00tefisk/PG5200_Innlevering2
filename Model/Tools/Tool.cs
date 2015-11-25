@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace LevelEditor.Model
+namespace LevelEditor.Model.Tools
 {
     abstract class Tool : Button
     {
