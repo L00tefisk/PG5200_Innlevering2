@@ -2,12 +2,16 @@
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System;
+using System.IO.MemoryMappedFiles;
 using System.IO.Packaging;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using LevelEditor.Model;
 using LevelEditor;
+using LevelEditor.View;
 
 namespace LevelEditor.ViewModel
 {
@@ -27,6 +31,21 @@ namespace LevelEditor.ViewModel
             get
             {
                 return Enum.GetValues(typeof(ModelClass.Shapes)) as IEnumerable<ModelClass.Shapes>;
+            }
+        }
+        
+
+        public Renderer LevelView
+        {
+            get { return _model.MapView; }
+
+            set
+            {
+                if (_model.MapView != value)
+                {
+                    _model.MapView = value;
+                    RaisePropertyChanged(() => LevelView);
+                }
             }
         }
 
@@ -85,9 +104,10 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
+            
             CreateCommands();
             _model = new ModelClass();
-
+            
             //exportToDatabase();
         }
 
@@ -108,8 +128,6 @@ namespace LevelEditor.ViewModel
         public void PopulateView(ModelClass model)
         {
             Name = model.Name;
-
-            
         }
 
         private void exportToDatabase()
@@ -140,13 +158,9 @@ namespace LevelEditor.ViewModel
                 );
                 id++;
             }
-
             
             db.SubmitChanges();
         }
-
-
-
         private string splitWord(string s)
         {
             string desc = "";
