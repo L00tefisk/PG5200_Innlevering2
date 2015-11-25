@@ -23,20 +23,12 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="320"/>
         </Grid.ColumnDefinitions>
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" Margin="388,186,104,185" Height="48" Width="0" />
+        
+        <ScrollViewer Content="{Binding LevelView}" Grid.Column="0" HorizontalScrollBarVisibility="Visible"/>
 
         <Border Grid.Row="0" Grid.Column="1" Background="SteelBlue" />
-        <ScrollViewer Content="{Binding DynamicGrid}" Grid.Column="1" Margin="10" BorderThickness="5" BorderBrush="Black" Background="DodgerBlue">
-
-        </ScrollViewer>
-        <WrapPanel HorizontalAlignment="Left" Height="100" Margin="345,309,0,0" VerticalAlignment="Top" Width="100"/>
+        <ScrollViewer Content="{Binding DynamicGrid}"   Grid.Column="1" Margin="10" Background="DodgerBlue"/>
+            
 
     </Grid>
 </Window>

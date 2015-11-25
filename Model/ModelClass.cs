@@ -11,6 +11,7 @@ namespace LevelEditor.Model
 {
     public class ModelClass
     {
+        public Renderer MapView { get; set; }
         public WrapPanel TilePanel { get; set; }
         public string Name { get; set; }
         public enum Shapes
@@ -42,6 +43,9 @@ namespace LevelEditor.Model
                 tile.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)HandleTheClick);
                 TilePanel.Children.Add(tile);
             }
+
+            MapView = new Renderer();
+
         }
 
         private void HandleTheClick(object sender, RoutedEventArgs e)
