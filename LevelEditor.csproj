@@ -70,10 +70,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="LevelDatabase.designer.cs">
+    <Compile Include="LevelEditorDatabase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LevelDatabase.dbml</DependentUpon>
+      <DependentUpon>LevelEditorDatabase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\ModelClass.cs" />
@@ -111,16 +111,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="LevelDatabase.dbml.layout">
-      <DependentUpon>LevelDatabase.dbml</DependentUpon>
+    <None Include="LevelEditorDatabase.dbml.layout">
+      <DependentUpon>LevelEditorDatabase.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="LevelDatabase.dbml">
+    <None Include="LevelEditorDatabase.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>LevelDatabase.designer.cs</LastGenOutput>
+      <LastGenOutput>LevelEditorDatabase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

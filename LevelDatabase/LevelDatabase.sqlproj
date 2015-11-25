@@ -59,7 +59,7 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Images.sql" />
+    <Build Include="ImagePaths.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LevelDatabase.publish.xml" />

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LevelEditorDatabase" Class="LevelEditorDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=LevelEditorDatabase;Integrated Security=True" SettingsObjectName="LevelEditor.Properties.Settings" SettingsPropertyName="LevelEditorDatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ImagePaths" Member="ImagePaths">
+    <Type Name="ImagePath">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Path" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
