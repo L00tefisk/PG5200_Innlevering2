@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\ModelClass.cs" />
+    <Compile Include="Model\Renderer.cs" />
     <Compile Include="Model\Tile.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
