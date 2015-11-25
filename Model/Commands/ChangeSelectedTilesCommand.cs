@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class ChangeSelectedTilesCommand : ICommand
+    class ChangeSelectedTilesCommand : ICommandPattern
     {
         private readonly List<Tile> _oldList;
         private readonly List<Tile> _newList;

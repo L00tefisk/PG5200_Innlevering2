@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class ChangeTileCommand : ICommand
+    class ChangeTileCommand : ICommandPattern
     {
         private readonly Map _map;
         private readonly int _x, _y;

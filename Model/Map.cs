@@ -29,7 +29,7 @@ namespace LevelEditor.Model
 
         public Tile GetTile(int x, int y)
         {
-            
+            return new Tile(1, "a", false);
         }
         public void Save()
         {
