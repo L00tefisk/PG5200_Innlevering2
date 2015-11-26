@@ -9,16 +9,9 @@ namespace LevelEditor.Model.Tools
 {
     public class WandTool : Tool
     {
-        public WandTool(List<Tile> selectedTiles, Map map, CommandController controller)
-        {
-            SelectedTiles = selectedTiles;
-            Map = map;
-            CommandController = controller;
-        }
-
         public override void PerformAction()
         {
-            
+            CommandController.Add(new WandCommand(Map, SelectedTiles, new Tile(SelectedTileId, EditorWindow.MouseX, EditorWindow.MouseY)));
         }
     }
 }

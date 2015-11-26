@@ -11,15 +11,11 @@ namespace LevelEditor.Model.Commands
     {
         private readonly List<Tile> _selectedTiles;
         private readonly Tile _selectedTile;
-        private ushort _x;
-        private ushort _y;
 
-        public SelectTileCommand(List<Tile> selectedTiles, Tile selectedTile, ushort x, ushort y)
+        public SelectTileCommand(List<Tile> selectedTiles, Tile selectedTile)
         {
             _selectedTiles = selectedTiles;
             _selectedTile = selectedTile;
-            _x = x;
-            _y = y;
         }
         public override void Execute()
         {

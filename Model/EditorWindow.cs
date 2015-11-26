@@ -15,8 +15,8 @@ namespace LevelEditor.Model
     {
         private readonly Map _map;
         private Editor _editor;
-        private ushort _mouseX;
-        private ushort _mouseY;
+        public static ushort MouseX { get; set; }
+        public static ushort MouseY { get; set; }
         private ushort _oldId;
         public EditorWindow(Map map, Editor editor)
         {
@@ -26,44 +26,50 @@ namespace LevelEditor.Model
             _map = map;
             _editor = editor;
             _oldId = 0;
+            AddHandler(UIElement.KeyDownEvent, (RoutedEventHandler)ChangeTool);
             AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)RemoveStart);
             AddHandler(UIElement.MouseRightButtonUpEvent, (RoutedEventHandler)Remove);
             AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
         }
+
+        private void ChangeTool(object sender, RoutedEventArgs e)
+        {
+            if (Keyboard.IsKeyToggled(Key.W))
+                _editor.SelectedTool = 2;
+            else if (Keyboard.IsKeyToggled(Key.S))
+                _editor.SelectedTool = 4;
+        }
         private void RemoveStart(object sender, RoutedEventArgs e)
         {
             _oldId = _editor.SelectedTileId;
         }
-
         private void Remove(object sender, RoutedEventArgs e)
         {
             _editor.SelectedTileId = _oldId;
             InvalidateVisual();
         }
-
         private void Click(object sender, RoutedEventArgs e)
         {
-
             if (IsMouseOver)
             {
                 Point relativePoint = TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0));
 
                 DependencyObject parentObject = VisualTreeHelper.GetParent((EditorWindow)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
-                _mouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) /
+                MouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) /
                             _map.TileSize);
-                _mouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) /
+                MouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) /
                         _map.TileSize);
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
-                    _editor.SelectTile(_mouseX, _mouseY);
+                    _editor.SelectTile(MouseX, MouseY);
                     _editor.PerformAction();
                 }
                 else if (Mouse.RightButton == MouseButtonState.Pressed)
                 {
                     _editor.SelectedTileId = ushort.MaxValue;
-                    _editor.SelectTile(_mouseX, _mouseY);
+                    _editor.SelectTile(MouseX, MouseY);
                     _editor.PerformAction();
                 }
                 InvalidateVisual();
@@ -84,7 +90,7 @@ namespace LevelEditor.Model
             if (_editor.SelectedTileId != ushort.MaxValue)
             {
                 ImageSource imgSrc = new BitmapImage(new Uri(Model.ImgPaths[_editor.SelectedTileId], UriKind.Relative));
-                dc.DrawImage(imgSrc, new Rect(_mouseX * _map.TileSize, _mouseY * _map.TileSize, _map.TileSize, _map.TileSize));
+                dc.DrawImage(imgSrc, new Rect(MouseX * _map.TileSize, MouseY * _map.TileSize, _map.TileSize, _map.TileSize));
             }
         }
     }

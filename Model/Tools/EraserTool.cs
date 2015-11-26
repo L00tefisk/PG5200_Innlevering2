@@ -9,15 +9,9 @@ namespace LevelEditor.Model.Tools
 {
     public class EraserTool : Tool 
     {
-        public EraserTool(List<Tile> selectedTiles, Map map, CommandController controller)
-        {
-            SelectedTiles = selectedTiles;
-            Map = map;
-            CommandController = controller;
-        }
         public override void PerformAction()
         {
-
+            CommandController.Add(new EraserToolCommand());
         }
     }
 }

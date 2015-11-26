@@ -12,6 +12,7 @@ namespace LevelEditor.Model
     public class Editor
     {
         public ushort SelectedTileId { get; set; }
+        public Tile SelectedTile { get; set; }
         public ushort SelectedTool { get; set; }
     
         private Map _map;
@@ -25,11 +26,12 @@ namespace LevelEditor.Model
             _commandController = commandController;
             _selectedTiles = new List<Tile>();
             _tools = new List<Tool>();
-            _tools.Add(new BucketTool(_selectedTiles, _map, commandController));
-            _tools.Add(new EraserTool(_selectedTiles, _map, commandController));
-            _tools.Add(new StampTool(_selectedTiles, _map, commandController));
-            _tools.Add(new WandTool(_selectedTiles, _map, commandController));
-
+            _tools.Add(new BucketTool());
+            _tools.Add(new EraserTool());
+            _tools.Add(new StampTool());
+            _tools.Add(new WandTool());
+            _tools.Add(new SelectionTool());
+            Tool.Init(_selectedTiles, _commandController, _map, SelectedTileId);
             SelectedTool = 2;
         }
 
@@ -62,6 +64,22 @@ namespace LevelEditor.Model
         public void Undo()
         {
             _commandController.Undo();
+        }
+        public void NextTool()
+        {
+            SelectedTool++;
+            if (SelectedTool == _tools.Count)
+            {
+                SelectedTool = 0;
+            }
+        }
+        public void PreviousTool()
+        {
+            SelectedTool--;
+            if (SelectedTool == ushort.MaxValue)
+            {
+                SelectedTool = (ushort)(_tools.Count - 1);
+            }
         }
     }
 }

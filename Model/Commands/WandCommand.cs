@@ -11,9 +11,13 @@ namespace LevelEditor.Model.Commands
         private readonly Map _map;
         private readonly Tile _selectionTile;
 
-        private List<Tile> _selectedTiles;
-        private readonly List<Tile> _oldList;
-        private readonly List<Tile> _newList;
+        private List<Tile> _selectedTiles; 
+        private List<Tile> _newSelectedTiles;
+        private readonly List<Tile> _oldSelectedTiles;
+        private Map map;
+        private List<Tile> selectedTiles;
+        private object targetTile;
+
         public WandCommand(Map map, List<Tile> selectedTiles, Tile t)
         {
             _map = map;
@@ -21,6 +25,13 @@ namespace LevelEditor.Model.Commands
             _selectedTiles = selectedTiles;
             _oldSelectedTiles = new List<Tile>();
             _newSelectedTiles = new List<Tile>();
+        }
+
+        public WandCommand(Map map, List<Tile> selectedTiles, object targetTile)
+        {
+            this.map = map;
+            this.selectedTiles = selectedTiles;
+            this.targetTile = targetTile;
         }
 
         public override void Execute()
