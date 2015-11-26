@@ -8,23 +8,23 @@ namespace LevelEditor.Model.Commands
 {
     public class CommandController
     {
-        private List<ICommandPattern> commands;
+        private List<Command> commands;
         private short currentCommand;
         public CommandController()
         {
-            commands = new List<ICommandPattern>();
+            commands = new List<Command>();
             currentCommand = 0;
         }
         /// <summary>
         /// Adds a command to the list of commands and executes it
         /// </summary>
         /// <param name="command">Command to execute</param>
-        public void Add(ICommandPattern command)
+        public void Add(Command command)
         {
             commands.Add(command);
             Execute();
         }
-        public void Remove(ICommandPattern command)
+        public void Remove(Command command)
         {
             commands.Remove(command);
         }

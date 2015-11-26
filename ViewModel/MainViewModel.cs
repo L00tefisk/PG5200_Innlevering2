@@ -27,11 +27,14 @@ namespace LevelEditor.ViewModel
     {
         #region Properties
         private Model.Model _model;
+        private InputHandler _inputHandler;
 
         public EditorWindow LevelView
         {
-            get { return _model.MapView; }
-
+            get
+            {
+                return _model.MapView;
+            }
             set
             {
                 if (_model.MapView != value)
@@ -41,7 +44,6 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
-
         public WrapPanel DynamicGrid
         {
             get
@@ -56,9 +58,7 @@ namespace LevelEditor.ViewModel
                     RaisePropertyChanged(() => DynamicGrid);
                 }
             }
-
         }
-
         public string Name
         {
             get
@@ -95,14 +95,18 @@ namespace LevelEditor.ViewModel
 
             CreateCommands();
             _model = new Model.Model();
+            _inputHandler = new InputHandler();
         }
 
+        private void ProcessInput(object sender, RoutedEventArgs e)
+        {
+            
+        }
         private bool CanPerform()
         {
             //TODO: Additional validation
             return true;
         }
-
         public void NewModel()
         {
             PopulateView(new Model.Model());
@@ -115,7 +119,6 @@ namespace LevelEditor.ViewModel
         {
             Name = model.Name;
         }
-
         private void exportToDatabase()
         {
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();

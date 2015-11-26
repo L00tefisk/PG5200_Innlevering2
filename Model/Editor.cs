@@ -25,18 +25,21 @@ namespace LevelEditor.Model
             _commandController = commandController;
             _selectedTiles = new List<Tile>();
             _tools = new List<Tool>();
-            _tools.Add(new BucketTool(_selectedTiles));
-            _tools.Add(new EraserTool(_selectedTiles));
-            _tools.Add(new StampTool(_selectedTiles));
-            _tools.Add(new WandTool(_selectedTiles));
+            _tools.Add(new BucketTool(_selectedTiles, _map, commandController));
+            _tools.Add(new EraserTool(_selectedTiles, _map, commandController));
+            _tools.Add(new StampTool(_selectedTiles, _map, commandController));
+            _tools.Add(new WandTool(_selectedTiles, _map, commandController));
+
+            SelectedTool = 2;
         }
 
         /// <summary>
-        /// Sets all the tiles that are currently selected to your selected tile.
+        /// Performs the action of the currently selected tool.
         /// </summary>
-        public void SetTiles()
+        public void PerformAction()
         {
-            _commandController.Add(new StampCommand(_map, _selectedTiles));
+            if(SelectedTool < _tools.Count)
+                _tools[SelectedTool].PerformAction();
         }
         public void SelectTile(int x, int y)
         {
@@ -45,6 +48,20 @@ namespace LevelEditor.Model
         public Tile GetTile(int x, int y)
         {
             return _map.GetTile(x, y);
+        }
+        /// <summary>
+        /// Redoes an action if there is one to redo.
+        /// </summary>
+        public void Redo()
+        {
+            _commandController.Execute();
+        }
+        /// <summary>
+        /// Undoes an action if there is one to undo.
+        /// </summary>
+        public void Undo()
+        {
+            _commandController.Undo();
         }
     }
 }

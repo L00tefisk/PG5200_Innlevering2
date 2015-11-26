@@ -58,13 +58,13 @@ namespace LevelEditor.Model
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
                     _editor.SelectTile(_mouseX, _mouseY);
-                    _editor.SetTiles();
+                    _editor.PerformAction();
                 }
                 else if (Mouse.RightButton == MouseButtonState.Pressed)
                 {
                     _editor.SelectedTileId = ushort.MaxValue;
                     _editor.SelectTile(_mouseX, _mouseY);
-                    _editor.SetTiles();
+                    _editor.PerformAction();
                 }
                 InvalidateVisual();
             }
@@ -76,10 +76,10 @@ namespace LevelEditor.Model
             // Find the visible area to draw in
                 // Draw in the visible area
 
-                for (int y = 0; y < _map.Height; y++)
-                    for (int x = 0; x < _map.Width; x++)
-                        if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
-                            dc.DrawImage(_map.GetTile(x, y).ImgSrc, new Rect(x * _map.TileSize, y * _map.TileSize, _map.TileSize, _map.TileSize));
+            for (int y = 0; y < _map.Height; y++)
+                for (int x = 0; x < _map.Width; x++)
+                    if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
+                        dc.DrawImage(_map.GetTile(x, y).ImgSrc, new Rect(x * _map.TileSize, y * _map.TileSize, _map.TileSize, _map.TileSize));
 
             if (_editor.SelectedTileId != ushort.MaxValue)
             {

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model
 {
-    public interface ICommandPattern
+    public abstract class Command
     {
-        void Execute();
-        void Undo();
+        protected static List<Tile> SelectedTiles;
+        public abstract void Execute();
+        public abstract void Undo();
     }
 }

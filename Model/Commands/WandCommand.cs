@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class WandCommand : ICommandPattern
+    class WandCommand : Command
     {
         private readonly Map _map;
         private readonly Tile _selectionTile;
 
-        private List<Tile> _selectedTiles; 
-        private List<Tile> _newSelectedTiles;
-        private readonly List<Tile> _oldSelectedTiles;
+        private List<Tile> _selectedTiles;
+        private readonly List<Tile> _oldList;
+        private readonly List<Tile> _newList;
         public WandCommand(Map map, List<Tile> selectedTiles, Tile t)
         {
             _map = map;
@@ -23,7 +23,7 @@ namespace LevelEditor.Model.Commands
             _newSelectedTiles = new List<Tile>();
         }
 
-        public void Execute()
+        public override void Execute()
         {
             int xIndex, yIndex;
             Tile currentTile;
@@ -56,7 +56,7 @@ namespace LevelEditor.Model.Commands
             _selectedTiles = closedList;
         }
 
-        public void Undo()
+        public override void Undo()
         {
             _selectedTiles = _oldSelectedTiles;
         }

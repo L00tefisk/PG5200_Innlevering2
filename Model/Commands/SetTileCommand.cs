@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class SetTileCommand : ICommandPattern
+    class SetTileCommand : Command
     {
         private readonly Map _map;
         private readonly int _x, _y;
@@ -20,12 +20,12 @@ namespace LevelEditor.Model.Commands
             _x = y;
             _y = x;
         }
-        public void Execute()
+        public override void Execute()
         {
             _map.SetTile(_newTile);
         }
 
-        public void Undo()
+        public override void Undo()
         {
             _map.SetTile(_oldTile);
         }
