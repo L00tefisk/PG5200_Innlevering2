@@ -32,7 +32,7 @@ namespace LevelEditor.Model
             foreach (ImagePath ip in imagePaths)
             {
                 ImgPaths.Add("../../" + ip.Path);
-                TileButton tileButton = new TileButton((ushort)ip.Id);
+                TileButton tileButton = new TileButton((ushort)(ip.Id-1)); // -1 because Eivind ruined the database
 
                 tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
                 tileButton.Click += new RoutedEventHandler(Click);
