@@ -51,9 +51,9 @@ namespace LevelEditor.Model
 
                 DependencyObject parentObject = VisualTreeHelper.GetParent((EditorWindow)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
-                _mouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X - relativePoint.X) /
+                _mouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) /
                             _map.TileSize);
-                _mouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y - relativePoint.Y) /
+                _mouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) /
                         _map.TileSize);
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
@@ -79,7 +79,7 @@ namespace LevelEditor.Model
                 for (int y = 0; y < _map.Height; y++)
                     for (int x = 0; x < _map.Width; x++)
                         if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
-                            dc.DrawImage(_map.GetTile(x, y).ImgSrc, new Rect(x*32, y*32, 32, 32));
+                            dc.DrawImage(_map.GetTile(x, y).ImgSrc, new Rect(x * _map.TileSize, y * _map.TileSize, _map.TileSize, _map.TileSize));
 
             if (_editor.SelectedTileId != ushort.MaxValue)
             {

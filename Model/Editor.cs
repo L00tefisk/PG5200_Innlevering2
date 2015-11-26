@@ -36,14 +36,12 @@ namespace LevelEditor.Model
         /// </summary>
         public void SetTiles()
         {
-            _commandController.Add(new SetSelectedTilesCommand(_map, _selectedTiles));
+            _commandController.Add(new StampCommand(_map, _selectedTiles));
         }
-
         public void SelectTile(int x, int y)
         {
             _selectedTiles.Add(new Tile(SelectedTileId, x, y));
         }
-
         public Tile GetTile(int x, int y)
         {
             return _map.GetTile(x, y);
