@@ -8,11 +8,12 @@ namespace LevelEditor.Model.Commands
 {
     class WandCommand : ICommandPattern
     {
-        private Map _map;
+        private readonly Map _map;
+        private readonly Tile _selectionTile;
+
         private List<Tile> _selectedTiles; 
         private List<Tile> _newSelectedTiles;
         private List<Tile> _oldSelectedTiles;
-        private Tile _selectionTile;
         public WandCommand(Map map, List<Tile> selectedTiles, Tile t)
         {
             _map = map;
@@ -30,7 +31,6 @@ namespace LevelEditor.Model.Commands
             List<Tile> closedList = new List<Tile>();
 
             openList.Add(_selectionTile);
-
             while (openList.Count != 0)
             {
                 currentTile = openList.First();
@@ -47,13 +47,13 @@ namespace LevelEditor.Model.Commands
                         {
                             if (!closedList.Contains(currentTile))
                             {
-                               openList.Add(_map.Level[y][x]);  
+                               openList.Add(_map.Level[y][x]);
                             }
                         }
                     }
                 }
             }
-
+            _selectedTiles = closedList;
         }
 
         public void Undo()

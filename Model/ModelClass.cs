@@ -14,6 +14,7 @@ namespace LevelEditor.Model
         public Renderer MapView { get; set; }
         public WrapPanel TilePanel { get; set; }
         public string Name { get; set; }
+        private Map _map;
         public enum Shapes
         {
             Square,
@@ -27,6 +28,7 @@ namespace LevelEditor.Model
                 (from a in db.ImagePaths orderby a.Id select a);
 
             TilePanel = new WrapPanel();
+            _map = new Map();
             
 
             foreach(ImagePath ip in imagePaths)
@@ -44,7 +46,7 @@ namespace LevelEditor.Model
                 TilePanel.Children.Add(tile);
             }
 
-            MapView = new Renderer();
+            MapView = new Renderer(_map);
 
         }
 

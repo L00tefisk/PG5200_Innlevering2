@@ -13,12 +13,14 @@ namespace LevelEditor.Model
 {
     public class Renderer : Canvas
     {
-        public Renderer()
+        private Map _map;
+        public Renderer(Map map)
         {
             Background = Brushes.Transparent;
             Height = 1000;
             Width = 1000;
-
+            _map = map;
+            
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)ClickEventHandler);
         }
 
@@ -27,8 +29,7 @@ namespace LevelEditor.Model
             try
             {
                 Point relativePoint = TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0));
-
-
+                
                 DependencyObject parentObject = VisualTreeHelper.GetParent((Renderer)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
                 int x = (int)Math.Round(parent.HorizontalOffset + Mouse.GetPosition(Application.Current.MainWindow).X - relativePoint.X) / 10;
@@ -44,8 +45,10 @@ namespace LevelEditor.Model
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
+            // Find the visible area to draw in
+            // Draw in the visible area.
+
             Pen pen = new Pen();
-            
             var random = new Random();
             for (int i = 0; i < 100; i++)
                 for (int j = 0; j < 100; j++)
@@ -61,7 +64,5 @@ namespace LevelEditor.Model
                         new Rect(i * 10, j * 10, 10, 10));
             
         }
-        
-
     }
 }

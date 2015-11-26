@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 namespace LevelEditor.Model
 {
     [Serializable]
-    class Tile : Image
+    public class Tile : Image
     {
         public ushort BitmapID { get; set; }
         public bool Collidable { get; set; }

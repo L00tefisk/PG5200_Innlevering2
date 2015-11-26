@@ -12,25 +12,28 @@ using Microsoft.Win32;
 
 namespace LevelEditor.Model
 {
-    class Map
+    public class Map
     {
 		public string Filename { get; set; }
 		public List<List<Tile>> Level { get; set; }
+        
 
         public Map()
         {
             
         }
-
         public void ChangeTile(Tile t, int x, int y)
         {
             
         }
-
         public Tile GetTile(int x, int y)
         {
             return new Tile(1, "a", false);
         }
+
+        /// <summary>
+        /// Saves the map to file in binary format, Filename must be set.
+        /// </summary>
         public void Save()
         {
             using (BinaryWriter binaryWriter = new BinaryWriter(File.Open(Filename, FileMode.Create)))
@@ -48,6 +51,9 @@ namespace LevelEditor.Model
                 }
             }
         }
+        /// <summary>
+        /// Loads the map from file, Filename must be set.
+        /// </summary>
         public void Load()
         {
             using (BinaryReader binaryReader = new BinaryReader(File.Open(Filename, FileMode.Open)))
@@ -70,6 +76,7 @@ namespace LevelEditor.Model
             }
         }
 
+        // These are used to Serialize Tile objects so they can be easily written/read to/from file.
         private static byte[] SerializeToBytes(Tile t)
         {
             BinaryFormatter formatter = new BinaryFormatter();

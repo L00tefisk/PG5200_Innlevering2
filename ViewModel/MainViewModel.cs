@@ -104,7 +104,6 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            
             CreateCommands();
             _model = new ModelClass();
             
