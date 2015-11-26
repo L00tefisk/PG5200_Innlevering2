@@ -2,9 +2,11 @@
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System;
+using System.CodeDom;
 using System.IO.MemoryMappedFiles;
 using System.IO.Packaging;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -89,10 +91,10 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
+            //exportToDatabase();
+
             CreateCommands();
             _model = new Model.Model();
-            
-            //exportToDatabase();
         }
 
         private bool CanPerform()
@@ -118,31 +120,40 @@ namespace LevelEditor.ViewModel
         {
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
 
-            IOrderedQueryable<ImagePath> toDelete =
-                (from a in db.ImagePaths orderby a.Id select a);
-            db.ImagePaths.DeleteAllOnSubmit(toDelete);
-            db.SubmitChanges();
-
-            string path = "../../Sprites/Tiles/";
-            int id = 0;
-
-            foreach (string f in System.IO.Directory.GetFiles(path))
+            try
             {
-                //string filename = f.Substring(path.Length - 1, f.Length - 4);
-                string filename = f.Substring(path.Length, f.Length - 4 - path.Length); //-4 to remove file extension
-                string description = splitWord(filename);
+                IOrderedQueryable<ImagePath> toDelete =
+                    (from a in db.ImagePaths orderby a.Id select a);
+                db.ImagePaths.DeleteAllOnSubmit(toDelete);
 
-                db.ImagePaths.InsertOnSubmit(
-                    new ImagePath()
-                    {
-                        Id = id,
-                        Path = f.Substring(6),
-                        Description = description
-                    }
-                );
-                id++;
-            }
+                db.SubmitChanges();
             
+                db.ExecuteCommand("DBCC CHECKIDENT('dbo.ImagePaths', RESEED, 0);");
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+            finally
+            {
+                string path = "../../Sprites/Tiles/";
+
+                foreach (string f in System.IO.Directory.GetFiles(path))
+                {
+                    //string filename = f.Substring(path.Length - 1, f.Length - 4);
+                    string filename = f.Substring(path.Length, f.Length - 4 - path.Length);
+                    //-4 to remove file extension
+                    string description = splitWord(filename);
+
+                    db.ImagePaths.InsertOnSubmit(
+                        new ImagePath()
+                        {
+                            Path = f.Substring(6),
+                            Description = description
+                        }
+                    );
+                }
+            }
             db.SubmitChanges();
         }
         private string splitWord(string s)
