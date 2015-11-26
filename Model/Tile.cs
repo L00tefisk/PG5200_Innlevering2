@@ -31,5 +31,11 @@ namespace LevelEditor.Model
             ImgSrc = new BitmapImage(new Uri(FilePath, UriKind.Relative));
             Collidable = false;
         }
+
+        public void ChangeTile(ushort id)
+        {
+            FilePath = Model.ImgPaths[id];
+            ImgSrc = new BitmapImage(new Uri(FilePath, UriKind.Relative));
+        }
     }
 }

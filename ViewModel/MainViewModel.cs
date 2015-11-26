@@ -63,7 +63,6 @@ namespace LevelEditor.ViewModel
             {
                 return _model.Name;
             }
-
             set
             {
                 if (_model.Name != value)
@@ -73,10 +72,7 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
-
-
         #endregion
-
         #region Commands
 
         public ICommand NewCommand

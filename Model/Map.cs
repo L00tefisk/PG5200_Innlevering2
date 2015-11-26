@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xaml;
 using Microsoft.Win32;
 
@@ -55,6 +56,7 @@ namespace LevelEditor.Model
         public void SetTile(Tile t)
         {
             _level[t.Y][t.X] = t;
+            _level[t.Y][t.X].ChangeTile(t.TileId);
         }
         /// <summary>
         /// Returns the tile at (x, y)

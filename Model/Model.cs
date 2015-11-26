@@ -35,6 +35,7 @@ namespace LevelEditor.Model
                 TileButton tileButton = new TileButton((ushort)ip.Id);
 
                 tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
+                tileButton.Click += new RoutedEventHandler(Click);
                 tileButton.Background = Brushes.Transparent;
                 tileButton.BorderThickness = new Thickness(0);
                 TilePanel.Children.Add(tileButton);
@@ -48,7 +49,7 @@ namespace LevelEditor.Model
 
         private void Click(object sender, RoutedEventArgs e)
         {
-            _editor.SelectedTileId = ((Tile)sender).TileId;
+            _editor.SelectedTileId = ((TileButton)sender).TileId;
         }
     }
 }
