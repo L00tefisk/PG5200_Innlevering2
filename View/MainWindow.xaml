@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
-        Width="800"
+        Width="820"
         Height="450"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -18,29 +18,136 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" MinHeight="20"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Menu IsMainMenu="True" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <MenuItem Header="_File" />
-            <MenuItem Header="_Edit" />
+        <Menu IsMainMenu="True" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="New">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/document-new.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Open" Command="Open">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/document-open.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Recent Files">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/status/image-loading.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Save" Command="Save">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/document-save.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save _As" Command="SaveAs">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/document-save-as.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Exit">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/process-stop.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" Command="Undo">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/edit-undo.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Redo" Command="Redo">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/edit-redo.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Cut" Command="Cut">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/edit-cut.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Copy" Command="Copy">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/edit-copy.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Paste" Command="Paste">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/edit-paste.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="_View" />
-            <MenuItem Header="_Window" />
+            <MenuItem Header="_Layer">
+
+            </MenuItem>
             <MenuItem Header="_Help" />
         </Menu>
 
         <ScrollViewer Content="{Binding LevelView}" Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Visible"/>
 
-        <Border Grid.Row="1" Grid.Column="1" Background="SteelBlue" />
-        <ScrollViewer Content="{Binding DynamicGrid}"  Grid.Row="1" Grid.Column="1" Margin="10" Background="DodgerBlue"/>
-            
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
 
+        <Grid Grid.Column="2" Grid.Row="1" Background="WhiteSmoke">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" MinHeight="50"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Row="0" Margin="5, 0, 10, 0" Background="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto" MinHeight="25"/>
+                </Grid.RowDefinitions>
+                
+                <ListView x:Name="listView" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            
+                <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
+                    <Button Width="23" Margin="2" ToolTip="Add Layer">
+                        <Image Source="../Sprites/Icons/actions/list-add.png"/>
+                    </Button>
+                    <Button Width="23" Margin="2" ToolTip="Remove Layer">
+                        <Image Source="../Sprites/Icons/actions/list-remove.png"/>
+                    </Button>
+                    <Button Width="23" Margin="2" ToolTip="Move Layer Up">
+                        <Image Source="../Sprites/Icons/actions/go-up.png"/>
+                    </Button>
+                    <Button Width="23" Margin="2" ToolTip="Move Layer Down">
+                        <Image Source="../Sprites/Icons/actions/go-down.png"/>
+                    </Button>
+                    <Button Width="23" Margin="2" ToolTip="Duplicate Layer">
+                        <Image Source="../Sprites/Icons/apps/preferences-desktop-locale.png"/>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+            
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+
+            <Border Background="SteelBlue" Grid.Row="3">
+                <ScrollViewer Content="{Binding DynamicGrid}"  Grid.Row="1" Grid.Column="1" Margin="10" Background="DodgerBlue"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
