@@ -26,11 +26,14 @@ namespace LevelEditor.Model
         {
             try
             {
+                Point relativePoint = TransformToAncestor(Application.Current.MainWindow).Transform(new Point(0, 0));
+
+
                 DependencyObject parentObject = VisualTreeHelper.GetParent((Renderer)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
-                int x = (int)Math.Round(parent.HorizontalOffset + Mouse.GetPosition(Application.Current.MainWindow).X) / 10;
-                int y = (int)Math.Round(parent.VerticalOffset + Mouse.GetPosition(Application.Current.MainWindow).Y) / 10;
-                MessageBox.Show("X = " + x + "\nY = "+y);
+                int x = (int)Math.Round(parent.HorizontalOffset + Mouse.GetPosition(Application.Current.MainWindow).X - relativePoint.X) / 10;
+                int y = (int)Math.Round(parent.VerticalOffset + Mouse.GetPosition(Application.Current.MainWindow).Y - relativePoint.Y) / 10;
+                MessageBox.Show("X = " + x + "\nY = " + y + "\n");
             }
             catch (Exception exc)
             {
