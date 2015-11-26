@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace LevelEditor.Model
@@ -16,6 +18,24 @@ namespace LevelEditor.Model
             Background = Brushes.Transparent;
             Height = 1000;
             Width = 1000;
+
+            AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)ClickEventHandler);
+        }
+
+        private void ClickEventHandler(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DependencyObject parentObject = VisualTreeHelper.GetParent((Renderer)sender);
+                ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
+                int x = (int)Math.Round(parent.HorizontalOffset + Mouse.GetPosition(Application.Current.MainWindow).X) / 10;
+                int y = (int)Math.Round(parent.VerticalOffset + Mouse.GetPosition(Application.Current.MainWindow).Y) / 10;
+                MessageBox.Show("X = " + x + "\nY = "+y);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         protected override void OnRender(DrawingContext dc)
@@ -23,16 +43,22 @@ namespace LevelEditor.Model
             base.OnRender(dc);
             Pen pen = new Pen();
             
-            dc.DrawRectangle(Brushes.Black, pen, new Rect(0, 0, 600, 400));
-            dc.DrawEllipse(Brushes.Green, pen, new Point(300, 300), 50, 50);
-           
             var random = new Random();
             for (int i = 0; i < 100; i++)
                 for (int j = 0; j < 100; j++)
                     dc.DrawRectangle(
-                        random.Next(2) == 0 ? Brushes.Black : Brushes.Red,
+                        new SolidColorBrush(new Color
+                        {
+                            A = 255,
+                            R = (byte)random.Next(255),
+                            G = (byte)random.Next(255),
+                            B = (byte)random.Next(255)
+                        }),
                         (Pen)null,
                         new Rect(i * 10, j * 10, 10, 10));
+            
         }
+        
+
     }
 }
