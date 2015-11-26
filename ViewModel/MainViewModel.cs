@@ -74,7 +74,6 @@ namespace LevelEditor.ViewModel
         }
         #endregion
         #region Commands
-
         public ICommand NewCommand
         {
             get; private set;
@@ -83,7 +82,6 @@ namespace LevelEditor.ViewModel
         {
             NewCommand = new RelayCommand(NewModel, CanPerform);
         }
-
         #endregion
 
         /// <summary>
