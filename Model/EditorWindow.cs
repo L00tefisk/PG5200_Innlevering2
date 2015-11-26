@@ -57,10 +57,16 @@ namespace LevelEditor.Model
 
                 DependencyObject parentObject = VisualTreeHelper.GetParent((EditorWindow)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
+<<<<<<< HEAD
                 MouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) /
                             _map.TileSize);
                 MouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) /
                         _map.TileSize);
+=======
+
+                _mouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) / _map.TileSize);
+                _mouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) / _map.TileSize);
+>>>>>>> origin/master
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
                     _editor.SelectTile(MouseX, MouseY);
