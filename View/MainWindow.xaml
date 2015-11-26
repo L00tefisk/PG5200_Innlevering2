@@ -7,7 +7,7 @@
         mc:Ignorable="d ignore"
         Width="820"
         Height="450"
-        Title="MVVM Light Application"
+        Title="Level Editor"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>
@@ -119,7 +119,6 @@
                 <ListView x:Name="listView" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -131,12 +130,14 @@
                     <Button Width="23" Margin="2" ToolTip="Remove Layer">
                         <Image Source="../Sprites/Icons/actions/list-remove.png"/>
                     </Button>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Button Width="23" Margin="2" ToolTip="Move Layer Up">
                         <Image Source="../Sprites/Icons/actions/go-up.png"/>
                     </Button>
                     <Button Width="23" Margin="2" ToolTip="Move Layer Down">
                         <Image Source="../Sprites/Icons/actions/go-down.png"/>
                     </Button>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Button Width="23" Margin="2" ToolTip="Duplicate Layer">
                         <Image Source="../Sprites/Icons/apps/preferences-desktop-locale.png"/>
                     </Button>
@@ -145,7 +146,7 @@
             
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-            <Border Background="SteelBlue" Grid.Row="3">
+            <Border Background="SteelBlue" Grid.Row="2">
                 <ScrollViewer Content="{Binding DynamicGrid}"  Grid.Row="1" Grid.Column="1" Margin="10" Background="DodgerBlue"/>
             </Border>
         </Grid>
