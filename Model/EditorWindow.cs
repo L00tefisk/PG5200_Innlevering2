@@ -17,6 +17,7 @@ namespace LevelEditor.Model
         private Editor _editor;
         private ushort _mouseX;
         private ushort _mouseY;
+        private ushort _oldId;
         public EditorWindow(Map map, Editor editor)
         {
             Background = Brushes.Transparent;
@@ -24,7 +25,21 @@ namespace LevelEditor.Model
             Width = 1000;
             _map = map;
             _editor = editor;
+            _oldId = 0;
+            AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)RemoveStart);
+            AddHandler(UIElement.MouseRightButtonUpEvent, (RoutedEventHandler)Remove);
             AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
+            AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
+        }
+        private void RemoveStart(object sender, RoutedEventArgs e)
+        {
+            _oldId = _editor.SelectedTileId;
+        }
+
+        private void Remove(object sender, RoutedEventArgs e)
+        {
+            _editor.SelectedTileId = _oldId;
+            InvalidateVisual();
         }
 
         private void Click(object sender, RoutedEventArgs e)
@@ -36,39 +51,41 @@ namespace LevelEditor.Model
 
                 DependencyObject parentObject = VisualTreeHelper.GetParent((EditorWindow)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
-                _mouseX = (ushort)(Math.Floor(parent.HorizontalOffset + Mouse.GetPosition(this).X - relativePoint.X) /
+                _mouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X - relativePoint.X) /
                             _map.TileSize);
-                _mouseY = (ushort)(Math.Floor(parent.VerticalOffset + Mouse.GetPosition(this).Y - relativePoint.Y) /
+                _mouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y - relativePoint.Y) /
                         _map.TileSize);
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
-                    try
-                    {
-                        _editor.SelectTile(_mouseX, _mouseY);
-                        _editor.SetTiles();
-                    }
-                    catch (Exception exc)
-                    {
-                        MessageBox.Show(exc.Message);
-                    }
+                    _editor.SelectTile(_mouseX, _mouseY);
+                    _editor.SetTiles();
                 }
+                else if (Mouse.RightButton == MouseButtonState.Pressed)
+                {
+                    _editor.SelectedTileId = ushort.MaxValue;
+                    _editor.SelectTile(_mouseX, _mouseY);
+                    _editor.SetTiles();
+                }
+                InvalidateVisual();
             }
-            InvalidateVisual();
         }
 
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
-            ImageSource imgSrc = new BitmapImage(new Uri(Model.ImgPaths[_editor.SelectedTileId], UriKind.Relative));
             // Find the visible area to draw in
-            // Draw in the visible area
+                // Draw in the visible area
 
-            for (int y = 0; y < _map.Height; y++)
-                for (int x = 0; x < _map.Width; x++)
-                      if (_map.GetTile(x, y) != null)
-                        dc.DrawImage(_map.GetTile(x,y).ImgSrc, new Rect(x * 32, y*32, 32, 32));
-            
-            dc.DrawImage(imgSrc, new Rect(_mouseX * _map.TileSize, _mouseY * _map.TileSize, _map.TileSize, _map.TileSize));
+                for (int y = 0; y < _map.Height; y++)
+                    for (int x = 0; x < _map.Width; x++)
+                        if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
+                            dc.DrawImage(_map.GetTile(x, y).ImgSrc, new Rect(x*32, y*32, 32, 32));
+
+            if (_editor.SelectedTileId != ushort.MaxValue)
+            {
+                ImageSource imgSrc = new BitmapImage(new Uri(Model.ImgPaths[_editor.SelectedTileId], UriKind.Relative));
+                dc.DrawImage(imgSrc, new Rect(_mouseX * _map.TileSize, _mouseY * _map.TileSize, _map.TileSize, _map.TileSize));
+            }
         }
     }
 }

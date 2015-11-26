@@ -27,15 +27,17 @@ namespace LevelEditor.Model
             TileId = id;
             X = x;
             Y = y;
-            FilePath = Model.ImgPaths[id];
-            ImgSrc = new BitmapImage(new Uri(FilePath, UriKind.Relative));
             Collidable = false;
+            ChangeTile(id);
         }
 
         public void ChangeTile(ushort id)
         {
-            FilePath = Model.ImgPaths[id];
-            ImgSrc = new BitmapImage(new Uri(FilePath, UriKind.Relative));
+            if (id < Model.ImgPaths.Count)
+            {
+                FilePath = Model.ImgPaths[id];
+                ImgSrc = new BitmapImage(new Uri(FilePath, UriKind.Relative));
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace LevelEditor.Model
     public class Editor
     {
         public ushort SelectedTileId { get; set; }
+        public ushort SelectedTool { get; set; }
     
         private Map _map;
         private List<Tile> _selectedTiles;

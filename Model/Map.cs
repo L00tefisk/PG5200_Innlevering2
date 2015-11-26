@@ -35,7 +35,7 @@ namespace LevelEditor.Model
                     try
                     {
                         Tile t = new Tile(0, y, x);
-                        _level[y].Add( new Tile(0, y, x));
+                        _level[y].Add( new Tile(ushort.MaxValue, y, x));
 
                     }
                     catch (Exception e )
