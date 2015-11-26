@@ -7,8 +7,8 @@ using System.Windows.Controls;
 
 namespace LevelEditor.Model.Tools
 {
-    abstract class Tool : Button
+    public abstract class Tool : Button
     {
-        protected static List<Tile> SelectedTiles { get; set; }  
+        protected static List<Tile> _selectedTiles;
     }
 }

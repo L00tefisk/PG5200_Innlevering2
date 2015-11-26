@@ -24,18 +24,9 @@ namespace LevelEditor.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region Properties
-        private ModelClass _model;
+        private Model.Model _model;
 
-        public IEnumerable<ModelClass.Shapes> Shapes
-        {
-            get
-            {
-                return Enum.GetValues(typeof(ModelClass.Shapes)) as IEnumerable<ModelClass.Shapes>;
-            }
-        }
-        
-
-        public Renderer LevelView
+        public EditorWindow LevelView
         {
             get { return _model.MapView; }
 
@@ -105,7 +96,7 @@ namespace LevelEditor.ViewModel
         public MainViewModel()
         {
             CreateCommands();
-            _model = new ModelClass();
+            _model = new Model.Model();
             
             //exportToDatabase();
         }
@@ -118,13 +109,13 @@ namespace LevelEditor.ViewModel
 
         public void NewModel()
         {
-            PopulateView(new ModelClass());
+            PopulateView(new Model.Model());
         }
 
         /// <summary>
         /// Populates View with the specified data.
         /// </summary>
-        public void PopulateView(ModelClass model)
+        public void PopulateView(Model.Model model)
         {
             Name = model.Name;
         }

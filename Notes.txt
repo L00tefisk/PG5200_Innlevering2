@@ -1,0 +1,1 @@
+Originally intended for ICommandPattern to be called ICommand.

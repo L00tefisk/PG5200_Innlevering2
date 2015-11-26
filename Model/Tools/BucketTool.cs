@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Tools
 {
-    class BucketTool : Tool
+    public class BucketTool : Tool
     {
-        public BucketTool()
+        public BucketTool(List<Tile> selectedTiles)
         {
-            
+            _selectedTiles = selectedTiles;
         }
     }
 }

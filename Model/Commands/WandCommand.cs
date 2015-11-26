@@ -13,7 +13,7 @@ namespace LevelEditor.Model.Commands
 
         private List<Tile> _selectedTiles; 
         private List<Tile> _newSelectedTiles;
-        private List<Tile> _oldSelectedTiles;
+        private readonly List<Tile> _oldSelectedTiles;
         public WandCommand(Map map, List<Tile> selectedTiles, Tile t)
         {
             _map = map;
@@ -43,11 +43,11 @@ namespace LevelEditor.Model.Commands
                         xIndex = currentTile.X + x;
                         yIndex = currentTile.Y + y;
 
-                        if (xIndex >= 0 && yIndex >= 0 && xIndex < _map.Level[0].Count && yIndex < _map.Level.Count)
+                        if (xIndex >= 0 && yIndex >= 0 && xIndex < _map.Width && yIndex < _map.Height)
                         {
                             if (!closedList.Contains(currentTile))
                             {
-                               openList.Add(_map.Level[y][x]);
+                               openList.Add(_map.GetTile(x,y));
                             }
                         }
                     }
@@ -58,7 +58,7 @@ namespace LevelEditor.Model.Commands
 
         public void Undo()
         {
-            
+            _selectedTiles = _oldSelectedTiles;
         }
     }
 }

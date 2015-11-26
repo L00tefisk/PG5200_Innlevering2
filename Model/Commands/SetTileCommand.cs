@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class ChangeTileCommand : ICommandPattern
+    class SetTileCommand : ICommandPattern
     {
         private readonly Map _map;
         private readonly int _x, _y;
         private readonly Tile _newTile;
         private readonly Tile _oldTile;
-        public ChangeTileCommand(Map currentMap, Tile tile, int x, int y)
+        public SetTileCommand(Map currentMap, Tile tile, int x, int y)
         {
             _map = currentMap;
             _newTile = tile;
@@ -22,12 +22,12 @@ namespace LevelEditor.Model.Commands
         }
         public void Execute()
         {
-            _map.ChangeTile(_newTile, _x, _y);
+            _map.SetTile(_newTile);
         }
 
         public void Undo()
         {
-            _map.ChangeTile(_oldTile, _x, _y);
+            _map.SetTile(_oldTile);
         }
     }
 }

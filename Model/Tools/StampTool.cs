@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Tools
 {
-    class StampTool : Tool
+    public class StampTool : Tool
     {
-        StampTool()
+        public StampTool(List<Tile> selectedTiles)
         {
-            
+            _selectedTiles = selectedTiles;
         }
     }
 }

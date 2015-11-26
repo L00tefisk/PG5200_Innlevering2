@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Tools
 {
-    class EraserTool : Tool 
+    public class EraserTool : Tool 
     {
-        public EraserTool()
+        public EraserTool(List<Tile> selectedTiles)
         {
-            
+            _selectedTiles = selectedTiles;
         }
     }
 }

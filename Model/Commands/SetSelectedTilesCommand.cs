@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Commands
 {
-    class ChangeSelectedTilesCommand : ICommandPattern
+    class SetSelectedTilesCommand : ICommandPattern
     {
         private readonly List<Tile> _oldList;
         private readonly List<Tile> _newList;
         private readonly Map _map;
-        public ChangeSelectedTilesCommand(Map map, List<Tile> selectionList)
+        public SetSelectedTilesCommand(Map map, List<Tile> selectionList)
         {
             _newList = selectionList;
             _map = map;
@@ -25,13 +25,13 @@ namespace LevelEditor.Model.Commands
         public void Execute()
         {
             foreach(Tile t in _newList)
-                _map.ChangeTile(t, t.X, t.Y);   
+                _map.SetTile(t);   
         }
 
         public void Undo()
         {
             foreach (Tile t in _oldList)
-                _map.ChangeTile(t, t.X, t.Y);
+                _map.SetTile(t);
         }
     }
 }

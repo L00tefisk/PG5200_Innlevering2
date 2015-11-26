@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LevelEditor.Model.Tools
 {
-    class WandTool : Tool
+    public class WandTool : Tool
     {
-        public WandTool()
+        public WandTool(List<Tile> selectedTiles)
         {
-            
+            _selectedTiles = selectedTiles;
         }
     }
 }

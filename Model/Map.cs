@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Xaml;
 using Microsoft.Win32;
@@ -15,22 +16,59 @@ namespace LevelEditor.Model
     public class Map
     {
 		public string Filename { get; set; }
-		public List<List<Tile>> Level { get; set; }
-        
+        public short TileSize { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        private List<List<Tile>> _level;
 
-        public Map()
+        public Map(int width, int height)
         {
-            
+            Width = width;
+            Height = height;
+            _level = new List<List<Tile>>();
+            for (int y = 0; y < Height; y++)
+            { 
+                _level.Add(new List<Tile>());
+                for (int x = 0; x < Height; x++)
+                {
+                    try
+                    {
+                        Tile t = new Tile(0, y, x);
+                        _level[y].Add( new Tile(0, y, x));
+
+                    }
+                    catch (Exception e )
+                    {
+                        MessageBox.Show(e.ToString());
+                        throw;
+                    }
+                    
+                }
+            }
+
+        TileSize = 32;
         }
-        public void ChangeTile(Tile t, int x, int y)
+        /// <summary>
+        /// Set tile in the level
+        /// </summary>
+        /// <param name="t">The tile you want to set</param>
+        public void SetTile(Tile t)
         {
-            
+            _level[t.Y][t.X] = t;
         }
+        /// <summary>
+        /// Returns the tile at (x, y)
+        /// </summary>
+        /// <param name="x">X position</param>
+        /// <param name="y">Y position</param>
+        /// <returns></returns>
         public Tile GetTile(int x, int y)
         {
-            return new Tile(1, "a", false);
+            if (_level[y].Count > 0)
+                return _level[y][x];
+            else
+                return null;
         }
-
         /// <summary>
         /// Saves the map to file in binary format, Filename must be set.
         /// </summary>
@@ -39,10 +77,10 @@ namespace LevelEditor.Model
             using (BinaryWriter binaryWriter = new BinaryWriter(File.Open(Filename, FileMode.Create)))
             {
 				// Record how many rows and columns there are, then record how many bytes one Tile uses.
-				binaryWriter.Write(Level.Count);
-                binaryWriter.Write(Level[0].Count);
-				binaryWriter.Write(SerializeToBytes(Level[0][0]).Length);
-                foreach (List<Tile> tList in Level)
+				binaryWriter.Write(Height);
+                binaryWriter.Write(Width);
+				binaryWriter.Write(SerializeToBytes(_level[0][0]).Length);
+                foreach (List<Tile> tList in _level)
                 {
                     foreach (Tile t in tList)
                     {
@@ -61,16 +99,16 @@ namespace LevelEditor.Model
                 int rows = binaryReader.ReadInt32();
                 int columns = binaryReader.ReadInt32();
                 int byteCount = binaryReader.ReadInt32();
-				Level = new List<List<Tile>>();
+                _level = new List<List<Tile>>();
                 for (int y = 0; y < rows; y++)
                 {
-					Level.Add(new List<Tile>());
+                    _level.Add(new List<Tile>());
                     for (int x = 0; x < columns; x++)
                     {
                         Byte[] rawData = binaryReader.ReadBytes(byteCount);
                         Tile t = (Tile)DeserializeFromBytes(rawData);
 
-                        Level[y].Add(t);
+                        _level[y].Add(t);
                     }
                 }
             }
