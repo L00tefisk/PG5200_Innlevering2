@@ -49,6 +49,16 @@ namespace LevelEditor.Model
 
         private void Click(object sender, RoutedEventArgs e)
         {
+            ((TileButton)TilePanel.Children[
+                _editor.SelectedTileId < ImgPaths.Count ? _editor.SelectedTileId : 0
+            ]).Background = Brushes.Transparent;
+
+            TileButton tileButton = (TileButton)sender;
+
+
+            tileButton.Background = new SolidColorBrush(new Color { A = 50 });
+           
+
             _editor.SelectedTileId = ((TileButton)sender).TileId;
         }
     }

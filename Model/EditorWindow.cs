@@ -20,9 +20,12 @@ namespace LevelEditor.Model
         private ushort _oldId;
         public EditorWindow(Map map, Editor editor)
         {
+            HorizontalAlignment = HorizontalAlignment.Left;
+            VerticalAlignment = VerticalAlignment.Top;
+
             Background = Brushes.Transparent;
-            Height = 1000;
-            Width = 1000;
+            Width = map.TileSize * 32;
+            Height = Width;
             _map = map;
             _editor = editor;
             _oldId = 0;
@@ -57,16 +60,10 @@ namespace LevelEditor.Model
 
                 DependencyObject parentObject = VisualTreeHelper.GetParent((EditorWindow)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
-<<<<<<< HEAD
-                MouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) /
-                            _map.TileSize);
-                MouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) /
-                        _map.TileSize);
-=======
 
-                _mouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X) / _map.TileSize);
-                _mouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y) / _map.TileSize);
->>>>>>> origin/master
+                MouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X / _map.TileSize));
+                MouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y / _map.TileSize));
+
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
                     _editor.SelectTile(MouseX, MouseY);
@@ -86,14 +83,34 @@ namespace LevelEditor.Model
         {
             base.OnRender(dc);
             // Find the visible area to draw in
-                // Draw in the visible area
+            // Draw in the visible area
+
+            int mw = _map.Width * _map.TileSize;
+            int mh = _map.Height * _map.TileSize;
+            for (int y = 0; y < mh; y += _map.TileSize)
+            {
+                Pen pen = new Pen(Brushes.SlateGray, 1);
+                dc.DrawLine(pen, new Point(0, y), new Point(mh, y));
+                for (int x = 0; x < mw; x += _map.TileSize)
+                {
+                    dc.DrawLine(pen, new Point(x, 0), new Point(x, mw));
+                }
+
+                pen.Freeze();
+            }
 
             for (int y = 0; y < _map.Height; y++)
+            {
                 for (int x = 0; x < _map.Width; x++)
-                    if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
-                        dc.DrawImage(_map.GetTile(x, y).ImgSrc, new Rect(x * _map.TileSize, y * _map.TileSize, _map.TileSize, _map.TileSize));
+                {
 
-            if (_editor.SelectedTileId != ushort.MaxValue)
+                    if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
+                        dc.DrawImage(_map.GetTile(x, y).ImgSrc,
+                            new Rect(x*_map.TileSize, y*_map.TileSize, _map.TileSize, _map.TileSize));
+                }
+            }
+
+            if (_editor.SelectedTileId < Model.ImgPaths.Count)
             {
                 ImageSource imgSrc = new BitmapImage(new Uri(Model.ImgPaths[_editor.SelectedTileId], UriKind.Relative));
                 dc.DrawImage(imgSrc, new Rect(MouseX * _map.TileSize, MouseY * _map.TileSize, _map.TileSize, _map.TileSize));
