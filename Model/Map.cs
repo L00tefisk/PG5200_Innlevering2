@@ -30,7 +30,7 @@ namespace LevelEditor.Model
             for (int y = 0; y < Height; y++)
             { 
                 _level.Add(new List<Tile>());
-                for (int x = 0; x < Height; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     try
                     {

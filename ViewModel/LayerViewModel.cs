@@ -28,6 +28,7 @@ namespace LevelEditor.ViewModel
             ItemsSource = Layers;
 
             this.SelectedItem = Layers[0];
+            
         }
     }
 }
