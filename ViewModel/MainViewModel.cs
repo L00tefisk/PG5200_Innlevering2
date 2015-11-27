@@ -91,7 +91,7 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            exportToDatabase();
+            //exportToDatabase();
 
             CreateCommands();
             _model = new Model.Model();
