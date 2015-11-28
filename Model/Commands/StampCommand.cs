@@ -11,21 +11,27 @@ namespace LevelEditor.Model.Commands
         private readonly List<Tile> _oldList;
         private readonly List<Tile> _newList;
         private readonly Map _map;
-        public StampCommand(Map map, List<Tile> selectionList)
+        public StampCommand(Map map, List<Tile> selectionList, ushort selectedTileId)
         {
-            _newList = selectionList;
+            _newList = new List<Tile>(selectionList.Count);
+            _newList.AddRange(selectionList);
             _map = map;
             _oldList = new List<Tile>();
             foreach (Tile t in _newList)
             {
                 _oldList.Add(map.GetTile(t.X, t.Y));
             }
+            if(_newList.Count == 0)
+            {
+                _newList.Add(new Tile(selectedTileId, EditorWindow.MouseX, EditorWindow.MouseY));
+            }
         }
 
         public override void Execute()
         {
             foreach(Tile t in _newList)
-                _map.SetTile(t);   
+                _map.SetTile(t);
+
         }
 
         public override void Undo()

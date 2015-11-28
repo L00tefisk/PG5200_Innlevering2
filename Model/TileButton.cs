@@ -20,7 +20,6 @@ namespace LevelEditor.Model
             img.Width = 50;
             img.Height = 50;
             img.Margin = new Thickness(10);
-            //       tileButton.Stretch = Stretch.Fill;
 
             img.Focusable = true;
             img.Source = new BitmapImage(new Uri(Model.ImgPaths[id], UriKind.Relative));

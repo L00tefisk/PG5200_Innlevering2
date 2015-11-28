@@ -27,6 +27,7 @@ namespace LevelEditor.Model
             Width = width;
             Height = height;
             _level = new List<List<Tile>>();
+            Random randomId = new Random();
             for (int y = 0; y < Height; y++)
             { 
                 _level.Add(new List<Tile>());
@@ -35,7 +36,7 @@ namespace LevelEditor.Model
                     try
                     {
                         Tile t = new Tile(0, y, x);
-                        _level[y].Add( new Tile(ushort.MaxValue, y, x));
+                        _level[y].Add( new Tile((ushort)randomId.Next(0, Model.ImgPaths.Count), y, x));
 
                     }
                     catch (Exception e )
@@ -55,8 +56,11 @@ namespace LevelEditor.Model
         /// <param name="t">The tile you want to set</param>
         public void SetTile(Tile t)
         {
-            _level[t.Y][t.X] = t;
-            _level[t.Y][t.X].ChangeTile(t.TileId);
+            if (_level[t.Y][t.X].TileId != t.TileId)
+            {
+                _level[t.Y][t.X] = t;
+                _level[t.Y][t.X].ChangeTile(t.TileId);
+            }
         }
         /// <summary>
         /// Returns the tile at (x, y)
@@ -115,7 +119,6 @@ namespace LevelEditor.Model
                 }
             }
         }
-
         // These are used to Serialize Tile objects so they can be easily written/read to/from file.
         private static byte[] SerializeToBytes(Tile t)
         {
@@ -135,6 +138,5 @@ namespace LevelEditor.Model
                 return formatter.Deserialize(stream);
             }
         }
-
     }
 }

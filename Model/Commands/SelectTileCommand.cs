@@ -9,8 +9,8 @@ namespace LevelEditor.Model.Commands
 {
     public class SelectTileCommand : Command
     {
-        private readonly List<Tile> _selectedTiles;
         private readonly Tile _selectedTile;
+        private readonly List<Tile> _selectedTiles;
 
         public SelectTileCommand(List<Tile> selectedTiles, Tile selectedTile)
         {
@@ -21,7 +21,6 @@ namespace LevelEditor.Model.Commands
         {
             _selectedTiles.Add(_selectedTile);
         }
-
         public override void Undo()
         {
             _selectedTiles.Remove(_selectedTile);

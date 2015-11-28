@@ -33,6 +33,8 @@ namespace LevelEditor.Model
             _tools.Add(new SelectionTool());
             Tool.Init(_selectedTiles, _commandController, _map, SelectedTileId);
             SelectedTool = 2;
+            SelectedTileId = 0;
+            SelectedTile = new Tile(SelectedTileId, 0, 0);
         }
 
         /// <summary>

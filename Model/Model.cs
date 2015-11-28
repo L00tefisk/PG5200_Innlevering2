@@ -41,7 +41,7 @@ namespace LevelEditor.Model
                 TilePanel.Children.Add(tileButton);
             }
 
-            _map = new Map(10000, 1000);
+            _map = new Map(100, 100);
             _commandController = new CommandController();
             _editor = new Editor(_map, _commandController);
             MapView = new EditorWindow(_map, _editor);
@@ -60,6 +60,7 @@ namespace LevelEditor.Model
            
 
             _editor.SelectedTileId = ((TileButton)sender).TileId;
+            _editor.SelectedTile = new Tile(_editor.SelectedTileId, 0, 0);
         }
     }
 }
