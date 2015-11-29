@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace LevelEditor
 {
-    public static class DatabaseHelper
+    public class DatabaseHelper
     {
         public static void ExportToDatabase()
         {
