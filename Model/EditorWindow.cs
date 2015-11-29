@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Timers;
-using System.Windows.Threading;
 using System.Windows;
-using System.Windows.Media.Effects;
 
 namespace LevelEditor.Model
 {

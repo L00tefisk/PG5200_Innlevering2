@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Controls;
 
 namespace LevelEditor.ViewModel

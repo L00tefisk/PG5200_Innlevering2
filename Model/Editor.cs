@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Linq.Mapping;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LevelEditor.Model.Commands;
 using LevelEditor.Model.Tools;
 using System.Windows.Media;
