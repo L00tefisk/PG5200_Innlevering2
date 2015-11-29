@@ -106,8 +106,9 @@ namespace LevelEditor.ViewModel
                 db.ImagePaths.DeleteAllOnSubmit(toDelete);
 
                 db.SubmitChanges();
-            
-                db.ExecuteCommand("DBCC CHECKIDENT('dbo.ImagePaths', RESEED, 0);");
+             
+                //Restarts the Id numbering so that it will start at 1 instead of 180++
+                db.ExecuteCommand("DBCC CHECKIDENT('dbo.ImagePaths', RESEED, 0);");  
             }
             catch (Exception exp)
             {
@@ -132,8 +133,9 @@ namespace LevelEditor.ViewModel
                         }
                     );
                 }
+                db.SubmitChanges();
             }
-            db.SubmitChanges();
+            db.Connection.Close();
         }
         private string splitWord(string s)
         {
