@@ -6,11 +6,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xaml;
 using Microsoft.Win32;
+using System.Windows;
 
 namespace LevelEditor.Model
 {
@@ -20,45 +20,33 @@ namespace LevelEditor.Model
         public short TileSize { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public List<List<Tile>> _level;
+        //public List<List<Tile>> _level;
+        public Tile[] _level;
 
         public Map(int width, int height)
         {
             Width = width;
             Height = height;
-            _level = new List<List<Tile>>();
+            _level = new Tile[height * width];
             Random randomId = new Random();
             for (int y = 0; y < Height; y++)
             { 
-                _level.Add(new List<Tile>());
                 for (int x = 0; x < Width; x++)
                 {
-                    try
-                    {
-                        Tile t = new Tile(0, y, x);
-                        _level[y].Add( new Tile((ushort)randomId.Next(0, Model.ImgPaths.Count), y, x));
-
-                    }
-                    catch (Exception e )
-                    {
-                        MessageBox.Show(e.ToString());
-                        throw;
-                    }
-                    
+                    _level[y*width + x] =  new Tile(null, new Point(x, y* width)); 
                 }
             }
-
-        TileSize = 32;
+            TileSize = 32;
         }
         /// <summary>
         /// Set tile in the level
         /// </summary>
         /// <param name="t">The tile you want to set</param>
-        public void SetTile(ushort x, ushort y, ImageSource image)
+        public void SetTile(Point p, ImageSource image)
         {
-            if (_level[y][x].Source != image)
+            if (_level[(int)p.Y * Width + (int)p.X].Source != image)
             {
-                _level[y][x].ChangeTile(image);
+                _level[(int)p.Y * Width + (int)p.X].ChangeTile(image);
             }
         }
         /// <summary>
@@ -67,10 +55,10 @@ namespace LevelEditor.Model
         /// <param name="x">X position</param>
         /// <param name="y">Y position</param>
         /// <returns></returns>
-        public Tile GetTile(int x, int y)
+        public Tile GetTile(Point p)
         {
-            if (_level[y].Count > 0)
-                return _level[y][x];
+            if (_level.GetLength(0) > 0)
+                return _level[(int)p.Y * Width + (int)p.X];
             else
                 return null;
         }
@@ -84,13 +72,11 @@ namespace LevelEditor.Model
 				// Record how many rows and columns there are, then record how many bytes one Tile uses.
 				binaryWriter.Write(Height);
                 binaryWriter.Write(Width);
-				binaryWriter.Write(SerializeToBytes(_level[0][0]).Length);
-                foreach (List<Tile> tList in _level)
+				binaryWriter.Write(SerializeToBytes(_level[0]).Length);
+                foreach (Tile tile in _level)
                 {
-                    foreach (Tile t in tList)
-                    {
-                        binaryWriter.Write(SerializeToBytes(t));
-                    }
+
+                    binaryWriter.Write(SerializeToBytes(tile));
                 }
             }
         }
@@ -104,16 +90,15 @@ namespace LevelEditor.Model
                 int rows = binaryReader.ReadInt32();
                 int columns = binaryReader.ReadInt32();
                 int byteCount = binaryReader.ReadInt32();
-                _level = new List<List<Tile>>();
+                _level = new Tile[rows * columns];
                 for (int y = 0; y < rows; y++)
                 {
-                    _level.Add(new List<Tile>());
                     for (int x = 0; x < columns; x++)
                     {
                         Byte[] rawData = binaryReader.ReadBytes(byteCount);
                         Tile t = (Tile)DeserializeFromBytes(rawData);
 
-                        _level[y].Add(t);
+                        _level[y * columns + x] = t;
                     }
                 }
             }

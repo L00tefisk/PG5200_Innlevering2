@@ -24,11 +24,11 @@ namespace LevelEditor.Model.Commands
             _tileId = selectedTileId;
             foreach (Tile t in _newList)
             {
-                _oldList.Add(map.GetTile(t.X, t.Y));
+                _oldList.Add(map.GetTile(t.Position));
             }
             if(_newList.Count == 0)
             {
-                _newList.Add(new Tile(selectedTileId, EditorWindow.MouseX, EditorWindow.MouseY));
+                _newList.Add(new Tile(null, EditorWindow.MousePosition));
             }
         }
 

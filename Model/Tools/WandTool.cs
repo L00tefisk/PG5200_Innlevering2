@@ -11,7 +11,7 @@ namespace LevelEditor.Model.Tools
     {
         public override void PerformAction()
         {
-            CommandController.Add(new WandCommand(Map, SelectedTiles, new Tile(SelectedTileId, EditorWindow.MouseX, EditorWindow.MouseY)));
+            CommandController.Add(new WandCommand(Map, SelectedTiles, new Tile(null, EditorWindow.MousePosition)));
         }
     }
 }

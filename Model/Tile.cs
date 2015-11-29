@@ -16,14 +16,13 @@ namespace LevelEditor.Model
     [Serializable]
     public class Tile : Image
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public Tile(ushort id, int x, int y)
+        public Point Position;
+        public Tile(ImageSource image, Point pos)
         {
-            X = x;
-            Y = y;
+            Position = pos;
             Width = 32;
             Height = 32;
+            Source = image;
         }
 
         public void ChangeTile(ImageSource newImage)

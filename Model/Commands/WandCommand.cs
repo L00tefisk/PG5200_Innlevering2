@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,14 +52,14 @@ namespace LevelEditor.Model.Commands
                 {
                     for (int x = -1; x < 2; x++)
                     {
-                        xIndex = currentTile.X + x;
-                        yIndex = currentTile.Y + y;
+                        xIndex = (int)currentTile.Position.X + x;
+                        yIndex = (int)currentTile.Position.Y + y;
 
                         if (xIndex >= 0 && yIndex >= 0 && xIndex < _map.Width && yIndex < _map.Height)
                         {
                             if (!closedList.Contains(currentTile))
                             {
-                               openList.Add(_map.GetTile(x,y));
+                               openList.Add(_map.GetTile(new Point(x,y)));
                             }
                         }
                     }
