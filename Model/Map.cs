@@ -41,8 +41,9 @@ namespace LevelEditor.Model
         /// <summary>
         /// Set tile in the level
         /// </summary>
-        /// <param name="t">The tile you want to set</param>
-        public void SetTile(Point p, ImageSource image)
+        /// <param name="p">The position of the tile you want to set</param>
+        /// <param name="image">TODO</param>
+        public void SetTile(Point p, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
         {
             if (_level[(int)p.Y * Width + (int)p.X].Source != image)
             {
@@ -50,10 +51,9 @@ namespace LevelEditor.Model
             }
         }
         /// <summary>
-        /// Returns the tile at (x, y)
+        /// Returns the tile at the specified point.
         /// </summary>
-        /// <param name="x">X position</param>
-        /// <param name="y">Y position</param>
+        /// <param name="p">TODO</param>
         /// <returns></returns>
         public Tile GetTile(Point p)
         {

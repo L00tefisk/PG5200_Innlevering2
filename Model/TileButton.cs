@@ -22,7 +22,7 @@ namespace LevelEditor.Model
             img.Margin = new Thickness(10);
 
             img.Focusable = true;
-            img.Source = new BitmapImage(new Uri(Model.ImgPaths[id], UriKind.Relative));
+            img.Source = new BitmapImage(new Uri(MainModel.ImgPaths[id], UriKind.Relative));
             Content = img;
         }
     }

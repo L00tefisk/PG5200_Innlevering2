@@ -36,10 +36,10 @@ namespace LevelEditor.Model
             _tools.Add(new WandTool());
             _tools.Add(new SelectionTool());
 
-            Images = new ImageSource[Model.ImgPaths.Count];
-            for (int i = 0; i < Model.ImgPaths.Count; i++)
+            Images = new ImageSource[MainModel.ImgPaths.Count];
+            for (int i = 0; i < MainModel.ImgPaths.Count; i++)
             {
-                Images[i] = new BitmapImage(new Uri(Model.ImgPaths[i], UriKind.Relative));
+                Images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
             }
 
 

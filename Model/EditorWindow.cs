@@ -51,7 +51,7 @@ namespace LevelEditor.Model
                     Canvas.SetTop(map._level[y * map.Width + x], y * 32);
                     Canvas.SetLeft(map._level[y * map.Width + x], x * 32);
                     
-                    map._level[y * map.Width + x].Source = _editor.Images[rng.Next(0, Model.ImgPaths.Count)];
+                    map._level[y * map.Width + x].Source = _editor.Images[rng.Next(0, MainModel.ImgPaths.Count)];
                 }
             }
         }

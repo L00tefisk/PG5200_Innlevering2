@@ -110,7 +110,7 @@
     <Compile Include="Model\Editor.cs" />
     <Compile Include="Model\EditorWindow.cs" />
     <Compile Include="Model\Map.cs" />
-    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileButton.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

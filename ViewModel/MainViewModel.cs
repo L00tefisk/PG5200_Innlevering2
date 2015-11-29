@@ -26,20 +26,20 @@ namespace LevelEditor.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region Properties
-        private Model.Model _model;
+        private Model.MainModel _mainModel;
         private InputHandler _inputHandler;
 
         public EditorWindow LevelView
         {
             get
             {
-                return _model.MapView;
+                return _mainModel.MapView;
             }
             set
             {
-                if (_model.MapView != value)
+                if (_mainModel.MapView != value)
                 {
-                    _model.MapView = value;
+                    _mainModel.MapView = value;
                     RaisePropertyChanged(() => LevelView);
                 }
             }
@@ -48,33 +48,20 @@ namespace LevelEditor.ViewModel
         {
             get
             {
-                return _model.TilePanel;
+                return _mainModel.TilePanel;
             }
             set
             {
-                if (_model.TilePanel != value)
+                if (_mainModel.TilePanel != value)
                 {
-                    _model.TilePanel = value;
+                    _mainModel.TilePanel = value;
                     RaisePropertyChanged(() => DynamicGrid);
                 }
             }
         }
-        public string Name
-        {
-            get
-            {
-                return _model.Name;
-            }
-            set
-            {
-                if (_model.Name != value)
-                {
-                    _model.Name = value;
-                    RaisePropertyChanged(() => Name);
-                }
-            }
-        }
+
         #endregion
+        
         #region Commands
         public ICommand NewCommand
         {
@@ -82,7 +69,7 @@ namespace LevelEditor.ViewModel
         }
         private void CreateCommands()
         {
-            NewCommand = new RelayCommand(NewModel, CanPerform);
+            //NewCommand = new RelayCommand(NewModel, CanPerform);
         }
         #endregion
 
@@ -94,7 +81,7 @@ namespace LevelEditor.ViewModel
            // exportToDatabase();
 
             CreateCommands();
-            _model = new Model.Model();
+            _mainModel = new MainModel();
             _inputHandler = new InputHandler();
         }
 
@@ -107,18 +94,7 @@ namespace LevelEditor.ViewModel
             //TODO: Additional validation
             return true;
         }
-        public void NewModel()
-        {
-            PopulateView(new Model.Model());
-        }
 
-        /// <summary>
-        /// Populates View with the specified data.
-        /// </summary>
-        public void PopulateView(Model.Model model)
-        {
-            Name = model.Name;
-        }
         private void exportToDatabase()
         {
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
