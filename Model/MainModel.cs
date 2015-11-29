@@ -24,6 +24,7 @@ namespace LevelEditor.Model
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
             IOrderedQueryable<ImagePath> imagePaths =
                 (from a in db.ImagePaths orderby a.Id select a);
+            db.Connection.Close();
 
             TilePanel = new WrapPanel();
             ImgPaths = new List<string>();
@@ -31,7 +32,7 @@ namespace LevelEditor.Model
             foreach (ImagePath ip in imagePaths)
             {
                 ImgPaths.Add("../../" + ip.Path);
-                TileButton tileButton = new TileButton((ushort)(ip.Id-1)); // -1 because Eivind ruined the database
+                TileButton tileButton = new TileButton((ushort)(ip.Id-1), ip.Description); // -1 because Eivind ruined the database
 
                 tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
                 tileButton.Click += new RoutedEventHandler(Click);
