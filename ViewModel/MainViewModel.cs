@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Controls;
@@ -48,7 +49,18 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
-
+        public ObservableCollection<Layer> Layers
+        {
+            get { return _mainModel.Layers; }
+            set
+            {
+                if (_mainModel.Layers != value)
+                {
+                    _mainModel.Layers = value;
+                    RaisePropertyChanged(() => Layers);
+                }
+            }
+        } 
         #endregion
         
         #region Commands
@@ -67,7 +79,7 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
-           //DatabaseHelper.ExportToDatabase();
+            //DatabaseHelper.ExportToDatabase();
 
             CreateCommands();
             _mainModel = new MainModel();

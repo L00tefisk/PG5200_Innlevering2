@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,8 @@ namespace LevelEditor.Model
         static public List<String> ImgPaths { get; set; }
         public EditorWindow MapView { get; set; }
         public WrapPanel TilePanel { get; set; }
+        public ObservableCollection<Layer> Layers { get; set; }
+
         private Map _map;
         private Editor _editor;
         private CommandController _commandController;
@@ -43,6 +46,11 @@ namespace LevelEditor.Model
             _commandController = new CommandController();
             _editor = new Editor(_map, _commandController);
             MapView = new EditorWindow(_map, _editor);
+
+            Layers = new ObservableCollection<Layer>();
+
+            for (int i = 0; i < 5; i++)
+                Layers.Add(new Layer("Layer " + (i + 1)));
         }
 
         private void Click(object sender, RoutedEventArgs e)

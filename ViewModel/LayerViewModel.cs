@@ -1,23 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Data;
+using LevelEditor.Model;
 
 namespace LevelEditor.ViewModel
 {
-    public class Layer
-    {
-        public string Name { get; set; }
-
-        public Layer(string name)
-        {
-            Name = name;
-        }
-    }
     public class LayerViewModel : ListView
     {
         public ObservableCollection<Layer> Layers { get; set; }
 
         private Layer _selectedItem;
-        private LayerViewModel()
+        public LayerViewModel()
         {
             Layers = new ObservableCollection<Layer>();
 
@@ -26,8 +19,10 @@ namespace LevelEditor.ViewModel
 
             ItemsSource = Layers;
 
-            this.SelectedItem = Layers[0];
-            
+            SelectedItem = Layers[0];
+
+            DisplayMemberPath = "Name";
         }
     }
+
 }

@@ -15,6 +15,10 @@ namespace LevelEditor.View
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
+
+            //LayerView = new LayerViewModel();
         }
+
+        
     }
 }

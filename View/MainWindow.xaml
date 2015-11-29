@@ -116,7 +116,7 @@
                     <RowDefinition Height="Auto" MinHeight="25"/>
                 </Grid.RowDefinitions>
                 
-                <ListView x:Name="listView" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Layers}">
                     <ListView.View>
                         <GridView>
                         </GridView>
