@@ -14,30 +14,21 @@ using System.Windows.Media.Imaging;
 namespace LevelEditor.Model
 {
     [Serializable]
-    public class Tile
+    public class Tile : Image
     {
-        public ushort TileId{ get; set; }
-        public bool Collidable { get; set; }
-        public string FilePath { get; set; }
-        public ImageSource ImgSrc { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public Tile(ushort id, int x, int y)
         {
-            TileId = id;
             X = x;
             Y = y;
-            Collidable = false;
-            ChangeTile(id);
+            Width = 32;
+            Height = 32;
         }
 
-        public void ChangeTile(ushort id)
+        public void ChangeTile(ImageSource newImage)
         {
-            if (id < Model.ImgPaths.Count)
-            {
-                FilePath = Model.ImgPaths[id];
-                ImgSrc = new BitmapImage(new Uri(FilePath, UriKind.Relative));
-            }
+            Source = newImage;
         }
     }
 }

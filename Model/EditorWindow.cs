@@ -15,61 +15,59 @@ namespace LevelEditor.Model
 {
     public class EditorWindow : Canvas
     {
-        private readonly Map _map;
+        private Image[,] _imageArray;
         private Editor _editor;
-        private DispatcherTimer _drawTimer;
         public static ushort MouseX { get; set; }
         public static ushort MouseY { get; set; }
         private ushort _oldId;
-
-        private bool _updateTiles;
-        private bool _updateCursor;
-
-        // These are used in drawing. We are specifically avoiding creating these in the draw thread
-        // to avoid enormous amounts of time being wasted by garbagde collection.
-        private Pen _pen;
-        private Point _horizontalLineStart;
-        private Point _horizontalLineEnd;
-        private Point _verticalLineStart;
-        private Point _verticalLineEnd;
-        private Rect _imageRectangle;
+        private double _scaleFactor;
 
         public EditorWindow(Map map, Editor editor)
         {
-            _map = map;
             _editor = editor;
             _oldId = 0;
-            _updateTiles = true;
-            _updateCursor = true;
+            _scaleFactor = 1;
             HorizontalAlignment = HorizontalAlignment.Left;
             VerticalAlignment = VerticalAlignment.Top;
 
             Background = Brushes.Transparent;
-            _drawTimer = new DispatcherTimer();
-            _drawTimer.Tick += new EventHandler(Draw);
-            _drawTimer.Interval = new TimeSpan(0, 0, 0, 0, 16); // ~ 60 fps
-            _drawTimer.Start();
-            Width = _map.Width * _map.TileSize;
-            Height = _map.Height * _map.TileSize;
+            Width = map.Width * map.TileSize;
+            Height = map.Height * map.TileSize;
 
-            // Objects used for drawing. 
-            _pen = new Pen(Brushes.SlateGray, 1);
-            _horizontalLineStart = new Point();
-            _horizontalLineEnd = new Point();
-            _verticalLineStart = new Point();
-            _verticalLineEnd = new Point();
-            _imageRectangle = new Rect();
-            //AddHandler(UIElement.KeyDownEvent, (RoutedEventHandler)ChangeTool);
-            AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)RemoveStart);
-            AddHandler(UIElement.MouseRightButtonUpEvent, (RoutedEventHandler)Remove);
-            AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
+           // AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)RemoveStart);
+           // AddHandler(UIElement.MouseRightButtonUpEvent, (RoutedEventHandler)Remove);
+           // AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
+            AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Zoom);
+
+            Random rng = new Random();
+            for(int y = 0; y < map.Height; y++)
+            {
+                for (int x = 0; x < map.Width; x++)
+                {
+                    Canvas.SetTop(map._level[y][x], y * 32);
+                    Canvas.SetLeft(map._level[y][x], x * 32);
+                    Children.Add(map._level[y][x]);
+                    map._level[y][x].Source = _editor.Images[rng.Next(0, Model.ImgPaths.Count)];
+                }
+            }
         }
-        private void ChangeTool(object sender, RoutedEventArgs e)
+        private void Zoom(object sender, RoutedEventArgs e)
         {
-            if (Keyboard.IsKeyToggled(Key.W))
-                _editor.SelectedTool = 2;
-            else if (Keyboard.IsKeyToggled(Key.S))
-                _editor.SelectedTool = 4;
+            if(Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                _scaleFactor -= 0.1;
+                if (_scaleFactor < 0.5)
+                    _scaleFactor = 0.5;
+                
+                
+            }
+            else if(Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                _scaleFactor += 0.1;
+                if (_scaleFactor > 2)
+                    _scaleFactor = 2;
+            }
+            RenderTransform = new ScaleTransform(_scaleFactor, _scaleFactor, Mouse.GetPosition(this).X, Mouse.GetPosition(this).Y);
         }
         private void RemoveStart(object sender, RoutedEventArgs e)
         {
@@ -88,8 +86,8 @@ namespace LevelEditor.Model
                 DependencyObject parentObject = VisualTreeHelper.GetParent((EditorWindow)sender);
                 ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
 
-                MouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X / _map.TileSize));
-                MouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y / _map.TileSize));
+                MouseX = (ushort)(Math.Floor(Mouse.GetPosition(this).X / 32));
+                MouseY = (ushort)(Math.Floor(Mouse.GetPosition(this).Y / 32));
 
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
@@ -102,65 +100,6 @@ namespace LevelEditor.Model
                     _editor.SelectTile(MouseX, MouseY);
                     _editor.PerformAction();
                 }
-            }
-        }
-
-        private void Draw(object sender, EventArgs e)
-        {
-            _updateTiles = true;
-            _updateCursor = true;
-            InvalidateVisual();
-        }
-        protected override void OnRender(DrawingContext dc)
-        {
-            base.OnRender(dc);
-            DependencyObject parentObject = VisualTreeHelper.GetParent(this);
-            ScrollContentPresenter parent = parentObject as ScrollContentPresenter;
-            double offsetX = parent.HorizontalOffset;
-            double offsetY = parent.VerticalOffset;
-            int xIndex = (int)offsetX / _map.TileSize;
-            int yIndex = (int)offsetY / _map.TileSize;
-
-            if (_updateTiles)
-            {
-                for (int y = yIndex; y < (offsetY + parent.ActualHeight) / _map.TileSize; y++)
-                {
-                    _horizontalLineStart.X = xIndex * _map.TileSize;
-                    _horizontalLineStart.Y = y * _map.TileSize;
-                    _horizontalLineEnd.X = ((xIndex + 1) * _map.TileSize) + parent.ActualWidth;
-                    _horizontalLineEnd.Y = y * _map.TileSize;
-
-                    dc.DrawLine(_pen, _horizontalLineStart, _horizontalLineEnd);
-
-                    for (int x = xIndex; x <= (offsetX + parent.ActualWidth) / _map.TileSize; x++)
-                    {
-                        _verticalLineStart.X = x * _map.TileSize;
-                        _verticalLineStart.Y = yIndex * _map.TileSize;
-                        _verticalLineEnd.X = x * _map.TileSize;
-                        _verticalLineEnd.Y = ((yIndex + 1) * _map.TileSize) + parent.ActualHeight;
-                        dc.DrawLine(_pen, _verticalLineStart, _verticalLineEnd);
-
-                        if (_map.GetTile(x, y) != null && _map.GetTile(x, y).TileId != ushort.MaxValue)
-                        {
-                            _imageRectangle.X = x * _map.TileSize;
-                            _imageRectangle.Y = y * _map.TileSize;
-                            _imageRectangle.Width = _map.TileSize;
-                            _imageRectangle.Height = _map.TileSize;
-                            dc.DrawImage(_map.GetTile(x, y).ImgSrc, _imageRectangle);
-                        }
-                    }
-                }
-                _pen.Freeze();
-                _updateTiles = false;
-            }
-            if (_updateCursor && _editor.SelectedTile.TileId < Model.ImgPaths.Count)
-            {
-                _imageRectangle.X = MouseX * _map.TileSize;
-                _imageRectangle.Y = MouseY * _map.TileSize;
-                _imageRectangle.Width = _map.TileSize;
-                _imageRectangle.Height = _map.TileSize;
-                dc.DrawImage(_editor.SelectedTile.ImgSrc, _imageRectangle);
-                _updateCursor = false;
             }
         }
     }

@@ -11,7 +11,7 @@ namespace LevelEditor.Model.Tools
     {
         public override void PerformAction()
         {
-            CommandController.Add(new StampCommand(Map, SelectedTiles, SelectedTileId));
+            CommandController.Add(new StampCommand(Map, SelectedTiles, SelectedTileId, Images));
         }
     }
 }

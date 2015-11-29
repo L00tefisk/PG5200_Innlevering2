@@ -20,7 +20,7 @@ namespace LevelEditor.Model
         public short TileSize { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        private List<List<Tile>> _level;
+        public List<List<Tile>> _level;
 
         public Map(int width, int height)
         {
@@ -54,12 +54,11 @@ namespace LevelEditor.Model
         /// Set tile in the level
         /// </summary>
         /// <param name="t">The tile you want to set</param>
-        public void SetTile(Tile t)
+        public void SetTile(ushort x, ushort y, ImageSource image)
         {
-            if (_level[t.Y][t.X].TileId != t.TileId)
+            if (_level[y][x].Source != image)
             {
-                _level[t.Y][t.X] = t;
-                _level[t.Y][t.X].ChangeTile(t.TileId);
+                _level[y][x].ChangeTile(image);
             }
         }
         /// <summary>
