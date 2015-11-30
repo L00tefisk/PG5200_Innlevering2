@@ -9,7 +9,7 @@ namespace LevelEditor.Model
 {
     public class EditorWindow : Canvas
     {
-        private Editor _editor;
+        private readonly Editor _editor;
         public static Point MousePosition;
         private double _scaleFactor;
         private Point _selectedTilesOffset;
@@ -28,8 +28,7 @@ namespace LevelEditor.Model
             Width = editor.GetMapWidth() * editor.GetTileSize();
             Height = editor.GetMapHeight() * editor.GetTileSize();
 
-            ScrollContentPresenter parent = (ScrollContentPresenter)VisualTreeHelper.GetParent(this);
-            parent.AddHandler(UIElement.MouseWheelEvent, (RoutedEventHandler)SelectTile);
+
             AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
             //AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Zoom);
            
