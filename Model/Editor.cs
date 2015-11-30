@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using LevelEditor.Model.Commands;
-using LevelEditor.Model.Tools;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows;
@@ -10,41 +9,34 @@ namespace LevelEditor.Model
 {
     public class Editor
     {
-        public ushort SelectedTileId { get; set; }
+        public struct Selection
+        {
+            public int X;
+            public int Y;
+        }
+
+        public int SelectedTileId { get; set; }
         public Tile SelectedTile { get; set; }
-        public ushort SelectedTool { get; set; }
-        public ImageSource[] Images { get; set; }
+        private ImageSource[] _images;
     
-        private Map _map;
-        public List<Tile> _selectedTiles;
-        private List<Tool> _tools;
+        private readonly Map _map;
+        public List<Selection> _selectedTiles;
         private CommandController _commandController;
 
-        public Editor(Map map, CommandController commandController)
+        public Editor()
         {
-            _map = map;
-            _commandController = commandController;
-            _selectedTiles = new List<Tile>();
-            _tools = new List<Tool>();
-            _tools.Add(new BucketTool());
-            _tools.Add(new EraserTool());
-            _tools.Add(new StampTool());
-            _tools.Add(new WandTool());
-            _tools.Add(new SelectionTool());
+            _commandController = new CommandController();
+            _selectedTiles = new List<Selection>();
+            _images = new ImageSource[MainModel.ImgPaths.Count];
 
-            Images = new ImageSource[MainModel.ImgPaths.Count];
             for (int i = 0; i < MainModel.ImgPaths.Count; i++)
             {
-                Images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
+                _images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
+                _images[i].Freeze();
             }
-
-
-            SelectedTool = 2;
+            _map = new Map(100, 100, _images[0]);
             SelectedTileId = 0;
-            SelectedTile = new Tile(GetSelectedTileImage(), new System.Windows.Point(0,0));
-
-
-            Tool.Init(_selectedTiles, _commandController, _map, SelectedTileId, Images);
+            SelectedTile = new Tile(GetSelectedTileImage(), 0, 0, 0);
         }
 
         /// <summary>
@@ -52,32 +44,26 @@ namespace LevelEditor.Model
         /// </summary>
         public void PerformAction()
         {
-            foreach(Tile t in _selectedTiles)
+            foreach(Selection t in _selectedTiles)
             {
-                SetTile(t.Position, SelectedTileId);
+                SetTile(t.X, t.Y, SelectedTileId);
             }
-           // if(SelectedTool < _tools.Count)
-           //     _tools[SelectedTool].PerformAction();
         }
         public void SelectTile(int x, int y)
         {
-            Tile tileToAdd = new Tile(GetSelectedTileImage(), new Point(x, y));
-            if (_selectedTiles.IndexOf(tileToAdd) > -1)
+            Selection sel;
+            sel.X = x;
+            sel.Y = y;
+
+            if (_selectedTiles.Exists( (element) => { return element.X == x && element.Y == y; }))
                 return;
-            _selectedTiles.Add(tileToAdd);
+            _selectedTiles.Add(sel);
         }
         public ImageSource GetSelectedTileImage()
         {
-            return Images[SelectedTileId];
+            return _images[SelectedTileId];
         }
-        public Tile GetTile(int x, int y)
-        {
-            return _map.GetTile(new Point(x, y));
-        }
-        public void SetTile(Point p, ushort id)
-        {
-            _map.SetTile(p, Images[id]);
-        }
+        // Methods for the command controller
         /// <summary>
         /// Redoes an action if there is one to redo.
         /// </summary>
@@ -92,21 +78,26 @@ namespace LevelEditor.Model
         {
             _commandController.Undo();
         }
-        public void NextTool()
+        // Methods for interacting with the map.
+        public Tile GetTile(int x, int y)
         {
-            SelectedTool++;
-            if (SelectedTool == _tools.Count)
-            {
-                SelectedTool = 0;
-            }
+            return _map.GetTile(x, y);
         }
-        public void PreviousTool()
+        public void SetTile(int x, int y, int id)
         {
-            SelectedTool--;
-            if (SelectedTool == ushort.MaxValue)
-            {
-                SelectedTool = (ushort)(_tools.Count - 1);
-            }
+            _map.SetTile(x, y, _images[id]);
+        }
+        public int GetMapWidth()
+        {
+            return _map.Width;
+        }
+        public int GetMapHeight()
+        {
+            return _map.Height;
+        }
+        public short GetTileSize()
+        {
+            return _map.TileSize;
         }
     }
 }
