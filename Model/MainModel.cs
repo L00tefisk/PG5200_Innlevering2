@@ -23,6 +23,7 @@ namespace LevelEditor.Model
         public MainModel()
         {
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
+            db.Connection.Open();
             IOrderedQueryable<ImagePath> imagePaths =
                 (from a in db.ImagePaths orderby a.Id select a);
             db.Connection.Close();
@@ -49,7 +50,7 @@ namespace LevelEditor.Model
 
             Layers = new ObservableCollection<Layer>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
                 Layers.Add(new Layer("Layer " + (i + 1)));
         }
 

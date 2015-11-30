@@ -60,7 +60,26 @@ namespace LevelEditor.ViewModel
                     RaisePropertyChanged(() => Layers);
                 }
             }
-        } 
+        }
+
+        private Layer _selectedLayer;
+
+        public Layer SelectedLayer
+        {
+            get
+            {
+                return _selectedLayer;
+            }
+            set
+            {
+                if (_selectedLayer != value)
+                {
+                    _selectedLayer = value;
+                    RaisePropertyChanged(() => SelectedLayer);
+                }
+            }
+        }
+
         #endregion
         
         #region Commands
@@ -79,7 +98,7 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            //DatabaseHelper.ExportToDatabase();
+            //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
             CreateCommands();
             _mainModel = new MainModel();

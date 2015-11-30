@@ -115,12 +115,9 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="Auto" MinHeight="25"/>
                 </Grid.RowDefinitions>
-                
-                <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Layers}">
-                    <ListView.View>
-                        <GridView>
-                        </GridView>
-                    </ListView.View>
+
+                <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}" DisplayMemberPath="Name">
+                    
                 </ListView>
             
                 <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
