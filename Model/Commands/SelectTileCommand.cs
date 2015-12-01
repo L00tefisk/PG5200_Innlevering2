@@ -6,7 +6,6 @@ namespace LevelEditor.Model.Commands
     {
         private readonly Tile _selectedTile;
         private readonly List<Tile> _selectedTiles;
-
         public SelectTileCommand(List<Tile> selectedTiles, Tile selectedTile)
         {
             _selectedTiles = selectedTiles;

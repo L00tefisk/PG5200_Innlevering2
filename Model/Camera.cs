@@ -8,7 +8,6 @@
         {
             
         }
-
         void Move(int x, int y)
         {
             _x = x;
