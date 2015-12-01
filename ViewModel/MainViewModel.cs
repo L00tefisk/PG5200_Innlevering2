@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Controls;
 using LevelEditor.Model;
+using System.Windows.Data;
 
 namespace LevelEditor.ViewModel
 {
@@ -16,7 +17,6 @@ namespace LevelEditor.ViewModel
     {
         #region Properties
         private Model.MainModel _mainModel;
-        private InputHandler _inputHandler;
 
         public EditorWindow LevelView
         {
@@ -52,10 +52,6 @@ namespace LevelEditor.ViewModel
         #endregion
         
         #region Commands
-        public ICommand NewCommand
-        {
-            get; private set;
-        }
         private void CreateCommands()
         {
             //NewCommand = new RelayCommand(NewModel, CanPerform);
@@ -71,7 +67,7 @@ namespace LevelEditor.ViewModel
 
             CreateCommands();
             _mainModel = new MainModel();
-            _inputHandler = new InputHandler();
+            
         }
 
         private void ProcessInput(object sender, RoutedEventArgs e)

@@ -13,9 +13,8 @@ namespace LevelEditor.Model
         static public List<String> ImgPaths { get; set; }
         public EditorWindow MapView { get; set; }
         public WrapPanel TilePanel { get; set; }
-        private Map _map;
+
         private Editor _editor;
-        private CommandController _commandController;
 
         public MainModel()
         {
@@ -38,11 +37,8 @@ namespace LevelEditor.Model
                 tileButton.BorderThickness = new Thickness(0);
                 TilePanel.Children.Add(tileButton);
             }
-
-            _map = new Map(100, 100);
-            _commandController = new CommandController();
-            _editor = new Editor(_map, _commandController);
-            MapView = new EditorWindow(_map, _editor);
+            _editor = new Editor();
+            MapView = new EditorWindow(_editor);
         }
 
         private void Click(object sender, RoutedEventArgs e)
@@ -54,7 +50,7 @@ namespace LevelEditor.Model
             TileButton tileButton = (TileButton)sender;
             tileButton.Background = new SolidColorBrush(new Color { A = 50 });
             _editor.SelectedTileId = ((TileButton)sender).TileId;
-            _editor.SelectedTile = new Tile(_editor.GetSelectedTileImage(), new Point(0,0));
+            _editor.SelectedTile = new Tile(_editor.GetSelectedTileImage(), 0, 0, _editor.SelectedTileId);
         }
     }
 }
