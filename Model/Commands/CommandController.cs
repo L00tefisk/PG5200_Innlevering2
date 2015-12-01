@@ -30,7 +30,8 @@ namespace LevelEditor.Model.Commands
             {
                 commands[currentCommand].Execute();
                 currentCommand++;
-            }   
+            }
+                
         }
         public void Undo()
         {

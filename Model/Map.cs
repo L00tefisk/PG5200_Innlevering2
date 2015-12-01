@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Media;
@@ -13,40 +12,47 @@ namespace LevelEditor.Model
         public short TileSize { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        private Tile[] _level;
+        //public List<List<Tile>> _level;
+        public Tile[] _level;
 
-        public Map(int width, int height, ImageSource image)
+        public Map(int width, int height)
         {
             Width = width;
             Height = height;
-            _level = new Tile[height*width];
+            _level = new Tile[height * width];
             Random randomId = new Random();
-            for (int i = 0; i < height * width; i++)
-            {
-                _level[i] = new Tile(image, i, i / width, 0 );
+            for (int y = 0; y < Height; y++)
+            { 
+                for (int x = 0; x < Width; x++)
+                {
+                    _level[y*width + x] =  new Tile(null, new Point(x, y* width)); 
+                }
             }
             TileSize = 32;
         }
-
         /// <summary>
         /// Set tile in the level
         /// </summary>
         /// <param name="p">The position of the tile you want to set</param>
         /// <param name="image">TODO</param>
-        public void SetTile(int x, int y, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
+        public void SetTile(Point p, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
         {
-            if(_level[y*Width + x] != null)
-                _level[y*Width + x].Source = image;
+            if (_level[(int)p.Y * Width + (int)p.X].Source != image)
+            {
+                _level[(int)p.Y * Width + (int)p.X].ChangeTile(image);
+            }
         }
-
         /// <summary>
         /// Returns the tile at the specified point.
         /// </summary>
         /// <param name="p">TODO</param>
         /// <returns></returns>
-        public Tile GetTile(int x, int y)
+        public Tile GetTile(Point p)
         {
-            return _level[y * Width + x];
+            if (_level.GetLength(0) > 0)
+                return _level[(int)p.Y * Width + (int)p.X];
+            else
+                return null;
         }
         /// <summary>
         /// Saves the map to file in binary format, Filename must be set.

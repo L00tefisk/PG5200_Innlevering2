@@ -8,15 +8,10 @@ namespace LevelEditor.Model
     [Serializable]
     public class Tile : Image
     {
-        public int X;
-        public int Y;
-        public int Id;
-        //public ImageSource ImgSrc;
-        public Tile(ImageSource image, int x, int y, int id)
+        public Point Position;
+        public Tile(ImageSource image, Point pos)
         {
-            Y = y;
-            X = x;
-            Id = id;
+            Position = pos;
             Width = 32;
             Height = 32;
             Source = image;
