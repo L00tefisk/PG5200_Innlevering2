@@ -97,11 +97,13 @@
     <Compile Include="Model\Commands\CommandController.cs" />
     <Compile Include="Model\Commands\EraserToolCommand.cs" />
     <Compile Include="Model\Commands\Command.cs" />
+    <Compile Include="Model\Commands\SelectTileCommand.cs" />
     <Compile Include="Model\Commands\StampCommand.cs" />
     <Compile Include="Model\Commands\WandCommand.cs" />
     <Compile Include="Model\InputHandler.cs" />
     <Compile Include="Model\Tools\BucketTool.cs" />
     <Compile Include="Model\Tools\EraserTool.cs" />
+    <Compile Include="Model\Tools\SelectionTool.cs" />
     <Compile Include="Model\Tools\StampTool.cs" />
     <Compile Include="Model\Tools\Tool.cs" />
     <Compile Include="Model\Tools\WandTool.cs" />

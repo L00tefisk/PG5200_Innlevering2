@@ -30,6 +30,7 @@ namespace LevelEditor.Model
             _tools.Add(new EraserTool());
             _tools.Add(new StampTool());
             _tools.Add(new WandTool());
+            _tools.Add(new SelectionTool());
 
             Images = new ImageSource[MainModel.ImgPaths.Count];
             for (int i = 0; i < MainModel.ImgPaths.Count; i++)
@@ -55,7 +56,6 @@ namespace LevelEditor.Model
             {
                 SetTile(t.Position, SelectedTileId);
             }
-            _selectedTiles.Clear();
            // if(SelectedTool < _tools.Count)
            //     _tools[SelectedTool].PerformAction();
         }
