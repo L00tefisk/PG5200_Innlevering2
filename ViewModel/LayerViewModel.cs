@@ -5,7 +5,7 @@ using LevelEditor.Model;
 
 namespace LevelEditor.ViewModel
 {
-    public class LayerViewModel : ListView
+    public class LayerViewModel : Panel
     {
         public ObservableCollection<Layer> Layers { get; set; }
 
@@ -17,11 +17,15 @@ namespace LevelEditor.ViewModel
             for (int i = 0; i < 5; i++)
                 Layers.Add(new Layer("Layer "+i+1));
 
-            ItemsSource = Layers;
+            //ItemsSource = Layers;
 
-            SelectedItem = Layers[0];
+            //SelectedItem = Layers[0];
 
-            DisplayMemberPath = "Name";
+            //DisplayMemberPath = "Name";
+            foreach (Layer l in Layers)
+            {
+                
+            }
         }
     }
 

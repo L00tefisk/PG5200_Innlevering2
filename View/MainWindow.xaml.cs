@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿using System.Data.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using LevelEditor.Model;
 using LevelEditor.ViewModel;
 
 namespace LevelEditor.View
@@ -15,10 +20,7 @@ namespace LevelEditor.View
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
-
-            //LayerView = new LayerViewModel();
         }
 
-        
     }
 }

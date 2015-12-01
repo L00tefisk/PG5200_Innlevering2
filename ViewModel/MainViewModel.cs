@@ -76,6 +76,8 @@ namespace LevelEditor.ViewModel
                 {
                     _selectedLayer = value;
                     RaisePropertyChanged(() => SelectedLayer);
+
+                    //MessageBox.Show(_selectedLayer.Name +" is "+_selectedLayer.IsVisisble);
                 }
             }
         }
