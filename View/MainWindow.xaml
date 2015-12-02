@@ -26,8 +26,10 @@
         <CommandBinding Command="ApplicationCommands.Copy" Executed="CopyCommand"/>
         <CommandBinding Command="ApplicationCommands.Paste" Executed="PasteCommand"/>
         <CommandBinding Command="view:CustomCommands.Exit" Executed="ExitCommand"/>
+        <!--<CommandBinding Command="view:CustomCommands.AddLayer" Executed="{Binding AddLayerCommand}"/>-->
+    
     </Window.CommandBindings>
-
+    
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -36,6 +38,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    
     <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -82,6 +85,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Undo" Command="Undo">
                     <MenuItem.Icon>
@@ -110,10 +114,37 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_View" />
-            <MenuItem Header="_Layer">
 
+            <MenuItem Header="_Layer">
+                <MenuItem Header="_Add Layer" Command="{Binding AddLayerCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/list-add.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Remove Layer" Command="{Binding RemoveLayerCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/list-remove.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Move Layer _Up" Command="{Binding MoveLayerUpCommmand}">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/go-up.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Move Layer Dow_n" Command="{Binding MoveLayerDownCommmand}">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/actions/go-down.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Duplicate Layer">
+                    <MenuItem.Icon>
+                        <Image Source="../Sprites/Icons/apps/preferences-desktop-locale.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
+            
             <MenuItem Header="_Help" />
         </Menu>
 
