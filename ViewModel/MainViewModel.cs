@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using LevelEditor.Model;
 
 namespace LevelEditor.ViewModel
@@ -83,9 +86,18 @@ namespace LevelEditor.ViewModel
         #endregion
         
         #region Commands
+
+        public ICommand AddLayerCommand { get; private set; }
+        public ICommand RemoveLayerCommand { get; private set; }
+        public ICommand MoveLayerUpCommmand { get; private set; }
+        public ICommand MoveLayerDownCommmand { get; private set; }
+
         private void CreateCommands()
         {
-            //NewCommand = new RelayCommand(NewModel, CanPerform);
+            AddLayerCommand = new RelayCommand(AddLayer);
+            RemoveLayerCommand = new RelayCommand(RemoveLayer, CanRemoveLayer);
+            MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
+            MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
         }
         #endregion
 
@@ -98,12 +110,64 @@ namespace LevelEditor.ViewModel
 
             CreateCommands();
             _mainModel = new MainModel();
+            AddLayer();
             
         }
-        private bool CanPerform()
+
+        private int layerIndexName = 1;
+        private void AddLayer()
         {
-            //TODO: Additional validation
-            return true;
+            Layers.Add(new Layer("Layer " + layerIndexName));
+            layerIndexName++;
+            //SelectedLayer = Layers.Last();
         }
+
+        private void RemoveLayer()
+        {
+            int i = Layers.IndexOf(SelectedLayer);
+            Layers.Remove(SelectedLayer);
+
+            if (i == Layers.Count)
+                SelectedLayer = Layers[i - 1];
+            else
+                SelectedLayer = Layers[i];
+
+        }
+
+        private void MoveLayerUp()
+        {
+            int i = Layers.IndexOf(SelectedLayer);
+
+            Layer temp = Layers[i - 1];
+            Layers[i - 1] = SelectedLayer;
+            Layers[i] = temp;
+
+            SelectedLayer = Layers[i - 1];
+        }
+        private void MoveLayerDown()
+        {
+            int i = Layers.IndexOf(SelectedLayer);
+            Layer temp = Layers[i + 1];
+            Layers[i + 1] = SelectedLayer;
+            Layers[i] = temp;
+
+            SelectedLayer = Layers[i + 1];
+        }
+
+        private bool CanRemoveLayer()
+        {
+            return Layers.Count > 1;
+        }
+
+        private bool CanMoveLayerDown()
+        { 
+            return Layers.IndexOf(SelectedLayer) < Layers.Count - 1;
+        }
+
+        private bool CanMoveLayerUp()
+        {
+            return Layers.IndexOf(SelectedLayer) >= 1;
+        }
+
     }
 }
