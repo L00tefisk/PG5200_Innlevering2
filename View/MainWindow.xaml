@@ -4,11 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:view="clr-namespace:LevelEditor.View"
         mc:Ignorable="d ignore"
         Width="800"
         Height="600"
         Title="Level Editor"
+        
         DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand"/>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand"/>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand"/>
+        <CommandBinding Command="ApplicationCommands.SaveAs" Executed="SaveAsCommand"/>
+        <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand"/>
+        <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand"/>
+        <CommandBinding Command="ApplicationCommands.Cut" Executed="CutCommand"/>
+        <CommandBinding Command="ApplicationCommands.Copy" Executed="CopyCommand"/>
+        <CommandBinding Command="ApplicationCommands.Paste" Executed="PasteCommand"/>
+        <CommandBinding Command="view:CustomCommands.Exit" Executed="ExitCommand"/>
+    </Window.CommandBindings>
+
 
     <Window.Resources>
         <ResourceDictionary>
@@ -115,14 +130,23 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="Auto" MinHeight="25"/>
                 </Grid.RowDefinitions>
-                
-                <ListView x:Name="listView" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+
+                <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True">
                     <ListView.View>
-                        <GridView>
+                        <GridView >
+                            <GridViewColumn Width="30" >
+                                
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsVisible}" Click="ButtonBase_OnClick"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="100"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-            
+
                 <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
                     <Button Width="23" Margin="2" ToolTip="Add Layer">
                         <Image Source="../Sprites/Icons/actions/list-add.png"/>
@@ -147,7 +171,7 @@
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
             <Border Background="SteelBlue" Grid.Row="2">
-                <ScrollViewer Content="{Binding DynamicGrid}"  Grid.Row="1" Grid.Column="1" Margin="10" Background="DodgerBlue"/>
+                <ScrollViewer Content="{Binding DynamicGrid}" Margin="10" Background="DodgerBlue"/>
             </Border>
         </Grid>
     </Grid>

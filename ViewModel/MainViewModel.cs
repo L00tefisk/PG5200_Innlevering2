@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Controls;
@@ -48,6 +49,38 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
+        public ObservableCollection<Layer> Layers
+        {
+            get { return _mainModel.Layers; }
+            set
+            {
+                if (_mainModel.Layers != value)
+                {
+                    _mainModel.Layers = value;
+                    RaisePropertyChanged(() => Layers);
+                }
+            }
+        }
+
+        private Layer _selectedLayer;
+
+        public Layer SelectedLayer
+        {
+            get
+            {
+                return _selectedLayer;
+            }
+            set
+            {
+                if (_selectedLayer != value)
+                {
+                    _selectedLayer = value;
+                    RaisePropertyChanged(() => SelectedLayer);
+
+                    //MessageBox.Show(_selectedLayer.Name +" is "+_selectedLayer.IsVisisble);
+                }
+            }
+        }
 
         #endregion
         
@@ -63,7 +96,7 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
-           //DatabaseHelper.ExportToDatabase();
+            //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
             CreateCommands();
             _mainModel = new MainModel();

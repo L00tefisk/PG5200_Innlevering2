@@ -9,7 +9,7 @@ namespace LevelEditor
         public static void ExportToDatabase()
         {
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
-
+            db.Connection.Open();
             try
             {
                 IOrderedQueryable<ImagePath> toDelete =
