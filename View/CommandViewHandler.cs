@@ -17,7 +17,7 @@ namespace LevelEditor.View
         {
             ListViewItem item = ((ListViewItem)((CheckBox)sender).Parent);
 
-            item.DataContext.ToString();
+            //item.DataContext.ToString();
             //Layer l = (Layer)DataContext;
             //MessageBox.Show(((CheckBox)sender).IsChecked.ToString());
 
@@ -79,6 +79,10 @@ namespace LevelEditor.View
             Application.Current.Shutdown();
         }
 
+        private void AddLayerCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            
+        }
 
         
     }
@@ -95,6 +99,29 @@ namespace LevelEditor.View
                 new KeyGesture(Key.Q, ModifierKeys.Control)
             }
         );
+
+        public static RoutedUICommand AddLayer = new RoutedUICommand
+        (
+            "AddLayer",
+            "AddLayer",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.OemPlus, ModifierKeys.Control)
+            }
+        );
+
+        public static RoutedUICommand RemoveLayer = new RoutedUICommand
+        (
+            "RemoveLayer",
+            "RemoveLayer",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.OemMinus,  ModifierKeys.Control)
+            }
+        );
+
 
         //Define more commands here, just like the one above
     }
