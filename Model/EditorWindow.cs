@@ -109,6 +109,8 @@ namespace LevelEditor.Model
                     _tempSelectedTileList.Add(tempTile);
                     _tempSelectedTileList[_tempSelectedTileList.Count - 1].Opacity = 0.5;
                     Children.Add(_tempSelectedTileList[_tempSelectedTileList.Count - 1]);
+                    Canvas.SetTop(_tempSelectedTileList[_tempSelectedTileList.Count - 1], MousePosition.Y * 32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].Y * 32));
+                    Canvas.SetLeft(_tempSelectedTileList[_tempSelectedTileList.Count - 1], MousePosition.X * 32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].X * 32));
                 }
             }
             Children.Remove(_selectionRect);
