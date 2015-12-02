@@ -86,15 +86,15 @@ namespace LevelEditor.View
     public static class CustomCommands
     {
         public static RoutedUICommand Exit = new RoutedUICommand
-                (
-                        "Exit",
-                        "Exit",
-                        typeof(CustomCommands),
-                        new InputGestureCollection()
-                        {
-                                        new KeyGesture(Key.F4, ModifierKeys.Alt)
-                        }
-                );
+        (
+            "Exit",
+            "Exit",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.Q, ModifierKeys.Control)
+            }
+        );
 
         //Define more commands here, just like the one above
     }
