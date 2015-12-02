@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +15,10 @@ namespace LevelEditor.Model
         public EditorWindow MapView { get; set; }
         public WrapPanel TilePanel { get; set; }
 
+        public ObservableCollection<Layer> Layers;
+        
         private Editor _editor;
+        
 
         public MainModel()
         {

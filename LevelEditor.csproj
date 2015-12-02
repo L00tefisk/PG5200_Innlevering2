@@ -116,6 +116,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\CommandViewHandler.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -319,8 +320,6 @@
     <Resource Include="Sprites\Tiles\lock_green.png" />
     <Resource Include="Sprites\Tiles\lock_red.png" />
     <Resource Include="Sprites\Tiles\lock_yellow.png" />
-    <Resource Include="Sprites\Tiles\rockHillLeft.png" />
-    <Resource Include="Sprites\Tiles\rockHillRight.png" />
     <Resource Include="Sprites\Tiles\ropeAttached.png" />
     <Resource Include="Sprites\Tiles\ropeHorizontal.png" />
     <Resource Include="Sprites\Tiles\ropeVertical.png" />

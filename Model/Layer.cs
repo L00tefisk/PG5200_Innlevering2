@@ -14,8 +14,9 @@ namespace LevelEditor.Model
         // the tiles in this layer.
         private List<Tile> tiles;
 
-        public Layer()
+        public Layer(string name)
         {
+            Name = name;
             IsVisible = true;
             IsLocked = false;
         }
