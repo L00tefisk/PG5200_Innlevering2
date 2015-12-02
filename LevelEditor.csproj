@@ -92,16 +92,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LevelEditorDatabase.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Commands\CommandController.cs" />
     <Compile Include="Model\Commands\Command.cs" />
+    <Compile Include="Model\Commands\CommandController.cs" />
     <Compile Include="Model\Commands\SelectTileCommand.cs" />
     <Compile Include="Model\Commands\SetTileCommand.cs" />
-    <Compile Include="Model\InputHandler.cs" />
     <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Editor.cs" />
     <Compile Include="Model\EditorWindow.cs" />
-    <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\InputHandler.cs" />
+    <Compile Include="Model\Layer.cs" />
     <Compile Include="Model\MainModel.cs" />
+    <Compile Include="Model\Map.cs" />
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileButton.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
