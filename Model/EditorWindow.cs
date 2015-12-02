@@ -134,10 +134,15 @@ namespace LevelEditor.Model
                     Point tileLocation = new Point();
                     for (int i = 0; i < _tempSelectedTileList.Count; i++)
                     {
-                        tileLocation.Y = (MousePosition.Y * 32 + ((_tempSelectedTileList[i].Y - _selectedTilesOffset.Y) * 32));
-                        tileLocation.X = (MousePosition.X * 32 + ((_tempSelectedTileList[i].X - _selectedTilesOffset.X) * 32));
+                        tileLocation.Y = (MousePosition.Y * 32 + (_tempSelectedTileList[i].Y * 32));
+                        tileLocation.X = (MousePosition.X * 32 + (_tempSelectedTileList[i].X * 32));
                         _editor.SelectTile((int)tileLocation.X/ 32, (int)tileLocation.Y/32);
                     }
+                    _editor.PerformAction();
+                }
+                else
+                {
+                    _editor.SelectTile((int)MousePosition.X, (int)MousePosition.Y);
                     _editor.PerformAction();
                 }
             }

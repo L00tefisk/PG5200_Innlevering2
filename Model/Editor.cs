@@ -44,6 +44,7 @@ namespace LevelEditor.Model
             {
                 SetTile(t.X, t.Y, SelectedTileId);
             }
+            _selectedTiles.Clear();
         }
         public void SelectTile(int x, int y)
         {
