@@ -218,8 +218,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Sprites\Sprites\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sprites\Tiles\stoneHillRight.png" />
+    <Resource Include="Sprites\Tiles\stoneHillLeft.png" />
     <Resource Include="Sprites\Tiles\box.png" />
     <Resource Include="Sprites\Tiles\boxAlt.png" />
     <Resource Include="Sprites\Tiles\boxCoin.png" />
