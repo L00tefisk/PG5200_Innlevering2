@@ -38,8 +38,8 @@ namespace LevelEditor.Model
             Width = _editor.GetMapWidth() * _editor.GetTileSize();
             Height = _editor.GetMapHeight() * _editor.GetTileSize();
 
-            AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)SelectBegin);
-            AddHandler(UIElement.MouseUpEvent, (RoutedEventHandler)SelectEnd);
+           // AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)SelectBegin);
+           // &AddHandler(UIElement.MouseUpEvent, (RoutedEventHandler)SelectEnd);
             
             AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)Undo);
 
@@ -110,16 +110,13 @@ namespace LevelEditor.Model
         }
         private void ClickEnd(object sender, RoutedEventArgs e)
         {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            for (int i = 0; i < _tempTiles.Count; i++)
             {
-                for (int i = 0; i < _tempTiles.Count; i++)
-                {
-                    _editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
-                    Children.Remove(_tempTiles[i]);
-                }
-                _tempTiles.Clear();
-                _editor.PerformAction();
+                _editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
+                Children.Remove(_tempTiles[i]);
             }
+            _tempTiles.Clear();
+            _editor.PerformAction();
         }
         private void SelectEnd(object sender, RoutedEventArgs e)
         {

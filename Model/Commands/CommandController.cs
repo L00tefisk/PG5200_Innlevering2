@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing.Imaging;
 
 namespace LevelEditor.Model.Commands
 {
@@ -34,12 +35,14 @@ namespace LevelEditor.Model.Commands
                 commands[currentCommand].Execute();
                 currentCommand++;
             }
+
         }
         public void Undo()
         {
-            if (currentCommand > 0)
+            if (commands.Count > 0 && currentCommand != 0)
             {
-                currentCommand--;
+                if(currentCommand > 0)
+                    currentCommand--;
                 commands[currentCommand].Undo();
             }
         }
