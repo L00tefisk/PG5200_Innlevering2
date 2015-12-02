@@ -4,7 +4,7 @@ namespace LevelEditor.Model.Commands
 {
     public class CommandController
     {
-        private List<Command> commands;
+        private readonly List<Command> commands;
         private short currentCommand;
         public CommandController()
         {
@@ -17,7 +17,10 @@ namespace LevelEditor.Model.Commands
         /// <param name="command">Command to execute</param>
         public void Add(Command command)
         {
-            commands.Add(command);
+            if (currentCommand < commands.Count)
+                commands.RemoveRange(currentCommand, commands.Count - currentCommand);
+            commands.Insert(currentCommand, command);
+            
             Execute();
         }
         public void Remove(Command command)
@@ -31,14 +34,13 @@ namespace LevelEditor.Model.Commands
                 commands[currentCommand].Execute();
                 currentCommand++;
             }
-                
         }
         public void Undo()
         {
-            if (currentCommand <= 0)
+            if (currentCommand > 0)
             {
-                commands[currentCommand].Undo();
                 currentCommand--;
+                commands[currentCommand].Undo();
             }
         }
     }
