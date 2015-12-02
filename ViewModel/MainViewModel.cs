@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Controls;
 using LevelEditor.Model;
-using System.Windows.Data;
 
 namespace LevelEditor.ViewModel
 {
@@ -17,7 +15,7 @@ namespace LevelEditor.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region Properties
-        private Model.MainModel _mainModel;
+        private readonly Model.MainModel _mainModel;
 
         public EditorWindow LevelView
         {
@@ -100,11 +98,6 @@ namespace LevelEditor.ViewModel
 
             CreateCommands();
             _mainModel = new MainModel();
-            
-        }
-
-        private void ProcessInput(object sender, RoutedEventArgs e)
-        {
             
         }
         private bool CanPerform()

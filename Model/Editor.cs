@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LevelEditor.Model.Commands;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -19,13 +20,14 @@ namespace LevelEditor.Model
         private readonly Map _map;
         public List<Selection> _selectedTiles;
         private CommandController _commandController;
+        private bool _removeTool;
 
         public Editor()
         {
             _commandController = new CommandController();
             _selectedTiles = new List<Selection>();
             _images = new ImageSource[MainModel.ImgPaths.Count];
-
+            _removeTool = false;
             for (int i = 0; i < MainModel.ImgPaths.Count; i++)
             {
                 _images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
@@ -42,7 +44,7 @@ namespace LevelEditor.Model
         {
             foreach (Selection t in _selectedTiles)
             {
-                SetTile(t.X, t.Y, SelectedTileId);
+                SetTile(t.X, t.Y, _removeTool == true ? _images.Length : SelectedTileId);
             }
             _selectedTiles.Clear();
         }
@@ -66,7 +68,10 @@ namespace LevelEditor.Model
         }
         public void SetTile(int x, int y, int id)
         {
-            _map.SetTile(x, y, _images[id]);
+            if(id >= _images.Length || id < 0 )
+                _map.SetTile(x, y, null);
+            else
+                _map.SetTile(x, y, _images[id]);
         }
         /// <summary>
         /// Redoes an action if there is one to redo.

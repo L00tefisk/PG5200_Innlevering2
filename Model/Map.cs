@@ -32,11 +32,12 @@ namespace LevelEditor.Model
         /// <param name="image">TODO</param>
         public void SetTile(int x, int y, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
         {
-            if (_level[y * Width + x] != null)
-                _level[y * Width + x].Source = image;
+            int index = y*Width + x;
+            if (index >= 0 && index < _level.Length && _level[index] != null)
+                _level[index].Source = image;
         }
         /// <summary>
-        /// Returns the tile at the specified point.
+        /// Returns the tile at the specified point.x
         /// </summary>
         /// <param name="p">TODO</param>
         /// <returns></returns>
