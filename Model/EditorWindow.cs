@@ -108,16 +108,18 @@ namespace LevelEditor.Model
                 Canvas.SetLeft(_selectionRect, MousePosition.X*32);
             }
         }
-
         private void ClickEnd(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < _tempTiles.Count; i++)
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                _editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
-                Children.Remove(_tempTiles[i]);
+                for (int i = 0; i < _tempTiles.Count; i++)
+                {
+                    _editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
+                    Children.Remove(_tempTiles[i]);
+                }
+                _tempTiles.Clear();
+                _editor.PerformAction();
             }
-            _tempTiles.Clear();
-            _editor.PerformAction();
         }
         private void SelectEnd(object sender, RoutedEventArgs e)
         {
