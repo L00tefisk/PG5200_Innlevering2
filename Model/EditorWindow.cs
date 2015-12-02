@@ -43,9 +43,10 @@ namespace LevelEditor.Model
             AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
 
+            Random rng = new Random();
             int mapHeight = editor.GetMapHeight();
             int mapWidth = editor.GetMapWidth();
-            Random rng = new Random();
+
             for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
@@ -54,9 +55,9 @@ namespace LevelEditor.Model
                     Children.Add(t);
                     Canvas.SetTop(t, y * 32);
                     Canvas.SetLeft(t, x * 32);
-
                 }
             }
+
             _selectionRect.Fill = new SolidColorBrush(Colors.Black);
             _selectionRect.Stroke = new SolidColorBrush(Colors.Black);
             _selectionRect.Width = 32;
@@ -95,8 +96,10 @@ namespace LevelEditor.Model
         }
         private void SelectEnd(object sender, RoutedEventArgs e)
         {
-            double dX = Math.Abs(_selectionPointEnd.X - _selectionPointStart.X);
-            double dY = Math.Abs(_selectionPointEnd.Y - _selectionPointStart.Y);
+
+            double dX = Math.Abs(_selectionPointEnd.X - _selectionPointStart.X) + 1;
+            double dY = Math.Abs(_selectionPointEnd.Y - _selectionPointStart.Y) + 1;
+
             for (int y = 0; y < dY; y++)
             {
                 for(int x = 0; x < dX; x++)
@@ -109,6 +112,7 @@ namespace LevelEditor.Model
                     Canvas.SetLeft(_tempSelectedTileList[_tempSelectedTileList.Count - 1], MousePosition.X * 32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].X * 32));
                 }
             }
+
             Children.Remove(_selectionRect);
         }   
         private void Click(object sender, RoutedEventArgs e)
