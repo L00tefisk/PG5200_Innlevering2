@@ -13,7 +13,6 @@ namespace LevelEditor.Model
         public int Width { get; set; }
         public int Height { get; set; }
         private Tile[] _level;
-
         public Map(int width, int height, ImageSource image)
         {
             Width = width;

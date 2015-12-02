@@ -62,7 +62,6 @@ namespace LevelEditor.Model
             _selectionRect.Width = 32;
             _selectionRect.Height = 32;
             _selectionRect.Opacity = 0.5;
-            Children.Add(_selectionRect);
         }
         private void Zoom(object sender, RoutedEventArgs e)
         {
@@ -94,6 +93,7 @@ namespace LevelEditor.Model
             }
             _tempSelectedTileList.Clear();
             _selectionPointStart = MousePosition;
+            Children.Add(_selectionRect);
             Canvas.SetTop(_selectionRect, MousePosition.Y * 32);
             Canvas.SetLeft(_selectionRect, MousePosition.X * 32);
         }
@@ -111,6 +111,7 @@ namespace LevelEditor.Model
                     Children.Add(_tempSelectedTileList[_tempSelectedTileList.Count - 1]);
                 }
             }
+            Children.Remove(_selectionRect);
         }
 
         private void Click(object sender, RoutedEventArgs e)
@@ -145,6 +146,7 @@ namespace LevelEditor.Model
                 _selectionPointEnd = MousePosition;
                 double dX = _selectionPointEnd.X - _selectionPointStart.X;
                 double dY = _selectionPointEnd.Y - _selectionPointStart.Y;
+
                 if (dX <= 0)
                 {
                     Canvas.SetLeft(_selectionRect, MousePosition.X * 32);
@@ -153,6 +155,7 @@ namespace LevelEditor.Model
                 {
                     Canvas.SetTop(_selectionRect, MousePosition.Y * 32);
                 }
+
                 _selectionRect.Height = Math.Abs(dY) * 32;
                 _selectionRect.Width = Math.Abs(dX) * 32;
 
@@ -161,6 +164,11 @@ namespace LevelEditor.Model
             }
             else
             {
+                if(_tempSelectedTileList.Count > 0 && _tempSelectedTileList[0].Id != _editor.SelectedTileId)
+                {
+                    for (int i = 0; i < _tempSelectedTileList.Count; i++)
+                        _tempSelectedTileList[i].ChangeTile(_editor.GetSelectedTileImage());
+                }
                 Canvas.SetTop(_selectionRect, MousePosition.Y * 32);
                 Canvas.SetLeft(_selectionRect, MousePosition.X * 32);
             }

@@ -12,7 +12,6 @@ namespace LevelEditor.Model
             public int X;
             public int Y;
         }
-
         public int SelectedTileId { get; set; }
         public Tile SelectedTile { get; set; }
         private ImageSource[] _images;
