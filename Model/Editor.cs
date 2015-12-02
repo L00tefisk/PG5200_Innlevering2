@@ -14,7 +14,6 @@ namespace LevelEditor.Model
             public int Y;
         }
         public int SelectedTileId { get; set; }
-        public Tile SelectedTile { get; set; }
         private ImageSource[] _images;
 
         private readonly Map _map;
@@ -35,17 +34,16 @@ namespace LevelEditor.Model
             }
             _map = new Map(100, 100, null);
             SelectedTileId = 0;
-            SelectedTile = new Tile(GetSelectedTileImage(), 0, 0, 0);
         }
         /// <summary>
         /// Performs the action of the currently selected tool.
         /// </summary>
         public void PerformAction()
         {
-            foreach (Selection t in _selectedTiles)
-            {
-                SetTile(t.X, t.Y, _removeTool == true ? _images.Length : SelectedTileId);
-            }
+            if (_selectedTiles.Count <= 0)
+                return;
+
+            _commandController.Add(new SetTileCommand(this, _selectedTiles));
             _selectedTiles.Clear();
         }
         public void SelectTile(int x, int y)
@@ -53,9 +51,6 @@ namespace LevelEditor.Model
             Selection sel;
             sel.X = x;
             sel.Y = y;
-
-            if (_selectedTiles.Exists((element) => element.X == x && element.Y == y))
-                return;
             _selectedTiles.Add(sel);
         }
         public ImageSource GetSelectedTileImage()
@@ -69,9 +64,10 @@ namespace LevelEditor.Model
         public void SetTile(int x, int y, int id)
         {
             if(id >= _images.Length || id < 0 )
-                _map.SetTile(x, y, null);
+                _map.SetTile(x, y, int.MaxValue, null);
             else
-                _map.SetTile(x, y, _images[id]);
+                _map.SetTile(x, y, id, _images[id]);
+
         }
         /// <summary>
         /// Redoes an action if there is one to redo.
@@ -95,9 +91,9 @@ namespace LevelEditor.Model
         {
             return _map.Height;
         }
-        public short GetTileSize()
+        public int GetTileSize()
         {
-            return _map.TileSize;
+            return _map.GetTileSize();
         }
     }
 }

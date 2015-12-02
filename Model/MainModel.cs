@@ -59,7 +59,6 @@ namespace LevelEditor.Model
             TileButton tileButton = (TileButton)sender;
             tileButton.Background = new SolidColorBrush(new Color { A = 50 });
             _editor.SelectedTileId = ((TileButton)sender).TileId;
-            _editor.SelectedTile = new Tile(_editor.GetSelectedTileImage(), 0, 0, _editor.SelectedTileId);
         }
     }
 }

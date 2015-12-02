@@ -18,14 +18,15 @@ namespace LevelEditor.Model
         private Point _selectionPointEnd;
         private readonly Rectangle _selectionRect;
         private readonly List<Tile> _tempSelectedTileList;
+        private readonly List<Tile> _tempTiles; 
 
 
         public EditorWindow(Editor editor)
         {
             _editor = editor;
             _scaleFactor = 1;
-
             _tempSelectedTileList = new List<Tile>();
+            _tempTiles = new List<Tile>();
             _selectionPointStart = new Point();
             _selectionPointEnd = new Point();
             MousePosition = new Point();
@@ -37,15 +38,18 @@ namespace LevelEditor.Model
             Width = _editor.GetMapWidth() * _editor.GetTileSize();
             Height = _editor.GetMapHeight() * _editor.GetTileSize();
 
-            AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)SelectBegin);
-            AddHandler(UIElement.MouseRightButtonUpEvent, (RoutedEventHandler)SelectEnd);
+            AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)SelectBegin);
+            AddHandler(UIElement.MouseUpEvent, (RoutedEventHandler)SelectEnd);
+            
+            AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)Undo);
 
             AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
+            AddHandler(UIElement.MouseLeftButtonUpEvent, (RoutedEventHandler)ClickEnd);
 
             Random rng = new Random();
-            int mapHeight = editor.GetMapHeight();
             int mapWidth = editor.GetMapWidth();
+            int mapHeight = editor.GetMapHeight();
 
             for (int y = 0; y < mapHeight; y++)
             {
@@ -64,6 +68,7 @@ namespace LevelEditor.Model
             _selectionRect.Height = 32;
             _selectionRect.Opacity = 0.5;
         }
+
         private void Zoom(object sender, RoutedEventArgs e)
         {
             if(Mouse.RightButton == MouseButtonState.Pressed)
@@ -81,64 +86,106 @@ namespace LevelEditor.Model
             RenderTransform = new ScaleTransform(_scaleFactor, _scaleFactor, Mouse.GetPosition(this).X, Mouse.GetPosition(this).Y);
         }
 
+        private void Undo(object sender, RoutedEventArgs e)
+        {
+            _editor.Undo();
+        }
+
         private void SelectBegin(object sender, RoutedEventArgs e)
         {
-            foreach (Tile t in _tempSelectedTileList)
+            if (Mouse.MiddleButton == MouseButtonState.Pressed)
             {
-                Children.Remove(t);
+                foreach (Tile t in _tempSelectedTileList)
+                    Children.Remove(t);
+
+                _tempSelectedTileList.Clear();
+                _selectionPointStart = MousePosition;
+
+                if (!Children.Contains(_selectionRect))
+                    Children.Add(_selectionRect);
+
+                Canvas.SetTop(_selectionRect, MousePosition.Y*32);
+                Canvas.SetLeft(_selectionRect, MousePosition.X*32);
             }
-            _tempSelectedTileList.Clear();
-            _selectionPointStart = MousePosition;
-            if(!Children.Contains(_selectionRect))
-                Children.Add(_selectionRect);
-            Canvas.SetTop(_selectionRect, MousePosition.Y * 32);
-            Canvas.SetLeft(_selectionRect, MousePosition.X * 32);
+        }
+
+        private void ClickEnd(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < _tempTiles.Count; i++)
+            {
+                _editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
+                Children.Remove(_tempTiles[i]);
+            }
+            _tempTiles.Clear();
+            _editor.PerformAction();
         }
         private void SelectEnd(object sender, RoutedEventArgs e)
         {
-
-            double dX = Math.Abs(_selectionPointEnd.X - _selectionPointStart.X) + 1;
-            double dY = Math.Abs(_selectionPointEnd.Y - _selectionPointStart.Y) + 1;
-
-            for (int y = 0; y < dY; y++)
+            if (Mouse.MiddleButton == MouseButtonState.Released)
             {
-                for(int x = 0; x < dX; x++)
-                {
-                    Tile tempTile = new Tile(_editor.GetSelectedTileImage(), x, y, _editor.SelectedTileId);
-                    _tempSelectedTileList.Add(tempTile);
-                    _tempSelectedTileList[_tempSelectedTileList.Count - 1].Opacity = 0.5;
-                    Children.Add(_tempSelectedTileList[_tempSelectedTileList.Count - 1]);
-                    Canvas.SetTop(_tempSelectedTileList[_tempSelectedTileList.Count - 1], MousePosition.Y * 32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].Y * 32));
-                    Canvas.SetLeft(_tempSelectedTileList[_tempSelectedTileList.Count - 1], MousePosition.X * 32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].X * 32));
-                }
-            }
+                double dX = Math.Abs(_selectionPointEnd.X - _selectionPointStart.X) + 1;
+                double dY = Math.Abs(_selectionPointEnd.Y - _selectionPointStart.Y) + 1;
 
-            Children.Remove(_selectionRect);
-        }   
+                for (int y = 0; y < dY; y++)
+                {
+                    for (int x = 0; x < dX; x++)
+                    {
+                        Tile tempTile = new Tile(_editor.GetSelectedTileImage(), x, y, _editor.SelectedTileId);
+                        _tempSelectedTileList.Add(tempTile);
+                        _tempSelectedTileList[_tempSelectedTileList.Count - 1].Opacity = 0.5;
+                        Children.Add(_tempSelectedTileList[_tempSelectedTileList.Count - 1]);
+                        Canvas.SetTop(_tempSelectedTileList[_tempSelectedTileList.Count - 1],
+                            MousePosition.Y*32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].Y*32));
+                        Canvas.SetLeft(_tempSelectedTileList[_tempSelectedTileList.Count - 1],
+                            MousePosition.X*32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].X*32));
+                    }
+                }
+                Children.Remove(_selectionRect);
+            }
+        }
+
         private void Click(object sender, RoutedEventArgs e)
         {
             MousePosition.X = (ushort)(Math.Floor(Mouse.GetPosition(this).X / 32));
             MousePosition.Y = (ushort)(Math.Floor(Mouse.GetPosition(this).Y / 32));
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                if (_tempSelectedTileList.Count > 0)
+                Tile tempTile = _editor.GetTile((int)MousePosition.X, (int)MousePosition.Y);
+                if (tempTile.Id != _editor.SelectedTileId)
                 {
-                    Point tileLocation = new Point();
-                    for (int i = 0; i < _tempSelectedTileList.Count; i++)
+                    if (_tempSelectedTileList.Count > 0)
                     {
-                        tileLocation.Y = (MousePosition.Y * 32 + (_tempSelectedTileList[i].Y * 32));
-                        tileLocation.X = (MousePosition.X * 32 + (_tempSelectedTileList[i].X * 32));
-                        _editor.SelectTile((int)tileLocation.X / 32, (int)tileLocation.Y / 32);
+                    //    Point tileLocation = new Point();
+                    //    for (int i = 0; i < _tempSelectedTileList.Count; i++)
+                    //    {
+                    //        tileLocation.Y = (MousePosition.Y*32 + (_tempSelectedTileList[i].Y*32));
+                    //        tileLocation.X = (MousePosition.X*32 + (_tempSelectedTileList[i].X*32));
+                    //        _editor.SelectTile((int) tileLocation.X/32, (int) tileLocation.Y/32);
+
+                    //        if (!Children.Contains(_tempSelectedTileList[i]))
+                    //        {
+                    //            _tempTiles.Add(_tempSelectedTileList[i]);
+                    //            Children.Add(_tempTiles[i]);
+                    //            SetTop(_tempTiles[i], _tempTiles[i].Y * 32);
+                    //            SetLeft(_tempTiles[i], _tempTiles[i].X * 32);
+                    //        }
+                    //    }
                     }
-                    _editor.PerformAction();
-                }
-                else
-                {
-                    _editor.SelectTile((int)MousePosition.X, (int)MousePosition.Y);
-                    _editor.PerformAction();
+                    else
+                    {
+                        Tile temp = new Tile(_editor.GetSelectedTileImage(), (int) MousePosition.X, (int) MousePosition.Y,
+                            _editor.SelectedTileId);
+                        if (!Children.Contains(temp))
+                        {
+                            _tempTiles.Add(temp);
+                            Children.Add(_tempTiles[_tempTiles.Count - 1]);
+                            SetTop(_tempTiles[_tempTiles.Count - 1], _tempTiles[_tempTiles.Count - 1].Y * 32);
+                            SetLeft(_tempTiles[_tempTiles.Count - 1], _tempTiles[_tempTiles.Count - 1].X * 32);
+                        }
+                    }
                 }
             }
-            if (Mouse.RightButton == MouseButtonState.Pressed)
+            if (Mouse.MiddleButton == MouseButtonState.Pressed)
             {
                 _selectionPointEnd = MousePosition;
                 double dX = _selectionPointEnd.X - _selectionPointStart.X;
@@ -153,6 +200,7 @@ namespace LevelEditor.Model
                 {
                     _selectionRect.Width = Math.Abs(dX+1) * 32;
                 }
+
                 if (dY <= 0)
                 {
                     Canvas.SetTop(_selectionRect, MousePosition.Y*32);
@@ -162,9 +210,6 @@ namespace LevelEditor.Model
                 {
                    _selectionRect.Height = Math.Abs(dY+1) * 32;
                 }
-
-
-
             }
             else
             {
@@ -172,12 +217,10 @@ namespace LevelEditor.Model
                 {
                     for (int i = 0; i < _tempSelectedTileList.Count; i++)
                     {
-                        
                         Canvas.SetTop(_tempSelectedTileList[i], MousePosition.Y * 32 + (_tempSelectedTileList[i].Y * 32));
                         Canvas.SetLeft(_tempSelectedTileList[i], MousePosition.X * 32 + (_tempSelectedTileList[i].X * 32));
                         if (_tempSelectedTileList[0].Id != _editor.SelectedTileId)
                             _tempSelectedTileList[i].ChangeTile(_editor.GetSelectedTileImage());
-
                     }
                 }
                 Canvas.SetTop(_selectionRect, MousePosition.Y * 32);
@@ -186,28 +229,3 @@ namespace LevelEditor.Model
         }
     }
 }
-
-
-                //if (_tempSelectedTileList.Count > 0)
-                //{
-                //    Point tileLocation = new Point();
-                //    for (int i = 0; i<_tempSelectedTileList.Count; i++)
-                //    {
-                //        tileLocation.Y = (MousePosition.Y* 32 + ((_tempSelectedTileList[i].Position.Y - _selectedTilesOffset.Y) * 32));
-                //        tileLocation.X = (MousePosition.X* 32 + ((_tempSelectedTileList[i].Position.X - _selectedTilesOffset.X) * 32));
-                //        _editor.SelectTile((int)tileLocation.X / 32, (int)tileLocation.Y / 32);
-                //    }
-                //    _editor.PerformAction();
-                //}
-
-                //
-                //if (_tempSelectedTileList.Find((tile) => { return tile.Position == tempTile.Position; }) == null)
-                //{
-                //    
-
-                //    //
-                //    if (_selectedTilesOffset.X > _tempSelectedTileList[_tempSelectedTileList.Count - 1].Position.X)
-                //        _selectedTilesOffset.X = _tempSelectedTileList[_tempSelectedTileList.Count - 1].Position.X;
-                //    if (_selectedTilesOffset.Y > _tempSelectedTileList[_tempSelectedTileList.Count - 1].Position.Y)
-                //        _selectedTilesOffset.Y = _tempSelectedTileList[_tempSelectedTileList.Count - 1].Position.Y;
-                //}

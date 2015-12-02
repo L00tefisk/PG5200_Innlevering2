@@ -9,10 +9,10 @@ namespace LevelEditor.Model
     public class Map
     {
         public string Filename { get; set; }
-        public short TileSize { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         private Tile[] _level;
+        private int _tileSize;
         public Map(int width, int height, ImageSource image)
         {
             Width = width;
@@ -21,20 +21,24 @@ namespace LevelEditor.Model
             Random randomId = new Random();
             for (int i = 0; i < height * width; i++)
             {
-                _level[i] = new Tile(image, i, i / width, 0);
+                _level[i] = new Tile(image, i, i / width, int.MaxValue);
             }
-            TileSize = 32;
+            _tileSize = 32;
         }
         /// <summary>
         /// Set tile in the level
         /// </summary>
         /// <param name="p">The position of the tile you want to set</param>
         /// <param name="image">TODO</param>
-        public void SetTile(int x, int y, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
+        public void SetTile(int x, int y, int id, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
         {
             int index = y*Width + x;
             if (index >= 0 && index < _level.Length && _level[index] != null)
+            {
                 _level[index].Source = image;
+                _level[index].Id = id;
+            }
+
         }
         /// <summary>
         /// Returns the tile at the specified point.x
@@ -44,6 +48,11 @@ namespace LevelEditor.Model
         public Tile GetTile(int x, int y)
         {
             return _level[y * Width + x];
+        }
+
+        public int GetTileSize()
+        {
+            return _tileSize;
         }
         /// <summary>
         /// Saves the map to file in binary format, Filename must be set.
