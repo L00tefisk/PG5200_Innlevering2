@@ -113,7 +113,7 @@ namespace LevelEditor.Model
             }
             Children.Remove(_selectionRect);
         }
-
+        
         private void Click(object sender, RoutedEventArgs e)
         {
             MousePosition.X = (ushort)(Math.Floor(Mouse.GetPosition(this).X / 32));
