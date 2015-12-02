@@ -43,6 +43,11 @@ namespace LevelEditor.Model
             }
             _editor = new Editor();
             MapView = new EditorWindow(_editor);
+
+            Layers = new ObservableCollection<Layer>();
+
+            for (int i = 0; i < 5; i++)
+                Layers.Add(new Layer("Layer " + (i + 1)));
         }
 
         private void Click(object sender, RoutedEventArgs e)
