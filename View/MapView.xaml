@@ -3,8 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:LevelEditor.View"
+    xmlns:vm="clr-namespace:LevelEditor.ViewModel"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:model="clr-namespace:LevelEditor.Model"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300"
              
@@ -16,13 +17,14 @@
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"></KeyBinding>
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"></KeyBinding>
     </UserControl.InputBindings>
-    
+
     <ScrollViewer Content="{Binding LevelView}">
-        <!--<i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
             <i:EventTrigger EventName="ScrollChanged">
                 <i:InvokeCommandAction Command="{Binding ScrollChangedCommand}" CommandParameter="{Binding ElementName=LevelViewScrollViewer}"></i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>-->
     </ScrollViewer>
-    
+
+
 </UserControl>

@@ -11,16 +11,15 @@ namespace LevelEditor.ViewModel
 {
     public class LayerViewModel : ViewModelBase
     {
-        public MainViewModel MainViewModel { get; set; }
 
         public ObservableCollection<Layer> Layers
         {
-            get { return MainViewModel.MainModel.Layers; }
+            get { return Model.Model.Instance.Layers; }
             set
             {
-                if (MainViewModel.MainModel.Layers != value)
+                if (Model.Model.Instance.Layers != value)
                 {
-                    MainViewModel.MainModel.Layers = value;
+                    Model.Model.Instance.Layers = value;
                     RaisePropertyChanged(() => Layers);
                 }
             }
@@ -49,18 +48,21 @@ namespace LevelEditor.ViewModel
         public ICommand MoveLayerUpCommmand { get; private set; }
         public ICommand MoveLayerDownCommmand { get; private set; }
 
+        public ICommand DoSomethingCommand { get; private set; }
+
         private void CreateCommands()
         {
             AddLayerCommand = new RelayCommand(AddLayer);
             RemoveLayerCommand = new RelayCommand(RemoveLayer, CanRemoveLayer);
             MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
             MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
+            DoSomethingCommand = new RelayCommand(DoSomething);
         }
 
         public LayerViewModel()
         {
             CreateCommands();
-            MainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+            //MainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
 
             AddLayer();
         }
@@ -104,7 +106,8 @@ namespace LevelEditor.ViewModel
         }
         private bool CanRemoveLayer()
         {
-            return Layers.Count > 1;
+
+            return Layers.Count > 1 && SelectedLayer != null;
         }
         private bool CanMoveLayerDown()
         {
@@ -113,6 +116,11 @@ namespace LevelEditor.ViewModel
         private bool CanMoveLayerUp()
         {
             return Layers.IndexOf(SelectedLayer) >= 1;
+        }
+
+        private void DoSomething()
+        {
+            
         }
     }
 

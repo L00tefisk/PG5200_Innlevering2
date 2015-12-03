@@ -22,13 +22,13 @@ namespace LevelEditor.ViewModel
         {
             get
             {
-                return MainViewModel.Model.MapView;
+                return Model.Model.Instance.MapView;
             }
             set
             {
-                if (MainViewModel.Model.MapView != value)
+                if (Model.Model.Instance.MapView != value)
                 {
-                    MainViewModel.Model.MapView = value;
+                    Model.Model.Instance.MapView = value;
                     RaisePropertyChanged(() => LevelView);
                 }
             }
@@ -41,7 +41,7 @@ namespace LevelEditor.ViewModel
         {
             UndoCommand = new RelayCommand(Undo);
             RedoCommand = new RelayCommand(Redo);
-            ScrollChangedCommand = new RelayCommand(ScrollChanged);
+            
         }
 
         public MapViewModel()

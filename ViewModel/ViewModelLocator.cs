@@ -27,29 +27,10 @@ namespace LevelEditor.ViewModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MapViewModel Map => ServiceLocator.Current.GetInstance<MapViewModel>();
+        public LayerViewModel Layer => ServiceLocator.Current.GetInstance<LayerViewModel>();
 
-        public MapViewModel Map
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MapViewModel>();
-            }
-        }
-
-        public LayerViewModel Layer
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<LayerViewModel>();
-            }
-        }
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>

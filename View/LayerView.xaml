@@ -21,7 +21,7 @@
                     <StackPanel Orientation="Horizontal" >
                         <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
                         <CheckBox IsChecked="{Binding IsLocked, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="20"  />
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="20" BorderThickness="0" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

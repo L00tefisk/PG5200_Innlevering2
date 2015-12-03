@@ -18,20 +18,22 @@ namespace LevelEditor.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region Properties
-        public MainModel MainModel;
 
+        private Model.Model _mainModel { get; set; }
+
+        public LayerViewModel LayerViewModel { get; set; }
         
         public WrapPanel DynamicGrid
         {
             get
             {
-                return MainModel.TilePanel;
+                return _mainModel.TilePanel;
             }
             set
             {
-                if (MainModel.TilePanel != value)
+                if (_mainModel.TilePanel != value)
                 {
-                    MainModel.TilePanel = value;
+                    _mainModel.TilePanel = value;
                     RaisePropertyChanged(() => DynamicGrid);
                 }
             }
@@ -47,7 +49,8 @@ namespace LevelEditor.ViewModel
         {
             //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
-            MainModel = new MainModel();
+            _mainModel = Model.Model.Instance;
+
             
         }
 
