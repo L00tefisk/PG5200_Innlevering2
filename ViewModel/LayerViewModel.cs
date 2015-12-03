@@ -47,8 +47,7 @@ namespace LevelEditor.ViewModel
         public ICommand RemoveLayerCommand { get; private set; }
         public ICommand MoveLayerUpCommmand { get; private set; }
         public ICommand MoveLayerDownCommmand { get; private set; }
-
-        public ICommand DoSomethingCommand { get; private set; }
+        
 
         private void CreateCommands()
         {
@@ -56,7 +55,6 @@ namespace LevelEditor.ViewModel
             RemoveLayerCommand = new RelayCommand(RemoveLayer, CanRemoveLayer);
             MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
             MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
-            DoSomethingCommand = new RelayCommand(DoSomething);
         }
 
         public LayerViewModel()
@@ -118,10 +116,6 @@ namespace LevelEditor.ViewModel
             return Layers.IndexOf(SelectedLayer) >= 1;
         }
 
-        private void DoSomething()
-        {
-            
-        }
     }
 
 }
