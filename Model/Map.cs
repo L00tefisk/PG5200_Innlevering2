@@ -13,7 +13,7 @@ namespace LevelEditor.Model
         public int Height { get; set; }
         private Tile[] _level;
         private int _tileSize;
-        public Map(int width, int height, ImageSource image)
+        public Map(int width, int height)
         {
             Width = width;
             Height = height;
@@ -21,7 +21,7 @@ namespace LevelEditor.Model
             Random randomId = new Random();
             for (int i = 0; i < height * width; i++)
             {
-                _level[i] = new Tile(image, i, i / width, int.MaxValue);
+                _level[i] = new Tile(null, i, i / width, int.MaxValue);
             }
             _tileSize = 32;
         }
