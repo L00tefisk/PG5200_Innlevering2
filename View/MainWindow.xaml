@@ -169,22 +169,16 @@
                     <RowDefinition Height="Auto" MinHeight="25"/>
                 </Grid.RowDefinitions>
 
-                <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True">
-                    <ListView.View>
-                        <GridView >
-                            <GridViewColumn Width="30" >
-                                
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsVisible}" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="100"/>
-                        </GridView>
-                    </ListView.View>
+                <ListView  Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
-
                 <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
                     <Button Width="23" Margin="2" ToolTip="Add Layer" Command="{Binding AddLayerCommand}" >
                         <Image Source="../Sprites/Icons/actions/list-add.png"/>
