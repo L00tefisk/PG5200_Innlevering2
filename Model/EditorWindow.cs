@@ -144,9 +144,9 @@ namespace LevelEditor.Model
                 // _tempSelectedTileList should always have atleast one element.
                 for (int i = 0; i < _tempSelectedTileList.Count; i++)
                 {
-                    int tilePositionY = (int)(MousePosition.Y + _tempSelectedTileList[i].Y);
-                    int tilePositionX = (int)(MousePosition.X + _tempSelectedTileList[i].X);
-                    Tile temp = new Tile(Editor.GetSelectedTileImage(), tilePositionX, tilePositionY, _tempSelectedTileList[i].Id);
+                    int tilePositionY = (int)(MousePosition.Y + t.Y);
+                    int tilePositionX = (int)(MousePosition.X + t.X);
+                    Tile temp = new Tile(Editor.GetSelectedTileImage(), tilePositionX, tilePositionY, t.Id);
                     if (!_tempTiles.Exists(element => temp.X == element.X && temp.Y == element.Y && temp.Id == element.Id))
                     {
                         _tempTiles.Add(temp);
@@ -182,12 +182,12 @@ namespace LevelEditor.Model
             {
                 if (_tempSelectedTileList.Count > 0)
                 {
-                    for (int i = 0; i < _tempSelectedTileList.Count; i++)
+                    foreach (Tile t in _tempSelectedTileList)
                     {
-                        Canvas.SetTop(_tempSelectedTileList[i], MousePosition.Y * 32 + (_tempSelectedTileList[i].Y * 32));
-                        Canvas.SetLeft(_tempSelectedTileList[i], MousePosition.X * 32 + (_tempSelectedTileList[i].X * 32));
+                        Canvas.SetTop(t, MousePosition.Y * 32 + (t.Y * 32));
+                        Canvas.SetLeft(t, MousePosition.X * 32 + (t.X * 32));
                         if (_tempSelectedTileList[0].Id != Editor.SelectedTileId)
-                            _tempSelectedTileList[i].ChangeTile(Editor.GetSelectedTileImage());
+                            t.ChangeTile(Editor.GetSelectedTileImage());
                     }
                 }
                 Canvas.SetTop(_selectionRect, MousePosition.Y * 32);
