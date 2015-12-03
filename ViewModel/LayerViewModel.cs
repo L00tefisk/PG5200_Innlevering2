@@ -67,11 +67,11 @@ namespace LevelEditor.ViewModel
             SelectedLayer = Layers[0];
         }
 
-        private int layerIndexName = 1;
+        private int _layerIndexName = 1;
         private void AddLayer()
         {
-            Layers.Add(new Layer("Layer " + layerIndexName));
-            layerIndexName++;
+            Layers.Add(new Layer("Layer " + _layerIndexName));
+            _layerIndexName++;
             SelectedLayer = Layers.Last();
         }
         private void RemoveLayer()
