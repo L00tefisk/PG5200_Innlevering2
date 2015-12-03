@@ -100,16 +100,6 @@ namespace LevelEditor.Model
                 Canvas.SetLeft(_selectionRect, MousePosition.X*32);
             }
         }
-        private void ClickEnd(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < _tempTiles.Count; i++)
-            {
-                Editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
-                Children.Remove(_tempTiles[i]);
-            }
-            _tempTiles.Clear();
-            Editor.PerformAction();
-        }
         private void SelectEnd(object sender, RoutedEventArgs e)
         {
             double dX = Math.Abs(_selectionPointEnd.X - _selectionPointStart.X) + 1;
@@ -122,16 +112,28 @@ namespace LevelEditor.Model
                     Tile tempTile = new Tile(Editor.GetSelectedTileImage(), x, y, Editor.SelectedTileId);
                     _tempSelectedTileList.Add(tempTile);
                     _tempSelectedTileList[_tempSelectedTileList.Count - 1].Opacity = 0.5;
+
                     Children.Add(_tempSelectedTileList[_tempSelectedTileList.Count - 1]);
+
                     Canvas.SetTop(_tempSelectedTileList[_tempSelectedTileList.Count - 1],
                         MousePosition.Y*32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].Y*32));
+
                     Canvas.SetLeft(_tempSelectedTileList[_tempSelectedTileList.Count - 1],
                         MousePosition.X*32 + (_tempSelectedTileList[_tempSelectedTileList.Count - 1].X*32));
                 }
             }
             Children.Remove(_selectionRect);
         }
-
+        private void ClickEnd(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < _tempTiles.Count; i++)
+            {
+                Editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
+                Children.Remove(_tempTiles[i]);
+            }
+            _tempTiles.Clear();
+            Editor.PerformAction();
+        }
         private void Click(object sender, RoutedEventArgs e)
         {
             MousePosition.X = (ushort)(Math.Floor(Mouse.GetPosition(this).X / 32));
@@ -139,39 +141,18 @@ namespace LevelEditor.Model
 
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                Tile tempTile = Editor.GetTile((int)MousePosition.X, (int)MousePosition.Y);
-
-                if (tempTile.Id != Editor.SelectedTileId && !_tempTiles.Contains(tempTile))
+                // _tempSelectedTileList should always have atleast one element.
+                for (int i = 0; i < _tempSelectedTileList.Count; i++)
                 {
-                    if (_tempSelectedTileList.Count > 1)
+                    int tilePositionY = (int)(MousePosition.Y + _tempSelectedTileList[i].Y);
+                    int tilePositionX = (int)(MousePosition.X + _tempSelectedTileList[i].X);
+                    Tile temp = new Tile(Editor.GetSelectedTileImage(), tilePositionX, tilePositionY, _tempSelectedTileList[i].Id);
+                    if (!_tempTiles.Exists(element => temp.X == element.X && temp.Y == element.Y && temp.Id == element.Id))
                     {
-                        Point tileLocation = new Point();
-                        for (int i = 0; i < _tempSelectedTileList.Count; i++)
-                        {
-                            tileLocation.Y = ( MousePosition.Y * 32 + (_tempSelectedTileList[i].Y * 32) );
-                            tileLocation.X = ( MousePosition.X * 32 + (_tempSelectedTileList[i].X * 32) );
-                            Editor.SelectTile((int)tileLocation.X / 32, (int)tileLocation.Y / 32);
-
-                            if (!Children.Contains(_tempSelectedTileList[i]))
-                            {
-                                _tempTiles.Add(_tempSelectedTileList[i]);
-                                Children.Add(_tempTiles[i]);
-                                SetTop(_tempTiles[i], _tempTiles[i].Y * 32);
-                                SetLeft(_tempTiles[i], _tempTiles[i].X * 32);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Tile temp = new Tile(Editor.GetSelectedTileImage(), (int) MousePosition.X, (int) MousePosition.Y,
-                            Editor.SelectedTileId);
-                        if (!Children.Contains(temp))
-                        {
-                            _tempTiles.Add(temp);
-                            Children.Add(_tempTiles[_tempTiles.Count - 1]);
-                            SetTop(_tempTiles[_tempTiles.Count - 1], _tempTiles[_tempTiles.Count - 1].Y * 32);
-                            SetLeft(_tempTiles[_tempTiles.Count - 1], _tempTiles[_tempTiles.Count - 1].X * 32);
-                        }
+                        _tempTiles.Add(temp);
+                        Children.Add(temp);
+                        SetTop(_tempTiles[_tempTiles.Count - 1], temp.Y * 32);
+                        SetLeft(_tempTiles[_tempTiles.Count - 1], temp.X * 32);
                     }
                 }
             }
@@ -187,9 +168,7 @@ namespace LevelEditor.Model
                     _selectionRect.Width = Math.Abs(dX-1) * 32;
                 }
                 else
-                {
                     _selectionRect.Width = Math.Abs(dX+1) * 32;
-                }
 
                 if (dY <= 0)
                 {
@@ -197,9 +176,7 @@ namespace LevelEditor.Model
                     _selectionRect.Height = Math.Abs(dY-1) * 32;
                 }
                 else
-                {
-                   _selectionRect.Height = Math.Abs(dY+1) * 32;
-                }
+                    _selectionRect.Height = Math.Abs(dY+1) * 32;
             }
             else
             {
