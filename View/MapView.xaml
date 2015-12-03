@@ -18,8 +18,9 @@
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"></KeyBinding>
     </UserControl.InputBindings>
 
-    <ScrollViewer Content="{Binding LevelView}">
-    <i:Interaction.Triggers>
+    
+    <ScrollViewer Content="{Binding LevelView}" HorizontalScrollBarVisibility="Visible">
+        <i:Interaction.Triggers>
             <i:EventTrigger EventName="ScrollChanged">
                 <i:InvokeCommandAction Command="{Binding ScrollChangedCommand}" CommandParameter="{Binding ElementName=LevelViewScrollViewer}"></i:InvokeCommandAction>
             </i:EventTrigger>
