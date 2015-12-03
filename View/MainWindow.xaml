@@ -25,7 +25,6 @@
         <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding CutCommand}"></KeyBinding>
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"></KeyBinding>
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"></KeyBinding>
-        
     </Window.InputBindings>
 
     <Window.Resources>

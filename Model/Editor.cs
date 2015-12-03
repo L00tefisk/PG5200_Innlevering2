@@ -12,7 +12,9 @@ namespace LevelEditor.Model
         {
             public int X;
             public int Y;
+            public int Id;
         }
+
         public int SelectedTileId { get; set; }
         private ImageSource[] _images;
 
@@ -32,7 +34,7 @@ namespace LevelEditor.Model
                 _images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
                 _images[i].Freeze();
             }
-            _map = new Map(100, 100, null);
+            _map = new Map(100, 100);
             SelectedTileId = 0;
         }
         /// <summary>
@@ -51,7 +53,9 @@ namespace LevelEditor.Model
             Selection sel;
             sel.X = x;
             sel.Y = y;
-            _selectedTiles.Add(sel);
+            sel.Id = SelectedTileId;
+            if(!_selectedTiles.Contains(sel))
+                _selectedTiles.Add(sel);
         }
         public ImageSource GetSelectedTileImage()
         {

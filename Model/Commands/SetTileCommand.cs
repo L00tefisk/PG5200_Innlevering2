@@ -6,29 +6,37 @@ namespace LevelEditor.Model.Commands
 {
     class SetTileCommand : Command
     {
-        private readonly List<Editor.Selection> _list;
-        private readonly int _oldId;
-        private readonly int _newId;
+        private readonly List<Editor.Selection> _newList;
+        private readonly List<Editor.Selection> _oldList;
         private readonly Editor _editor;
         public SetTileCommand(Editor editor, List<Editor.Selection> selectionList)
         {
-            _list = new List<Editor.Selection>(selectionList.Count);
             _editor = editor;
-            _newId = editor.SelectedTileId;
-            _oldId = editor.GetTile(selectionList[0].X, selectionList[0].Y).Id;
-            _list.AddRange(selectionList);
+            _newList = new List<Editor.Selection>();
+            _oldList = new List<Editor.Selection>();
+
+            _newList.AddRange(selectionList);
+            _oldList.AddRange(selectionList);
+
+            Editor.Selection selection;
+            for (int i = 0; i < selectionList.Count; i++)
+            {
+                selection = selectionList[i];
+                selection.Id = _editor.GetTile(selectionList[i].X, selectionList[i].Y).Id;
+                _oldList[i] = selection;
+            }
         }
 
         public override void Execute()
         {
-            foreach (Editor.Selection t in _list)
-                _editor.SetTile(t.X, t.Y, _newId);
+            foreach (Editor.Selection t in _newList)
+                _editor.SetTile(t.X, t.Y, t.Id);
         }
 
         public override void Undo()
         {
-            foreach (Editor.Selection t in _list)
-                _editor.SetTile(t.X, t.Y, _oldId);
+            foreach (Editor.Selection t in _oldList)
+                _editor.SetTile(t.X, t.Y, t.Id);
         }
     }
 }
