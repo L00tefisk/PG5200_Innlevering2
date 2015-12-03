@@ -217,12 +217,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Sprites\Sprites\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Sprites\Tiles\stoneHillRight.png" />
-    <Resource Include="Sprites\Tiles\stoneHillLeft.png" />
     <Resource Include="Sprites\Tiles\box.png" />
     <Resource Include="Sprites\Tiles\boxAlt.png" />
     <Resource Include="Sprites\Tiles\boxCoin.png" />
@@ -243,11 +239,8 @@
     <Resource Include="Sprites\Tiles\bridgeLogs.png" />
     <Resource Include="Sprites\Tiles\castle.png" />
     <Resource Include="Sprites\Tiles\castleCenter.png" />
-    <Resource Include="Sprites\Tiles\castleCenter_rounded.png" />
     <Resource Include="Sprites\Tiles\castleCliffLeft.png" />
-    <Resource Include="Sprites\Tiles\castleCliffLeftAlt.png" />
     <Resource Include="Sprites\Tiles\castleCliffRight.png" />
-    <Resource Include="Sprites\Tiles\castleCliffRightAlt.png" />
     <Resource Include="Sprites\Tiles\castleHalf.png" />
     <Resource Include="Sprites\Tiles\castleHalfLeft.png" />
     <Resource Include="Sprites\Tiles\castleHalfMid.png" />
@@ -256,8 +249,6 @@
     <Resource Include="Sprites\Tiles\castleHillLeft2.png" />
     <Resource Include="Sprites\Tiles\castleHillRight.png" />
     <Resource Include="Sprites\Tiles\castleHillRight2.png" />
-    <Resource Include="Sprites\Tiles\castleLedgeLeft.png" />
-    <Resource Include="Sprites\Tiles\castleLedgeRight.png" />
     <Resource Include="Sprites\Tiles\castleLeft.png" />
     <Resource Include="Sprites\Tiles\castleMid.png" />
     <Resource Include="Sprites\Tiles\castleRight.png" />
@@ -276,11 +267,10 @@
     <Resource Include="Sprites\Tiles\dirtHillLeft2.png" />
     <Resource Include="Sprites\Tiles\dirtHillRight.png" />
     <Resource Include="Sprites\Tiles\dirtHillRight2.png" />
-    <Resource Include="Sprites\Tiles\dirtLedgeLeft.png" />
-    <Resource Include="Sprites\Tiles\dirtLedgeRight.png" />
     <Resource Include="Sprites\Tiles\dirtLeft.png" />
     <Resource Include="Sprites\Tiles\dirtMid.png" />
     <Resource Include="Sprites\Tiles\dirtRight.png" />
+    <Resource Include="Sprites\Tiles\dirtTop.png" />
     <Resource Include="Sprites\Tiles\door_closedMid.png" />
     <Resource Include="Sprites\Tiles\door_closedTop.png" />
     <Resource Include="Sprites\Tiles\door_openMid.png" />
@@ -289,7 +279,6 @@
     <Resource Include="Sprites\Tiles\fenceBroken.png" />
     <Resource Include="Sprites\Tiles\grass.png" />
     <Resource Include="Sprites\Tiles\grassCenter.png" />
-    <Resource Include="Sprites\Tiles\grassCenter_rounded.png" />
     <Resource Include="Sprites\Tiles\grassCliffLeft.png" />
     <Resource Include="Sprites\Tiles\grassCliffLeftAlt.png" />
     <Resource Include="Sprites\Tiles\grassCliffRight.png" />
@@ -302,11 +291,10 @@
     <Resource Include="Sprites\Tiles\grassHillLeft2.png" />
     <Resource Include="Sprites\Tiles\grassHillRight.png" />
     <Resource Include="Sprites\Tiles\grassHillRight2.png" />
-    <Resource Include="Sprites\Tiles\grassLedgeLeft.png" />
-    <Resource Include="Sprites\Tiles\grassLedgeRight.png" />
     <Resource Include="Sprites\Tiles\grassLeft.png" />
     <Resource Include="Sprites\Tiles\grassMid.png" />
     <Resource Include="Sprites\Tiles\grassRight.png" />
+    <Resource Include="Sprites\Tiles\grassTop.png" />
     <Resource Include="Sprites\Tiles\hill_large.png" />
     <Resource Include="Sprites\Tiles\hill_largeAlt.png" />
     <Resource Include="Sprites\Tiles\hill_small.png" />
@@ -328,7 +316,6 @@
     <Resource Include="Sprites\Tiles\ropeVertical.png" />
     <Resource Include="Sprites\Tiles\sand.png" />
     <Resource Include="Sprites\Tiles\sandCenter.png" />
-    <Resource Include="Sprites\Tiles\sandCenter_rounded.png" />
     <Resource Include="Sprites\Tiles\sandCliffLeft.png" />
     <Resource Include="Sprites\Tiles\sandCliffLeftAlt.png" />
     <Resource Include="Sprites\Tiles\sandCliffRight.png" />
@@ -341,18 +328,16 @@
     <Resource Include="Sprites\Tiles\sandHillLeft2.png" />
     <Resource Include="Sprites\Tiles\sandHillRight.png" />
     <Resource Include="Sprites\Tiles\sandHillRight2.png" />
-    <Resource Include="Sprites\Tiles\sandLedgeLeft.png" />
-    <Resource Include="Sprites\Tiles\sandLedgeRight.png" />
     <Resource Include="Sprites\Tiles\sandLeft.png" />
     <Resource Include="Sprites\Tiles\sandMid.png" />
     <Resource Include="Sprites\Tiles\sandRight.png" />
+    <Resource Include="Sprites\Tiles\sandTop.png" />
     <Resource Include="Sprites\Tiles\sign.png" />
     <Resource Include="Sprites\Tiles\signExit.png" />
     <Resource Include="Sprites\Tiles\signLeft.png" />
     <Resource Include="Sprites\Tiles\signRight.png" />
     <Resource Include="Sprites\Tiles\snow.png" />
     <Resource Include="Sprites\Tiles\snowCenter.png" />
-    <Resource Include="Sprites\Tiles\snowCenter_rounded.png" />
     <Resource Include="Sprites\Tiles\snowCliffLeft.png" />
     <Resource Include="Sprites\Tiles\snowCliffLeftAlt.png" />
     <Resource Include="Sprites\Tiles\snowCliffRight.png" />
@@ -365,14 +350,12 @@
     <Resource Include="Sprites\Tiles\snowHillLeft2.png" />
     <Resource Include="Sprites\Tiles\snowHillRight.png" />
     <Resource Include="Sprites\Tiles\snowHillRight2.png" />
-    <Resource Include="Sprites\Tiles\snowLedgeLeft.png" />
-    <Resource Include="Sprites\Tiles\snowLedgeRight.png" />
     <Resource Include="Sprites\Tiles\snowLeft.png" />
     <Resource Include="Sprites\Tiles\snowMid.png" />
     <Resource Include="Sprites\Tiles\snowRight.png" />
+    <Resource Include="Sprites\Tiles\snowTop.png" />
     <Resource Include="Sprites\Tiles\stone.png" />
     <Resource Include="Sprites\Tiles\stoneCenter.png" />
-    <Resource Include="Sprites\Tiles\stoneCenter_rounded.png" />
     <Resource Include="Sprites\Tiles\stoneCliffLeft.png" />
     <Resource Include="Sprites\Tiles\stoneCliffLeftAlt.png" />
     <Resource Include="Sprites\Tiles\stoneCliffRight.png" />
@@ -381,13 +364,14 @@
     <Resource Include="Sprites\Tiles\stoneHalfLeft.png" />
     <Resource Include="Sprites\Tiles\stoneHalfMid.png" />
     <Resource Include="Sprites\Tiles\stoneHalfRight.png" />
+    <Resource Include="Sprites\Tiles\stoneHillLeft.png" />
     <Resource Include="Sprites\Tiles\stoneHillLeft2.png" />
+    <Resource Include="Sprites\Tiles\stoneHillRight.png" />
     <Resource Include="Sprites\Tiles\stoneHillRight2.png" />
-    <Resource Include="Sprites\Tiles\stoneLedgeLeft.png" />
-    <Resource Include="Sprites\Tiles\stoneLedgeRight.png" />
     <Resource Include="Sprites\Tiles\stoneLeft.png" />
     <Resource Include="Sprites\Tiles\stoneMid.png" />
     <Resource Include="Sprites\Tiles\stoneRight.png" />
+    <Resource Include="Sprites\Tiles\stoneTop.png" />
     <Resource Include="Sprites\Tiles\stoneWall.png" />
     <Resource Include="Sprites\Tiles\tochLit.png" />
     <Resource Include="Sprites\Tiles\tochLit2.png" />
