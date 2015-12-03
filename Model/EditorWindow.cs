@@ -12,7 +12,7 @@ namespace LevelEditor.Model
     public class EditorWindow : Canvas
     {
         public static Point MousePosition;
-        public readonly Editor Editor;
+        public Editor Editor;
 
         private double _scaleFactor;
         private Point _selectionPointStart;
@@ -21,10 +21,9 @@ namespace LevelEditor.Model
         private readonly List<Tile> _tempSelectedTileList;
         private readonly List<Tile> _tempTiles; 
 
-
-        public EditorWindow(Editor editor)
+        public EditorWindow()
         {
-            Editor = editor;
+            Editor = new Editor();
             _scaleFactor = 1;
             _tempSelectedTileList = new List<Tile>();
             _tempTiles = new List<Tile>();
@@ -46,14 +45,14 @@ namespace LevelEditor.Model
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
             AddHandler(UIElement.MouseLeftButtonUpEvent, (RoutedEventHandler)ClickEnd);
 
-            int mapWidth = editor.GetMapWidth();
-            int mapHeight = editor.GetMapHeight();
+            int mapWidth = Editor.GetMapWidth();
+            int mapHeight = Editor.GetMapHeight();
 
             for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
                 {
-                    Tile t = editor.GetTile(x, y);
+                    Tile t = Editor.GetTile(x, y);
                     Children.Add(t);
                     Canvas.SetTop(t, y * 32);
                     Canvas.SetLeft(t, x * 32);

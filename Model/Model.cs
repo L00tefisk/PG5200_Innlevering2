@@ -24,9 +24,6 @@ namespace LevelEditor.Model
         public WrapPanel TilePanel { get; set; }
 
         public ObservableCollection<Layer> Layers;
-        
-        private Editor _editor;
-        
 
         public Model()
         {
@@ -49,8 +46,7 @@ namespace LevelEditor.Model
                 tileButton.BorderThickness = new Thickness(0);
                 TilePanel.Children.Add(tileButton);
             }
-            _editor = new Editor();
-            MapView = new EditorWindow(_editor);
+            MapView = new EditorWindow();
 
             Layers = new ObservableCollection<Layer>();
 
@@ -59,12 +55,12 @@ namespace LevelEditor.Model
         private void Click(object sender, RoutedEventArgs e)
         {
             ((TileButton)TilePanel.Children[
-                _editor.SelectedTileId < ImgPaths.Count ? _editor.SelectedTileId : 0
+                MapView.Editor.SelectedTileId < ImgPaths.Count ? MapView.Editor.SelectedTileId : 0
             ]).Background = Brushes.Transparent;
 
             TileButton tileButton = (TileButton)sender;
             tileButton.Background = new SolidColorBrush(new Color { A = 50 });
-            _editor.SelectedTileId = ((TileButton)sender).TileId;
+            MapView.Editor.SelectedTileId = ((TileButton)sender).TileId;
         }
     }
 }
