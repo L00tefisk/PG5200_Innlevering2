@@ -86,7 +86,8 @@ namespace LevelEditor.ViewModel
         public ICommand MoveLayerUpCommmand { get; private set; }
         public ICommand MoveLayerDownCommmand { get; private set; }
         public ICommand UndoCommand { get; private set; }
-        //public ICommand RedoCommand { get; private set; }
+
+        public ICommand RedoCommand { get; private set; }
 
         private void CreateCommands()
         {
@@ -95,6 +96,7 @@ namespace LevelEditor.ViewModel
             MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
             MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
             UndoCommand = new RelayCommand(Undo);
+            RedoCommand = new RelayCommand(Redo);
         }
         #endregion
 
@@ -115,7 +117,12 @@ namespace LevelEditor.ViewModel
 
         private void Undo()
         {
-            LevelView.Undo();
+            LevelView.Editor.Undo();
+        }
+
+        private void Redo()
+        {
+            LevelView.Editor.Redo();
         }
         private void AddLayer()
         {

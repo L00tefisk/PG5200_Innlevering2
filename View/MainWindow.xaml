@@ -15,21 +15,19 @@
     DataContext="{Binding Main, Source={StaticResource Locator}}">
 
 
-    <Window.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand"/>
-        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand"/>
-        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand"/>
-        <CommandBinding Command="ApplicationCommands.SaveAs" Executed="SaveAsCommand"/>
-        <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand"/>
-        <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand"/>
-        <CommandBinding Command="ApplicationCommands.Cut" Executed="CutCommand"/>
-        <CommandBinding Command="ApplicationCommands.Copy" Executed="CopyCommand"/>
-        <CommandBinding Command="ApplicationCommands.Paste" Executed="PasteCommand"/>
-        <CommandBinding Command="view:CustomCommands.Exit" Executed="ExitCommand"/>
-        <!--<CommandBinding Command="view:CustomCommands.AddLayer" Executed="{Binding AddLayerCommand}"/>-->
-    
-    </Window.CommandBindings>
-    
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding NewCommand}"></KeyBinding>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenCommand}"></KeyBinding>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ExitCommand}"></KeyBinding>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}"></KeyBinding>
+        <KeyBinding Key="S" Modifiers="Ctrl + Alt" Command="{Binding SaveAsCommand}"></KeyBinding>
+        <KeyBinding Key="V" Modifiers="Ctrl" Command="{Binding PasteCommand}"></KeyBinding>
+        <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding CutCommand}"></KeyBinding>
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"></KeyBinding>
+        <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"></KeyBinding>
+        
+    </Window.InputBindings>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -52,12 +50,12 @@
 
         <Menu IsMainMenu="True" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="New">
+                <MenuItem Header="_New" InputGestureText="Ctrl+N" Command="{Binding NewCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/document-new.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open" Command="Open">
+                <MenuItem Header="_Open" InputGestureText="Ctrl+O" Command="{Binding OpenCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/document-open.png" />
                     </MenuItem.Icon>
@@ -68,53 +66,53 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="_Save" Command="Save">
+                <MenuItem Header="_Save" InputGestureText="Ctrl+S" Command="{Binding SaveCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/document-save.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Save _As" Command="SaveAs">
+                <MenuItem Header="Save _As" InputGestureText="Ctrl+Alt+S" Command="{Binding SaveAsCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/document-save-as.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="_Exit" Command="view:CustomCommands.Exit">
+                <MenuItem Header="_Exit" InputGestureText="Ctrl+Q" Command="{Binding ExitCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/process-stop.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            
+
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo" Command="Undo">
+                <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Command="{Binding UndoCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/edit-undo.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Redo" Command="Redo">
+                <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Command="{Binding RedoCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/edit-redo.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="_Cut" Command="Cut">
+                <MenuItem Header="_Cut" InputGestureText="Ctrl+X" Command="{Binding CutCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/edit-cut.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Copy" Command="Copy">
+                <MenuItem Header="_Copy" InputGestureText="Ctrl+C" Command="{Binding CopyCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/edit-copy.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Paste" Command="Paste">
+                <MenuItem Header="_Paste" InputGestureText="Ctrl+V" Command="{Binding PasteCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/edit-paste.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-
+            
             <MenuItem Header="_Layer">
                 <MenuItem Header="_Add Layer" Command="{Binding AddLayerCommand}">
                     <MenuItem.Icon>
@@ -172,7 +170,7 @@
                                 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsVisible}" Click="ButtonBase_OnClick"/>
+                                        <CheckBox IsChecked="{Binding IsVisible}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
