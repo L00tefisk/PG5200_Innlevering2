@@ -10,6 +10,6 @@
              DataContext="{Binding TileSelection, Source={StaticResource Locator}}" >
     
     <Border Background="SteelBlue">
-        <ScrollViewer Content="{Binding DynamicGrid}" Margin="10" Background="DodgerBlue"/>
+        <ScrollViewer Content="{Binding TilePanel}" Margin="10" Background="DodgerBlue"/>
     </Border>
 </UserControl>
