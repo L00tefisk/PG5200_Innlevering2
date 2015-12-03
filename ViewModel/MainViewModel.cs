@@ -18,88 +18,26 @@ namespace LevelEditor.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region Properties
-        private readonly Model.MainModel _mainModel;
+        public MainModel MainModel;
 
-        public EditorWindow LevelView
-        {
-            get
-            {
-                return _mainModel.MapView;
-            }
-            set
-            {
-                if (_mainModel.MapView != value)
-                {
-                    _mainModel.MapView = value;
-                    RaisePropertyChanged(() => LevelView);
-                }
-            }
-        }
+        
         public WrapPanel DynamicGrid
         {
             get
             {
-                return _mainModel.TilePanel;
+                return MainModel.TilePanel;
             }
             set
             {
-                if (_mainModel.TilePanel != value)
+                if (MainModel.TilePanel != value)
                 {
-                    _mainModel.TilePanel = value;
+                    MainModel.TilePanel = value;
                     RaisePropertyChanged(() => DynamicGrid);
                 }
             }
         }
-        public ObservableCollection<Layer> Layers
-        {
-            get { return _mainModel.Layers; }
-            set
-            {
-                if (_mainModel.Layers != value)
-                {
-                    _mainModel.Layers = value;
-                    RaisePropertyChanged(() => Layers);
-                }
-            }
-        }
-        public Layer SelectedLayer
-        {
-            get
-            {
-                return _selectedLayer;
-            }
-            set
-            {
-                if (_selectedLayer != value)
-                {
-                    _selectedLayer = value;
-                    RaisePropertyChanged(() => SelectedLayer);
-
-                    //MessageBox.Show(_selectedLayer.Name +" is "+_selectedLayer.IsVisisble);
-                }
-            }
-        }
-        private Layer _selectedLayer;
-
-        public ICommand AddLayerCommand { get; private set; }
-        public ICommand RemoveLayerCommand { get; private set; }
-        public ICommand MoveLayerUpCommmand { get; private set; }
-        public ICommand MoveLayerDownCommmand { get; private set; }
-        public ICommand UndoCommand { get; private set; }
-
-        public ICommand RedoCommand { get; private set; }
-        public ICommand ScrollChangedCommand { get; private set; }
-        private void CreateCommands()
-        {
-            AddLayerCommand = new RelayCommand(AddLayer);
-            RemoveLayerCommand = new RelayCommand(RemoveLayer, CanRemoveLayer);
-            MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
-            MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
-            UndoCommand = new RelayCommand(Undo);
-            RedoCommand = new RelayCommand(Redo);
-            ScrollChangedCommand = new RelayCommand(ScrollChanged);
-
-        }
+        
+        
         #endregion
 
         /// <summary>
@@ -109,74 +47,10 @@ namespace LevelEditor.ViewModel
         {
             //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
-            CreateCommands();
-            _mainModel = new MainModel();
-            AddLayer();
+            MainModel = new MainModel();
             
         }
 
-        private int layerIndexName = 1;
 
-        private void Undo()
-        {
-            LevelView.Editor.Undo();
-        }
-        private void ScrollChanged()
-        {
-            //if()
-        }
-
-        private void Redo()
-        {
-            LevelView.Editor.Redo();
-        }
-        private void AddLayer()
-        {
-            Layers.Add(new Layer("Layer " + layerIndexName));
-            layerIndexName++;
-            //SelectedLayer = Layers.Last();
-        }
-        private void RemoveLayer()
-        {
-            int i = Layers.IndexOf(SelectedLayer);
-            Layers.Remove(SelectedLayer);
-
-            if (i == Layers.Count)
-                SelectedLayer = Layers[i - 1];
-            else
-                SelectedLayer = Layers[i];
-
-        }
-        private void MoveLayerUp()
-        {
-            int i = Layers.IndexOf(SelectedLayer);
-
-            Layer temp = Layers[i - 1];
-            Layers[i - 1] = SelectedLayer;
-            Layers[i] = temp;
-
-            SelectedLayer = Layers[i - 1];
-        }
-        private void MoveLayerDown()
-        {
-            int i = Layers.IndexOf(SelectedLayer);
-            Layer temp = Layers[i + 1];
-            Layers[i + 1] = SelectedLayer;
-            Layers[i] = temp;
-
-            SelectedLayer = Layers[i + 1];
-        }
-        private bool CanRemoveLayer()
-        {
-            return Layers.Count > 1;
-        }
-        private bool CanMoveLayerDown()
-        { 
-            return Layers.IndexOf(SelectedLayer) < Layers.Count - 1;
-        }
-        private bool CanMoveLayerUp()
-        {
-            return Layers.IndexOf(SelectedLayer) >= 1;
-        }
     }
 }

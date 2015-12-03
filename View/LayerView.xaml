@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="LevelEditor.View.LayerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignWidth="200" d:DesignHeight="120"
+             
+    DataContext="{Binding Layer, Source={StaticResource Locator}}" >
+
+
+    <Grid Row="0" Margin="5, 0, 10, 0" Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto" MinHeight="25"/>
+        </Grid.RowDefinitions>
+
+        <ListView  Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
+                        <CheckBox IsChecked="{Binding IsLocked, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="20"  />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
+            <Button Width="23" Margin="2" ToolTip="Add Layer" Command="{Binding AddLayerCommand}" >
+                <Image Source="../Sprites/Icons/actions/list-add.png"/>
+            </Button>
+            <Button Width="23" Margin="2" ToolTip="Remove Layer" Command="{Binding RemoveLayerCommand}">
+                <Image Source="../Sprites/Icons/actions/list-remove.png"/>
+            </Button>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <Button Width="23" Margin="2" ToolTip="Move Layer Up" Command="{Binding MoveLayerUpCommmand}">
+                <Image Source="../Sprites/Icons/actions/go-up.png"/>
+            </Button>
+            <Button Width="23" Margin="2" ToolTip="Move Layer Down" Command="{Binding MoveLayerDownCommmand}">
+                <Image Source="../Sprites/Icons/actions/go-down.png"/>
+            </Button>
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <Button Width="23" Margin="2" ToolTip="Duplicate Layer">
+                <Image Source="../Sprites/Icons/apps/preferences-desktop-locale.png"/>
+            </Button>
+        </WrapPanel>
+    </Grid>
+
+</UserControl>

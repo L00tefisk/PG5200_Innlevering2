@@ -1,31 +1,118 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using LevelEditor.Model;
+using Microsoft.Practices.ServiceLocation;
 
 namespace LevelEditor.ViewModel
 {
-    public class LayerViewModel : Panel
+    public class LayerViewModel : ViewModelBase
     {
-        public ObservableCollection<Layer> Layers { get; set; }
+        public MainViewModel MainViewModel { get; set; }
 
-        private Layer _selectedItem;
+        public ObservableCollection<Layer> Layers
+        {
+            get { return MainViewModel.MainModel.Layers; }
+            set
+            {
+                if (MainViewModel.MainModel.Layers != value)
+                {
+                    MainViewModel.MainModel.Layers = value;
+                    RaisePropertyChanged(() => Layers);
+                }
+            }
+        }
+        Layer _selectedLayer { get; set; }
+        public Layer SelectedLayer
+        {
+            get
+            {
+                return _selectedLayer;
+            }
+            set
+            {
+                if (_selectedLayer != value)
+                {
+                    _selectedLayer = value;
+                    RaisePropertyChanged(() => SelectedLayer);
+
+                    //MessageBox.Show(_selectedLayer.Name +" is "+_selectedLayer.IsVisisble);
+                }
+            }
+        }
+
+        public ICommand AddLayerCommand { get; private set; }
+        public ICommand RemoveLayerCommand { get; private set; }
+        public ICommand MoveLayerUpCommmand { get; private set; }
+        public ICommand MoveLayerDownCommmand { get; private set; }
+
+        private void CreateCommands()
+        {
+            AddLayerCommand = new RelayCommand(AddLayer);
+            RemoveLayerCommand = new RelayCommand(RemoveLayer, CanRemoveLayer);
+            MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
+            MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
+        }
+
         public LayerViewModel()
         {
-            Layers = new ObservableCollection<Layer>();
+            CreateCommands();
+            MainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
 
-            for (int i = 0; i < 5; i++)
-                Layers.Add(new Layer("Layer "+i+1));
+            AddLayer();
+        }
 
-            //ItemsSource = Layers;
+        private int layerIndexName = 1;
+        private void AddLayer()
+        {
+            Layers.Add(new Layer("Layer " + layerIndexName));
+            layerIndexName++;
+            //SelectedLayer = Layers.Last();
+        }
+        private void RemoveLayer()
+        {
+            int i = Layers.IndexOf(SelectedLayer);
+            Layers.Remove(SelectedLayer);
 
-            //SelectedItem = Layers[0];
+            if (i == Layers.Count)
+                SelectedLayer = Layers[i - 1];
+            else
+                SelectedLayer = Layers[i];
 
-            //DisplayMemberPath = "Name";
-            foreach (Layer l in Layers)
-            {
-                
-            }
+        }
+        private void MoveLayerUp()
+        {
+            int i = Layers.IndexOf(SelectedLayer);
+
+            Layer temp = Layers[i - 1];
+            Layers[i - 1] = SelectedLayer;
+            Layers[i] = temp;
+
+            SelectedLayer = Layers[i - 1];
+        }
+        private void MoveLayerDown()
+        {
+            int i = Layers.IndexOf(SelectedLayer);
+            Layer temp = Layers[i + 1];
+            Layers[i + 1] = SelectedLayer;
+            Layers[i] = temp;
+
+            SelectedLayer = Layers[i + 1];
+        }
+        private bool CanRemoveLayer()
+        {
+            return Layers.Count > 1;
+        }
+        private bool CanMoveLayerDown()
+        {
+            return Layers.IndexOf(SelectedLayer) < Layers.Count - 1;
+        }
+        private bool CanMoveLayerUp()
+        {
+            return Layers.IndexOf(SelectedLayer) >= 1;
         }
     }
 

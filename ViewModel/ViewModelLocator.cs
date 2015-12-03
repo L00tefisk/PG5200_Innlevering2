@@ -17,6 +17,8 @@ namespace LevelEditor.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MapViewModel>();
+            SimpleIoc.Default.Register<LayerViewModel>();
         }
 
         /// <summary>
@@ -33,6 +35,21 @@ namespace LevelEditor.ViewModel
             }
         }
 
+        public MapViewModel Map
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MapViewModel>();
+            }
+        }
+
+        public LayerViewModel Layer
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LayerViewModel>();
+            }
+        }
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>

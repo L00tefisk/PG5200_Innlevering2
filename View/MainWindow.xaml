@@ -6,7 +6,6 @@
     xmlns:ignore="http://www.galasoft.ch/ignore"
     xmlns:vm="clr-namespace:LevelEditor.ViewModel"
     xmlns:view="clr-namespace:LevelEditor.View"
-    xmlns:local="clr-namespace:LevelEditor"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     mc:Ignorable="d ignore"
     Width="800"
@@ -146,15 +145,10 @@
             <MenuItem Header="_Help" />
         </Menu>
 
-        <ScrollViewer x:Name="LevelViewScrollViewer" Content="{Binding LevelView}" Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Visible">
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="ScrollChanged">
-                    <i:InvokeCommandAction Command="{Binding ScrollChangedCommand}" CommandParameter="{Binding ElementName=LevelViewScrollViewer}"></i:InvokeCommandAction>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ScrollViewer>
-            <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
+        <view:MapView Grid.Row="1" Grid.Column="0" />
+
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
 
         <Grid Grid.Column="2" Grid.Row="1" Background="WhiteSmoke">
             <Grid.RowDefinitions>
@@ -163,48 +157,14 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Grid Row="0" Margin="5, 0, 10, 0" Background="WhiteSmoke">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="Auto" MinHeight="25"/>
-                </Grid.RowDefinitions>
+            <view:LayerView/>
 
-                <ListView  Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
-                    <Button Width="23" Margin="2" ToolTip="Add Layer" Command="{Binding AddLayerCommand}" >
-                        <Image Source="../Sprites/Icons/actions/list-add.png"/>
-                    </Button>
-                    <Button Width="23" Margin="2" ToolTip="Remove Layer" Command="{Binding RemoveLayerCommand}">
-                        <Image Source="../Sprites/Icons/actions/list-remove.png"/>
-                    </Button>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                    <Button Width="23" Margin="2" ToolTip="Move Layer Up" Command="{Binding MoveLayerUpCommmand}">
-                        <Image Source="../Sprites/Icons/actions/go-up.png"/>
-                    </Button>
-                    <Button Width="23" Margin="2" ToolTip="Move Layer Down" Command="{Binding MoveLayerDownCommmand}">
-                        <Image Source="../Sprites/Icons/actions/go-down.png"/>
-                    </Button>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                    <Button Width="23" Margin="2" ToolTip="Duplicate Layer">
-                        <Image Source="../Sprites/Icons/apps/preferences-desktop-locale.png"/>
-                    </Button>
-                </WrapPanel>
-            </Grid>
-            
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
             <Border Background="SteelBlue" Grid.Row="2">
                 <ScrollViewer Content="{Binding DynamicGrid}" Margin="10" Background="DodgerBlue"/>
             </Border>
         </Grid>
+
     </Grid>
 </Window>
