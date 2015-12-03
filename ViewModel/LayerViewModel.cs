@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -63,6 +64,7 @@ namespace LevelEditor.ViewModel
             //MainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
 
             AddLayer();
+            SelectedLayer = Layers[0];
         }
 
         private int layerIndexName = 1;
@@ -70,7 +72,7 @@ namespace LevelEditor.ViewModel
         {
             Layers.Add(new Layer("Layer " + layerIndexName));
             layerIndexName++;
-            //SelectedLayer = Layers.Last();
+            SelectedLayer = Layers.Last();
         }
         private void RemoveLayer()
         {
