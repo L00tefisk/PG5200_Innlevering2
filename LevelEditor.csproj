@@ -99,7 +99,6 @@
     <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Editor.cs" />
     <Compile Include="Model\EditorWindow.cs" />
-    <Compile Include="Model\InputHandler.cs" />
     <Compile Include="Model\Layer.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Map.cs" />

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Command;
 
 namespace LevelEditor.Model
 {
@@ -45,7 +46,6 @@ namespace LevelEditor.Model
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
             AddHandler(UIElement.MouseLeftButtonUpEvent, (RoutedEventHandler)ClickEnd);
 
-            Random rng = new Random();
             int mapWidth = editor.GetMapWidth();
             int mapHeight = editor.GetMapHeight();
 
@@ -65,6 +65,7 @@ namespace LevelEditor.Model
             _selectionRect.Width = 32;
             _selectionRect.Height = 32;
             _selectionRect.Opacity = 0.5;
+            
         }
 
         private void Zoom(object sender, RoutedEventArgs e)
@@ -142,7 +143,7 @@ namespace LevelEditor.Model
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 // _tempSelectedTileList should always have atleast one element.
-                for (int i = 0; i < _tempSelectedTileList.Count; i++)
+                foreach (Tile t in _tempSelectedTileList)
                 {
                     int tilePositionY = (int)(MousePosition.Y + t.Y);
                     int tilePositionX = (int)(MousePosition.X + t.X);

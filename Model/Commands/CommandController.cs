@@ -5,45 +5,45 @@ namespace LevelEditor.Model.Commands
 {
     public class CommandController
     {
-        private readonly List<Command> commands;
-        private short currentCommand;
+        private readonly List<Command> _commands;
+        private short _currentCommand;
         public CommandController()
         {
-            commands = new List<Command>();
-            currentCommand = 0;
+            _commands = new List<Command>();
+            _currentCommand = 0;
         }
         /// <summary>
-        /// Adds a command to the list of commands and executes it
+        /// Adds a command to the list of _commands and executes it
         /// </summary>
         /// <param name="command">Command to execute</param>
         public void Add(Command command)
         {
-            if (currentCommand < commands.Count)
-                commands.RemoveRange(currentCommand, commands.Count - currentCommand);
-            commands.Insert(currentCommand, command);
+            if (_currentCommand < _commands.Count)
+                _commands.RemoveRange(_currentCommand, _commands.Count - _currentCommand);
+            _commands.Insert(_currentCommand, command);
             
             Execute();
         }
         public void Remove(Command command)
         {
-            commands.Remove(command);
+            _commands.Remove(command);
         }
         public void Execute()
         {
-            if (currentCommand < commands.Count)
+            if (_currentCommand < _commands.Count)
             {
-                commands[currentCommand].Execute();
-                currentCommand++;
+                _commands[_currentCommand].Execute();
+                _currentCommand++;
             }
 
         }
         public void Undo()
         {
-            if (commands.Count > 0 && currentCommand != 0)
+            if (_commands.Count > 0 && _currentCommand != 0)
             {
-                if(currentCommand > 0)
-                    currentCommand--;
-                commands[currentCommand].Undo();
+                if(_currentCommand > 0)
+                    _currentCommand--;
+                _commands[_currentCommand].Undo();
             }
         }
     }

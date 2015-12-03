@@ -88,7 +88,7 @@ namespace LevelEditor.ViewModel
         public ICommand UndoCommand { get; private set; }
 
         public ICommand RedoCommand { get; private set; }
-
+        public ICommand ScrollChangedCommand { get; private set; }
         private void CreateCommands()
         {
             AddLayerCommand = new RelayCommand(AddLayer);
@@ -97,6 +97,8 @@ namespace LevelEditor.ViewModel
             MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
             UndoCommand = new RelayCommand(Undo);
             RedoCommand = new RelayCommand(Redo);
+            ScrollChangedCommand = new RelayCommand(ScrollChanged);
+
         }
         #endregion
 
@@ -118,6 +120,10 @@ namespace LevelEditor.ViewModel
         private void Undo()
         {
             LevelView.Editor.Undo();
+        }
+        private void ScrollChanged()
+        {
+            //if()
         }
 
         private void Redo()
@@ -172,6 +178,5 @@ namespace LevelEditor.ViewModel
         {
             return Layers.IndexOf(SelectedLayer) >= 1;
         }
-
     }
 }

@@ -16,11 +16,11 @@ namespace LevelEditor.Model
         }
 
         public int SelectedTileId { get; set; }
-        private ImageSource[] _images;
+        private readonly ImageSource[] _images;
 
         private readonly Map _map;
-        public List<Selection> _selectedTiles;
-        private CommandController _commandController;
+        private List<Selection> _selectedTiles;
+        private readonly CommandController _commandController;
         private bool _removeTool;
 
         public Editor()
@@ -29,11 +29,13 @@ namespace LevelEditor.Model
             _selectedTiles = new List<Selection>();
             _images = new ImageSource[MainModel.ImgPaths.Count];
             _removeTool = false;
+
             for (int i = 0; i < MainModel.ImgPaths.Count; i++)
             {
                 _images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
                 _images[i].Freeze();
             }
+
             _map = new Map(100, 100);
             SelectedTileId = 0;
         }
