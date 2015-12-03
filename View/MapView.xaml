@@ -10,12 +10,19 @@
              
     DataContext="{Binding Map, Source={StaticResource Locator}}" >
     
-    <ScrollViewer x:Name="LevelViewScrollViewer" Content="{Binding LevelView}" Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Visible">
-        <i:Interaction.Triggers>
+    <UserControl.InputBindings>
+        <KeyBinding Key="V" Modifiers="Ctrl" Command="{Binding PasteCommand}"></KeyBinding>
+        <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding CutCommand}"></KeyBinding>
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"></KeyBinding>
+        <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"></KeyBinding>
+    </UserControl.InputBindings>
+    
+    <ScrollViewer Content="{Binding LevelView}">
+        <!--<i:Interaction.Triggers>
             <i:EventTrigger EventName="ScrollChanged">
                 <i:InvokeCommandAction Command="{Binding ScrollChangedCommand}" CommandParameter="{Binding ElementName=LevelViewScrollViewer}"></i:InvokeCommandAction>
             </i:EventTrigger>
-        </i:Interaction.Triggers>
+        </i:Interaction.Triggers>-->
     </ScrollViewer>
     
 </UserControl>

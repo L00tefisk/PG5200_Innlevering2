@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -14,18 +15,20 @@ namespace LevelEditor.ViewModel
     public class MapViewModel : ViewModelBase 
     {
         public MainViewModel MainViewModel { get; set; }
+        private ScrollViewer _scrollViewer;
+        private Canvas _mapCanvas;
 
         public EditorWindow LevelView
         {
             get
             {
-                return MainViewModel.MainModel.MapView;
+                return MainViewModel.Model.MapView;
             }
             set
             {
-                if (MainViewModel.MainModel.MapView != value)
+                if (MainViewModel.Model.MapView != value)
                 {
-                    MainViewModel.MainModel.MapView = value;
+                    MainViewModel.Model.MapView = value;
                     RaisePropertyChanged(() => LevelView);
                 }
             }
@@ -45,6 +48,9 @@ namespace LevelEditor.ViewModel
         {
             CreateCommands();
             MainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+            _scrollViewer = new ScrollViewer();
+            _mapCanvas = new Canvas();
+            _scrollViewer.Content = _mapCanvas;
 
         }
 
@@ -52,14 +58,10 @@ namespace LevelEditor.ViewModel
         {
             LevelView.Editor.Undo();
         }
-        private void ScrollChanged()
-        {
-            //if()
-        }
-
         private void Redo()
         {
             LevelView.Editor.Redo();
         }
+
     }
 }

@@ -27,12 +27,12 @@ namespace LevelEditor.Model
         {
             _commandController = new CommandController();
             _selectedTiles = new List<Selection>();
-            _images = new ImageSource[MainModel.ImgPaths.Count];
+            _images = new ImageSource[Model.ImgPaths.Count];
             _removeTool = false;
 
-            for (int i = 0; i < MainModel.ImgPaths.Count; i++)
+            for (int i = 0; i < Model.ImgPaths.Count; i++)
             {
-                _images[i] = new BitmapImage(new Uri(MainModel.ImgPaths[i], UriKind.Relative));
+                _images[i] = new BitmapImage(new Uri(Model.ImgPaths[i], UriKind.Relative));
                 _images[i].Freeze();
             }
 

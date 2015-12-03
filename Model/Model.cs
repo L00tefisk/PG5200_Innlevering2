@@ -9,8 +9,16 @@ using LevelEditor.Model.Commands;
 
 namespace LevelEditor.Model
 {
-    public class MainModel
+    public class Model
     {
+        private static Model _instance;
+
+        public static Model Instance
+        {
+            get { return _instance ?? (_instance = new Model()); }
+            set { _instance = value; }
+        }
+
         static public List<String> ImgPaths { get; set; }
         public EditorWindow MapView { get; set; }
         public WrapPanel TilePanel { get; set; }
@@ -20,7 +28,7 @@ namespace LevelEditor.Model
         private Editor _editor;
         
 
-        public MainModel()
+        public Model()
         {
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
             IOrderedQueryable<ImagePath> imagePaths =
