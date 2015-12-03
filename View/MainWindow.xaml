@@ -79,7 +79,7 @@
                 </MenuItem>
             </MenuItem>
 
-            <MenuItem Header="_Edit">
+            <MenuItem Header="_Edit" DataContext="{Binding Map, Source={StaticResource Locator}}">
                 <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Command="{Binding UndoCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/edit-undo.png" />
@@ -109,23 +109,23 @@
             </MenuItem>
 
             <MenuItem Header="_Layer" DataContext="{Binding Layer, Source={StaticResource Locator}}">
-                <MenuItem Header="_Add Layer" Command="{Binding AddLayerCommand}">
+                <MenuItem Header="_Add Layer" InputGestureText="Ctrl+Plus" Command="{Binding AddLayerCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/list-add.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Remove Layer" Command="{Binding RemoveLayerCommand}">
+                <MenuItem Header="_Remove Layer" InputGestureText="Ctrl+Minus" Command="{Binding RemoveLayerCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/list-remove.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Move Layer _Up" Command="{Binding MoveLayerUpCommmand}">
+                <MenuItem Header="Move Layer _Up" InputGestureText="Ctrl+Up Arrow" Command="{Binding MoveLayerUpCommmand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/go-up.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Move Layer Dow_n" Command="{Binding MoveLayerDownCommmand}">
+                <MenuItem Header="Move Layer Dow_n" InputGestureText="Ctrl+Down Arrow" Command="{Binding MoveLayerDownCommmand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/go-down.png"/>
                     </MenuItem.Icon>

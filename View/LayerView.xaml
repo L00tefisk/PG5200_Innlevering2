@@ -8,6 +8,14 @@
              
     DataContext="{Binding Layer, Source={StaticResource Locator}}" >
 
+    <UserControl.InputBindings>
+        <KeyBinding Key="OemPlus" Modifiers="Ctrl" Command="{Binding AddLayerCommand}"></KeyBinding>
+        <KeyBinding Key="OemMinus" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
+        <KeyBinding Key="Add" Modifiers="Ctrl" Command="{Binding AddLayerCommand}"></KeyBinding>
+        <KeyBinding Key="Subtract" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
+        <KeyBinding Key="Up" Modifiers="Ctrl" Command="{Binding MoveLayerUpCommmand}"></KeyBinding>
+        <KeyBinding Key="Down" Modifiers="Ctrl" Command="{Binding MoveLayerDownCommmand}"></KeyBinding>
+    </UserControl.InputBindings>
 
     <Grid Row="0" Margin="5, 0, 10, 0" Background="WhiteSmoke">
         <Grid.RowDefinitions>
