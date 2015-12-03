@@ -157,9 +157,8 @@
 
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-            <Border Background="SteelBlue" Grid.Row="2">
-                <ScrollViewer Content="{Binding DynamicGrid}" Margin="10" Background="DodgerBlue"/>
-            </Border>
+            <view:TileSelectionView Grid.Row="2"/>
+            
         </Grid>
 
     </Grid>

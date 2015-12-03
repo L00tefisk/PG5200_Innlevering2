@@ -19,6 +19,8 @@ namespace LevelEditor.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MapViewModel>();
             SimpleIoc.Default.Register<LayerViewModel>();
+            SimpleIoc.Default.Register<TileSelectionViewModel>();
+
         }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace LevelEditor.ViewModel
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public MapViewModel Map => ServiceLocator.Current.GetInstance<MapViewModel>();
         public LayerViewModel Layer => ServiceLocator.Current.GetInstance<LayerViewModel>();
+        public TileSelectionViewModel TileSelection => ServiceLocator.Current.GetInstance<TileSelectionViewModel>();
 
         /// <summary>
         /// Cleans up all the resources.

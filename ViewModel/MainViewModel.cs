@@ -23,22 +23,6 @@ namespace LevelEditor.ViewModel
 
         public LayerViewModel LayerViewModel { get; set; }
         
-        public WrapPanel DynamicGrid
-        {
-            get
-            {
-                return _mainModel.TilePanel;
-            }
-            set
-            {
-                if (_mainModel.TilePanel != value)
-                {
-                    _mainModel.TilePanel = value;
-                    RaisePropertyChanged(() => DynamicGrid);
-                }
-            }
-        }
-        
         
         #endregion
 

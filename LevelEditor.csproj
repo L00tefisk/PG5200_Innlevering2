@@ -105,6 +105,7 @@
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileButton.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\TileSelectionViewModel.cs" />
     <Compile Include="View\LayerView.xaml.cs">
       <DependentUpon>LayerView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +114,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TileSelectionView.xaml.cs">
+      <DependentUpon>TileSelectionView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\LayerView.xaml">
       <SubType>Designer</SubType>
@@ -137,6 +141,10 @@
     <Page Include="View\Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TileSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
