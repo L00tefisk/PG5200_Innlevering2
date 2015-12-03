@@ -62,9 +62,6 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
-
-        private Layer _selectedLayer;
-
         public Layer SelectedLayer
         {
             get
@@ -82,15 +79,14 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
-
-        #endregion
-        
-        #region Commands
+        private Layer _selectedLayer;
 
         public ICommand AddLayerCommand { get; private set; }
         public ICommand RemoveLayerCommand { get; private set; }
         public ICommand MoveLayerUpCommmand { get; private set; }
         public ICommand MoveLayerDownCommmand { get; private set; }
+        public ICommand UndoCommand { get; private set; }
+        //public ICommand RedoCommand { get; private set; }
 
         private void CreateCommands()
         {
@@ -98,6 +94,7 @@ namespace LevelEditor.ViewModel
             RemoveLayerCommand = new RelayCommand(RemoveLayer, CanRemoveLayer);
             MoveLayerUpCommmand = new RelayCommand(MoveLayerUp, CanMoveLayerUp);
             MoveLayerDownCommmand = new RelayCommand(MoveLayerDown, CanMoveLayerDown);
+            UndoCommand = new RelayCommand(Undo);
         }
         #endregion
 
@@ -115,13 +112,17 @@ namespace LevelEditor.ViewModel
         }
 
         private int layerIndexName = 1;
+
+        private void Undo()
+        {
+            LevelView.Undo();
+        }
         private void AddLayer()
         {
             Layers.Add(new Layer("Layer " + layerIndexName));
             layerIndexName++;
             //SelectedLayer = Layers.Last();
         }
-
         private void RemoveLayer()
         {
             int i = Layers.IndexOf(SelectedLayer);
@@ -133,7 +134,6 @@ namespace LevelEditor.ViewModel
                 SelectedLayer = Layers[i];
 
         }
-
         private void MoveLayerUp()
         {
             int i = Layers.IndexOf(SelectedLayer);
@@ -153,17 +153,14 @@ namespace LevelEditor.ViewModel
 
             SelectedLayer = Layers[i + 1];
         }
-
         private bool CanRemoveLayer()
         {
             return Layers.Count > 1;
         }
-
         private bool CanMoveLayerDown()
         { 
             return Layers.IndexOf(SelectedLayer) < Layers.Count - 1;
         }
-
         private bool CanMoveLayerUp()
         {
             return Layers.IndexOf(SelectedLayer) >= 1;

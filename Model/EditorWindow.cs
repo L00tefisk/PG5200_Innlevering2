@@ -39,9 +39,7 @@ namespace LevelEditor.Model
             Height = _editor.GetMapHeight() * _editor.GetTileSize();
 
            // AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)SelectBegin);
-           // &AddHandler(UIElement.MouseUpEvent, (RoutedEventHandler)SelectEnd);
-            
-            AddHandler(UIElement.MouseRightButtonDownEvent, (RoutedEventHandler)Undo);
+           // AddHandler(UIElement.MouseUpEvent, (RoutedEventHandler)SelectEnd);
 
             AddHandler(UIElement.MouseMoveEvent, (RoutedEventHandler)Click);
             AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
@@ -86,7 +84,7 @@ namespace LevelEditor.Model
             RenderTransform = new ScaleTransform(_scaleFactor, _scaleFactor, Mouse.GetPosition(this).X, Mouse.GetPosition(this).Y);
         }
 
-        private void Undo(object sender, RoutedEventArgs e)
+        public void Undo()
         {
             _editor.Undo();
         }
@@ -154,21 +152,21 @@ namespace LevelEditor.Model
                 {
                     if (_tempSelectedTileList.Count > 0)
                     {
-                    //    Point tileLocation = new Point();
-                    //    for (int i = 0; i < _tempSelectedTileList.Count; i++)
-                    //    {
-                    //        tileLocation.Y = (MousePosition.Y*32 + (_tempSelectedTileList[i].Y*32));
-                    //        tileLocation.X = (MousePosition.X*32 + (_tempSelectedTileList[i].X*32));
-                    //        _editor.SelectTile((int) tileLocation.X/32, (int) tileLocation.Y/32);
+                        Point tileLocation = new Point();
+                        for (int i = 0; i < _tempSelectedTileList.Count; i++)
+                        {
+                            tileLocation.Y = (MousePosition.Y * 32 + (_tempSelectedTileList[i].Y * 32));
+                            tileLocation.X = (MousePosition.X * 32 + (_tempSelectedTileList[i].X * 32));
+                            _editor.SelectTile((int)tileLocation.X / 32, (int)tileLocation.Y / 32);
 
-                    //        if (!Children.Contains(_tempSelectedTileList[i]))
-                    //        {
-                    //            _tempTiles.Add(_tempSelectedTileList[i]);
-                    //            Children.Add(_tempTiles[i]);
-                    //            SetTop(_tempTiles[i], _tempTiles[i].Y * 32);
-                    //            SetLeft(_tempTiles[i], _tempTiles[i].X * 32);
-                    //        }
-                    //    }
+                            if (!Children.Contains(_tempSelectedTileList[i]))
+                            {
+                                _tempTiles.Add(_tempSelectedTileList[i]);
+                                Children.Add(_tempTiles[i]);
+                                SetTop(_tempTiles[i], _tempTiles[i].Y * 32);
+                                SetLeft(_tempTiles[i], _tempTiles[i].X * 32);
+                            }
+                        }
                     }
                     else
                     {
