@@ -14,8 +14,6 @@ namespace LevelEditor.ViewModel
 {
     public class MapViewModel : ViewModelBase 
     {
-        public MainViewModel MainViewModel { get; set; }
-
         public EditorWindow LevelView
         {
             get
@@ -35,16 +33,17 @@ namespace LevelEditor.ViewModel
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
         public ICommand ScrollChangedCommand { get; private set; }
+
         private void CreateCommands()
         {
             UndoCommand = new RelayCommand(Undo);
             RedoCommand = new RelayCommand(Redo);
         }
 
+
         public MapViewModel()
         {
             CreateCommands();
-            MainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
         }
 
         private void Undo()

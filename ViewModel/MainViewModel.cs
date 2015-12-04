@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using LevelEditor.Model;
+using Microsoft.Practices.ServiceLocation;
 
 namespace LevelEditor.ViewModel
 {
@@ -17,15 +18,22 @@ namespace LevelEditor.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        #region Properties
 
         private Model.Model _mainModel { get; set; }
 
-        public LayerViewModel LayerViewModel { get; set; }
-        
-        
-        #endregion
+        public readonly LayerViewModel LayerViewModel;
+        public readonly MapViewModel MapViewModel;
+        public readonly TileSelectionViewModel TileSelectionViewModel;
 
+
+        public ICommand ExitCommand { get; set; }
+        public ICommand AddLayerCommand { get; private set; }
+
+        private void CreateCommands()
+        {
+            //AddLayerCommand = new RelayCommand(AddLayer);
+            ExitCommand = new RelayCommand(Exit);
+        }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -33,11 +41,20 @@ namespace LevelEditor.ViewModel
         {
             //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
+            LayerViewModel = ServiceLocator.Current.GetInstance<LayerViewModel>();
+            MapViewModel = ServiceLocator.Current.GetInstance<MapViewModel>();
+            TileSelectionViewModel = ServiceLocator.Current.GetInstance<TileSelectionViewModel>();
+
+            CreateCommands();
             _mainModel = Model.Model.Instance;
 
             
         }
 
+        private void Exit()
+        {
+            Application.Current.Shutdown();
+        }
 
     }
 }

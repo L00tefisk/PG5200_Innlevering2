@@ -10,8 +10,8 @@
 
     <UserControl.InputBindings>
         <KeyBinding Key="OemPlus" Modifiers="Ctrl" Command="{Binding AddLayerCommand}"></KeyBinding>
-        <KeyBinding Key="OemMinus" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
         <KeyBinding Key="Add" Modifiers="Ctrl" Command="{Binding AddLayerCommand}"></KeyBinding>
+        <KeyBinding Key="OemMinus" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
         <KeyBinding Key="Subtract" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
         <KeyBinding Key="Up" Modifiers="Ctrl" Command="{Binding MoveLayerUpCommmand}"></KeyBinding>
         <KeyBinding Key="Down" Modifiers="Ctrl" Command="{Binding MoveLayerDownCommmand}"></KeyBinding>
@@ -26,10 +26,10 @@
         <ListView  Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" >
+                    <StackPanel Orientation="Horizontal" Height="20" >
                         <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
-                        <CheckBox IsChecked="{Binding IsLocked, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="20" BorderThickness="0" />
+                        <CheckBox IsChecked="{Binding IsLocked, Mode=TwoWay}" Margin="0, 0, 5, 0"  VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="16" BorderThickness="0" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
