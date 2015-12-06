@@ -34,9 +34,9 @@
     
     <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="265" MinWidth="190"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20"/>

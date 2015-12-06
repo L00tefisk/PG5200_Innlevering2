@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -126,14 +128,109 @@ namespace LevelEditor.Model
         }
         private void ClickEnd(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < _tempTiles.Count; i++)
+            foreach (Tile t in _tempTiles)
             {
-                Editor.SelectTile(_tempTiles[i].X, _tempTiles[i].Y);
-                Children.Remove(_tempTiles[i]);
+                Editor.SelectTile(t.X, t.Y);
+                Children.Remove(t);
             }
-            _tempTiles.Clear();
             Editor.PerformAction();
+            placeTiles(_tempTiles);
+            _tempTiles.Clear();
         }
+
+        private void placeTiles(List<Tile> tiles)
+        {
+            bool tileOver = false,
+                 tileUnder = false,
+                 tileLeft = false,
+                 tileRight = false;
+
+            LinkedList<Tile> visitedList = new LinkedList<Tile>();
+            Queue<Tile> toDoList = new Queue<Tile>();
+
+            foreach (Tile t in tiles)
+            {
+                toDoList.Enqueue(t);
+                visitedList.AddLast(t);
+            }
+
+            Tile tempTile = null;
+
+            while (toDoList.Count > 0)
+            {
+                Tile t = toDoList.Dequeue();
+                visitedList.AddLast(t);
+
+                for (int i = 1; i <= 4; i++)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            tempTile = Editor.GetTile(t.X, t.Y - 1);
+                            tileOver = tempTile?.Source != null;
+                            break;
+                        case 2:
+                            tempTile = Editor.GetTile(t.X, t.Y + 1);
+                            tileUnder = tempTile?.Source != null;
+                            break;
+                        case 3:
+                            tempTile = Editor.GetTile(t.X - 1, t.Y);
+                            tileLeft = tempTile?.Source != null;
+                            break;
+                        case 4:
+                            tempTile = Editor.GetTile(t.X + 1, t.Y);
+                            tileRight = tempTile?.Source != null;
+                            break;
+                    }
+                    if (tempTile?.Source != null)
+                    {
+                        if (!visitedList.Contains(tempTile))
+                            toDoList.Enqueue(tempTile);
+                    }
+                }
+
+                if (tileOver)
+                {
+                    t.Id = getImageId("grassCenter");
+                }
+                else
+                {
+                    if (tileLeft)
+                    {
+                        if (tileRight)
+                            t.Id = getImageId("grassMid");
+                        else if (tileUnder)
+                            t.Id = getImageId("grassRight");
+                        else
+                            t.Id = getImageId("grassCliffRight");
+                    } else if (!tileUnder)
+                    {
+                        if (tileRight)
+                            t.Id = getImageId("grassCliffLeft");
+                        else
+                            t.Id = getImageId("grass");
+                    }
+                    else if (!tileRight)
+                        t.Id = getImageId("grassTop");
+                    else
+                        t.Id = getImageId("grassLeft");
+
+                }
+                Editor.SetTile(t.X, t.Y, t.Id);
+
+            }
+        }
+        private int getImageId(string name)
+        {
+            for (int i = 0; i < Model.ImgPaths.Count; i++)
+            {
+                if (Model.ImgPaths[i].Contains(name))
+                    return i;
+            }
+            return -1;
+        } 
+
+
         private void Click(object sender, RoutedEventArgs e)
         {
             MousePosition.X = (ushort)(Math.Floor(Mouse.GetPosition(this).X / 32));
@@ -187,7 +284,7 @@ namespace LevelEditor.Model
                         Canvas.SetTop(t, MousePosition.Y * 32 + (t.Y * 32));
                         Canvas.SetLeft(t, MousePosition.X * 32 + (t.X * 32));
                         if (_tempSelectedTileList[0].Id != Editor.SelectedTileId)
-                            t.ChangeTile(Editor.GetSelectedTileImage());
+                            Editor.SetTile(t.X, t.Y, Editor.SelectedTileId);
                     }
                 }
                 Canvas.SetTop(_selectionRect, MousePosition.Y * 32);

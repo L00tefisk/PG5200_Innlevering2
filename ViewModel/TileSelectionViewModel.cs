@@ -48,27 +48,37 @@ namespace LevelEditor.ViewModel
 
             foreach (ImagePath ip in imagePaths)
             {
-                TileButton tileButton = new TileButton((ushort)(ip.Id - 1), ip.Description); // -1 because Eivind ruined the database
+                if (ip.Description.Contains("Grass"))
+                {
+                    TileButton tileButton = new TileButton((ushort) (ip.Id - 1), ip.Description);
+                        // -1 because Eivind ruined the database
 
-                tileButton.Background = Brushes.Transparent;
-                tileButton.BorderThickness = new Thickness(0);
+                    tileButton.Background = Brushes.Transparent;
+                    tileButton.BorderThickness = new Thickness(0);
 
-                tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)SelectTile);
-                tileButton.Click += SelectTile;
-                TilePanel.Children.Add(tileButton);
+                    tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler) SelectTile);
+                    tileButton.Click += SelectTile;
+                    TilePanel.Children.Add(tileButton);
+                }
             }
 
         }
 
         private void SelectTile(object sender, RoutedEventArgs e)
         {
-            ((TileButton)TilePanel.Children[
-                _model.MapView.Editor.SelectedTileId < Model.Model.ImgPaths.Count ? _model.MapView.Editor.SelectedTileId : 0
-            ]).Background = Brushes.Transparent;
-
             TileButton tileButton = (TileButton)sender;
-            tileButton.Background = new SolidColorBrush(new System.Windows.Media.Color { A = 50 });
-            _model.MapView.Editor.SelectedTileId = ((TileButton)sender).TileId;
+
+            //Remove background from previously selected tile
+            foreach (TileButton t in TilePanel.Children)
+            {
+                if (t.Equals(_model.MapView.Editor.SelectedTileId))
+                {
+                    t.Background = Brushes.Transparent;
+                    break;
+                }
+            }
+            _model.MapView.Editor.SelectedTileId = tileButton.TileId;
+            tileButton.Background = new SolidColorBrush(new Color { A = 50 });
         }
     }
 }

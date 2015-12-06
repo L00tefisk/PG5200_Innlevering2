@@ -21,7 +21,6 @@ namespace LevelEditor.Model
 
         static public List<String> ImgPaths { get; set; }
         public EditorWindow MapView { get; set; }
-        public WrapPanel TilePanel { get; set; }
 
         public ObservableCollection<Layer> Layers;
 
@@ -31,36 +30,17 @@ namespace LevelEditor.Model
             IOrderedQueryable<ImagePath> imagePaths =
                 (from a in db.ImagePaths orderby a.Id select a);
             db.Connection.Close();
-
-            TilePanel = new WrapPanel();
+            
             ImgPaths = new List<string>();
 
             foreach (ImagePath ip in imagePaths)
             {
                 ImgPaths.Add("../../" + ip.Path);
-                TileButton tileButton = new TileButton((ushort)(ip.Id-1), ip.Description); // -1 because Eivind ruined the database
-
-                tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Click);
-                tileButton.Click += new RoutedEventHandler(Click);
-                tileButton.Background = Brushes.Transparent;
-                tileButton.BorderThickness = new Thickness(0);
-                TilePanel.Children.Add(tileButton);
             }
             MapView = new EditorWindow();
 
             Layers = new ObservableCollection<Layer>();
 
-        }
-
-        private void Click(object sender, RoutedEventArgs e)
-        {
-            ((TileButton)TilePanel.Children[
-                MapView.Editor.SelectedTileId < ImgPaths.Count ? MapView.Editor.SelectedTileId : 0
-            ]).Background = Brushes.Transparent;
-
-            TileButton tileButton = (TileButton)sender;
-            tileButton.Background = new SolidColorBrush(new Color { A = 50 });
-            MapView.Editor.SelectedTileId = ((TileButton)sender).TileId;
         }
     }
 }

@@ -19,10 +19,13 @@ namespace LevelEditor.Model.Commands
             _oldList.AddRange(selectionList);
 
             Editor.Selection selection;
+
             for (int i = 0; i < selectionList.Count; i++)
             {
                 selection = selectionList[i];
-                selection.Id = _editor.GetTile(selectionList[i].X, selectionList[i].Y).Id;
+                Tile t = editor.GetTile(selectionList[i].X, selectionList[i].Y);
+                if (t != null)
+                    selection.Id = t.Id;
                 _oldList[i] = selection;
             }
         }

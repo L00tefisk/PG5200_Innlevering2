@@ -21,9 +21,12 @@ namespace LevelEditor.Model
             Random randomId = new Random();
             for (int i = 0; i < height * width; i++)
             {
-                _level[i] = new Tile(null, i, i / width, int.MaxValue);
+                _level[i] = new Tile(null, (i - (i / width) * width) , i / width, int.MaxValue);
             }
             _tileSize = 32;
+
+            // index = y * width + x
+            // x = index / y ' width
         }
         /// <summary>
         /// Set tile in the level

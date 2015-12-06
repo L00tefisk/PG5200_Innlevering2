@@ -10,6 +10,13 @@
              DataContext="{Binding TileSelection, Source={StaticResource Locator}}" >
     
     <Border Background="SteelBlue">
-        <ScrollViewer Content="{Binding TilePanel}" Margin="10" Background="DodgerBlue"/>
+        <TabControl Margin="10" x:Name="tabControl">
+            <TabItem Header="TabItem">
+                <ScrollViewer Content="{Binding TilePanel}" Background="DodgerBlue"/>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Border>
 </UserControl>

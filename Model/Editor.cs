@@ -65,14 +65,20 @@ namespace LevelEditor.Model
         }
         public Tile GetTile(int x, int y)
         {
-            return _map.GetTile(x, y);
+            if (x >= 0 && _map.Width > x && y >= 0 && _map.Width > y)
+                return _map.GetTile(x, y);
+            else
+                return null;
         }
         public void SetTile(int x, int y, int id)
         {
-            if(id >= _images.Length || id < 0 )
-                _map.SetTile(x, y, int.MaxValue, null);
-            else
-                _map.SetTile(x, y, id, _images[id]);
+            if (x >= 0 && _map.Width > x && y >= 0 && _map.Width > y)
+            {
+                if (id >= _images.Length || id < 0)
+                    _map.SetTile(x, y, int.MaxValue, null);
+                else
+                    _map.SetTile(x, y, id, _images[id]);
+            }
 
         }
         /// <summary>
