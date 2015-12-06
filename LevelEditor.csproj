@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Sprites\Icons\visible.png" />
     <Resource Include="Sprites\Tiles\box.png" />
     <Resource Include="Sprites\Tiles\boxAlt.png" />
     <Resource Include="Sprites\Tiles\boxCoin.png" />
@@ -578,6 +579,7 @@
     <Resource Include="Sprites\Icons\places\user-desktop.png" />
     <Resource Include="Sprites\Icons\places\user-home.png" />
     <Resource Include="Sprites\Icons\places\user-trash.png" />
+    <Resource Include="Sprites\Icons\locked.png" />
     <Content Include="Sprites\Icons\scalable\actions\address-book-new.svg" />
     <Content Include="Sprites\Icons\scalable\actions\appointment-new.svg" />
     <Content Include="Sprites\Icons\scalable\actions\bookmark-new.svg" />

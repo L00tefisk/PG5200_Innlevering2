@@ -13,29 +13,35 @@
         <KeyBinding Key="Add" Modifiers="Ctrl" Command="{Binding AddLayerCommand}"></KeyBinding>
         <KeyBinding Key="OemMinus" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
         <KeyBinding Key="Subtract" Modifiers="Ctrl" Command="{Binding RemoveLayerCommand}"></KeyBinding>
-        <KeyBinding Key="Up" Modifiers="Ctrl" Command="{Binding MoveLayerUpCommmand}"></KeyBinding>
-        <KeyBinding Key="Down" Modifiers="Ctrl" Command="{Binding MoveLayerDownCommmand}"></KeyBinding>
+        <!-- No hotkeys for moving layer up because the arrow keybinds get overridden-->
     </UserControl.InputBindings>
 
-    <Grid Row="0" Margin="5, 0, 10, 0" Background="WhiteSmoke">
+    <Grid Row="0"  Background="WhiteSmoke">
         <Grid.RowDefinitions>
+            <RowDefinition Height="16"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="Auto" MinHeight="25"/>
         </Grid.RowDefinitions>
 
-        <ListView  Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}">
+        <StackPanel  Grid.Row="0" Orientation="Horizontal" Background="LightGray">
+            <Image Source="../Sprites/Icons/visible.png" Height="14" Margin="7, 2, 1, 2"/>
+            <Image Source="../Sprites/Icons/locked.png"  Height="14" Margin="2"/>
+        </StackPanel>
+
+        <ListView  Grid.Row="1" ItemsSource="{Binding Layers}" SelectedItem="{Binding SelectedLayer}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="20" >
-                        <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" Margin="0, 0, 2, 0"  VerticalAlignment="Center"/>
-                        <CheckBox IsChecked="{Binding IsLocked, Mode=TwoWay}" Margin="0, 0, 5, 0"  VerticalAlignment="Center"/>
+                        <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}" ToolTip="Visible" Margin="-1, 0, 2, 0"  VerticalAlignment="Center">
+                        </CheckBox>
+                        <CheckBox IsChecked="{Binding IsLocked, Mode=TwoWay}" ToolTip="Locked" Margin="0, 0, 5, 0"  VerticalAlignment="Center"/>
                         <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="16" BorderThickness="0" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <WrapPanel  Background="WhiteSmoke" Grid.Row="1">
+        <WrapPanel  Background="WhiteSmoke" Grid.Row="2">
             <Button Width="23" Margin="2" ToolTip="Add Layer" Command="{Binding AddLayerCommand}" >
                 <Image Source="../Sprites/Icons/actions/list-add.png"/>
             </Button>
