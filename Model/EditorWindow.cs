@@ -140,6 +140,111 @@ namespace LevelEditor.Model
 
         private void placeTiles(List<Tile> tiles)
         {
+            Queue<Tile> toDoList = new Queue<Tile>();
+            
+            foreach (Tile t in tiles)
+            {
+                if (!toDoList.Contains(t))
+                    toDoList.Enqueue(t);
+
+                for (int i = 1; i <= 4; i++)
+                {
+                    Tile tempTile = null;
+
+                    switch (i)
+                    {
+                        case 1:
+                            tempTile = Editor.GetTile(t.X, t.Y - 1);
+                            break;
+                        case 2:
+                            tempTile = Editor.GetTile(t.X, t.Y + 1);
+                            break;
+                        case 3:
+                            tempTile = Editor.GetTile(t.X - 1, t.Y);
+                            break;
+                        case 4:
+                            tempTile = Editor.GetTile(t.X + 1, t.Y);
+                            break;
+                    }
+                    if (tempTile?.Source != null)
+                    {
+                        if (!toDoList.Contains(tempTile))
+                            toDoList.Enqueue(tempTile);
+                    }
+                }
+
+            }
+            
+            while (toDoList.Count > 0)
+            {
+                bool tileOver = false,
+                 tileUnder = false,
+                 tileLeft = false,
+                 tileRight = false;
+
+                Tile t = toDoList.Dequeue();
+
+                for (int i = 1; i <= 4; i++)
+                {
+                    Tile tempTile = null;
+
+                    switch (i)
+                    {
+                        case 1:
+                            tempTile = Editor.GetTile(t.X, t.Y - 1);
+                            tileOver = tempTile?.Source != null;
+                            break;
+                        case 2:
+                            tempTile = Editor.GetTile(t.X, t.Y + 1);
+                            tileUnder = tempTile?.Source != null;
+                            break;
+                        case 3:
+                            tempTile = Editor.GetTile(t.X - 1, t.Y);
+                            tileLeft = tempTile?.Source != null;
+                            break;
+                        case 4:
+                            tempTile = Editor.GetTile(t.X + 1, t.Y);
+                            tileRight = tempTile?.Source != null;
+                            break;
+                    }
+                }
+
+
+                if (tileOver)
+                {
+                    t.Id = getImageId("grassCenter");
+                }
+                else
+                {
+                    if (tileLeft)
+                    {
+                        if (tileRight)
+                            t.Id = getImageId("grassMid");
+                        else if (tileUnder)
+                            t.Id = getImageId("grassRight");
+                        else
+                            t.Id = getImageId("grassCliffRight");
+                    }
+                    else if (!tileUnder)
+                    {
+                        if (tileRight)
+                            t.Id = getImageId("grassCliffLeft");
+                        else
+                            t.Id = getImageId("grass");
+                    }
+                    else if (!tileRight)
+                        t.Id = getImageId("grassTop");
+                    else
+                        t.Id = getImageId("grassLeft");
+
+                }
+                Editor.SetTile(t.X, t.Y, t.Id);
+
+            }
+        }
+
+        private void placeTiles_old(List<Tile> tiles)
+        {
             bool tileOver = false,
                  tileUnder = false,
                  tileLeft = false,
@@ -220,6 +325,7 @@ namespace LevelEditor.Model
 
             }
         }
+
         private int getImageId(string name)
         {
             for (int i = 0; i < Model.ImgPaths.Count; i++)

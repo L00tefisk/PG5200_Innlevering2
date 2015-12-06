@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace LevelEditor.Model
 {
     [Serializable]
-    public class Tile : Image
+    public class Tile : Image, IEquatable<Tile>
     {
         public readonly int X;
         public readonly int Y;
@@ -20,6 +20,12 @@ namespace LevelEditor.Model
             Width = 32;
             Height = 32;
             Source = image;
+        }
+
+
+        public bool Equals(Tile other)
+        {
+            return X == other.X && Y == other.Y;
         }
     }
 }
