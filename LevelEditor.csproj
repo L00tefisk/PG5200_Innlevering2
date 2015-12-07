@@ -243,6 +243,12 @@
     <Folder Include="Sprites\Tiles\Decoration\Objects\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Sprites\Tiles\Terrain\Dirt\HalfCenter.png" />
+    <Resource Include="Sprites\Tiles\Terrain\Grass\HalfCenter.png" />
+    <Resource Include="Sprites\Tiles\Terrain\Sand\HalfCenter.png" />
+    <Resource Include="Sprites\Tiles\Terrain\Snow\HalfCenter.png" />
+    <Resource Include="Sprites\Tiles\Terrain\Stone\HalfCenter.png" />
+    <Resource Include="Sprites\Tiles\Terrain\Castle\HalfCenter.png" />
     <Resource Include="Sprites\Tiles\Terrain\Castle\Center.png" />
     <Resource Include="Sprites\Tiles\Terrain\Castle\CliffLeft.png" />
     <Resource Include="Sprites\Tiles\Terrain\Castle\CliffRight.png" />
