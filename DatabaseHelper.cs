@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 
@@ -29,20 +30,27 @@ namespace LevelEditor
             {
                 string path = "../../Sprites/Tiles/";
 
-                foreach (string f in System.IO.Directory.GetFiles(path))
-                {
-                    //string filename = f.Substring(path.Length - 1, f.Length - 4);
-                    string filename = f.Substring(path.Length, f.Length - 4 - path.Length);
-                    //-4 to remove file extension
-                    string description = splitWord(filename);
 
-                    db.ImagePaths.InsertOnSubmit(
-                        new ImagePath()
+                foreach (string subfolder1 in System.IO.Directory.GetDirectories(path))
+                {
+                    foreach (string subfolder2 in System.IO.Directory.GetDirectories(subfolder1+"/"))
+                    {
+                        foreach (string f in System.IO.Directory.GetFiles(subfolder2+"/"))
                         {
-                            Path = f.Substring(6),
-                            Description = description
+                            string filename = f.Substring(subfolder2.Length+1, f.Length - 5 - subfolder2.Length);
+                            //-5 to remove file extension
+
+                            string description = System.IO.Directory.GetParent(f).Name +" " + splitWord(filename);
+
+                            db.ImagePaths.InsertOnSubmit(
+                                new ImagePath()
+                                {
+                                    Path = f.Substring(6),
+                                    Description = description
+                                }
+                                );
                         }
-                    );
+                    }
                 }
                 db.SubmitChanges();
             }
