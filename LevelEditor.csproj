@@ -239,10 +239,57 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Sprites\Tiles\Decoration\Objects\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Sprites\Tiles\Decoration\Objects\box.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxAlt.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxCoin.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxCoinAlt.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxCoinAlt_disabled.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxCoin_disabled.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxEmpty.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxExplosive.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxExplosiveAlt.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxExplosive_disabled.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxItem.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxItemAlt.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxItemAlt_disabled.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxItem_disabled.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\boxWarning.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\brickWall.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\bridge.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\bridgeLogs.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\door_closedMid.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\door_closedTop.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\door_openMid.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\door_openTop.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\fence.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\fenceBroken.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\hill_large.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\hill_largeAlt.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\hill_small.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\hill_smallAlt.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\ladder_mid.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\ladder_top.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\liquidLava.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\liquidLavaTop_mid.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\liquidWater.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\liquidWaterTop_mid.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\lock_blue.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\lock_green.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\lock_red.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\lock_yellow.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\ropeAttached.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\ropeHorizontal.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\ropeVertical.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\sign.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\signExit.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\signLeft.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\signRight.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\tochLit.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\tochLit2.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\torch.png" />
+    <Resource Include="Sprites\Tiles\Decoration\Objects\window.png" />
     <Resource Include="Sprites\Tiles\Terrain\Dirt\HalfCenter.png" />
     <Resource Include="Sprites\Tiles\Terrain\Grass\HalfCenter.png" />
     <Resource Include="Sprites\Tiles\Terrain\Sand\HalfCenter.png" />
