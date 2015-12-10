@@ -11,11 +11,11 @@
     
     <Border Background="SteelBlue">
         <TabControl Margin="10" x:Name="tabControl">
-            <TabItem Header="TabItem">
+            <TabItem Header="Terrain">
                 <ScrollViewer Content="{Binding TilePanel}" Background="DodgerBlue"/>
             </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Decorations">
+                <ScrollViewer Content="{Binding DecorationPanel}" Background="DodgerBlue"/>
             </TabItem>
         </TabControl>
     </Border>
