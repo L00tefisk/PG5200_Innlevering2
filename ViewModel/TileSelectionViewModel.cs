@@ -48,17 +48,20 @@ namespace LevelEditor.ViewModel
 
             foreach (ImagePath ip in imagePaths)
             {
-                if (ip.Description.Contains("Grass"))
+                if (ip.Path.Contains("/Terrain/"))
                 {
-                    TileButton tileButton = new TileButton((ushort) (ip.Id - 1), ip.Description);
+                    if (ip.Description.Contains("Mid") || (ip.Description.Contains("Hill Left") &! ip.Description.Contains("Corner")))
+                    {
+                        TileButton tileButton = new TileButton((ushort) (ip.Id - 1), ip.Description);
                         // -1 because Eivind ruined the database
 
-                    tileButton.Background = Brushes.Transparent;
-                    tileButton.BorderThickness = new Thickness(0);
+                        tileButton.Background = Brushes.Transparent;
+                        tileButton.BorderThickness = new Thickness(0);
 
-                    tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler) SelectTile);
-                    tileButton.Click += SelectTile;
-                    TilePanel.Children.Add(tileButton);
+                        tileButton.AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler) SelectTile);
+                        tileButton.Click += SelectTile;
+                        TilePanel.Children.Add(tileButton);
+                    }
                 }
             }
 

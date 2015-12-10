@@ -81,6 +81,17 @@ namespace LevelEditor.Model
             }
 
         }
+        public void SetTile(Tile t)
+        {
+            if (t.X >= 0 && _map.Width > t.X && t.Y >= 0 && _map.Width > t.Y)
+            {
+                if (t.Id >= _images.Length || t.Id < 0)
+                    _map.SetTile(t.X, t.Y, int.MaxValue, null);
+                else
+                    _map.SetTile(t.X, t.Y, t.Id, _images[t.Id]);
+            }
+
+        }
         /// <summary>
         /// Redoes an action if there is one to redo.
         /// </summary>

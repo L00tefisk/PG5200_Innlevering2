@@ -21,10 +21,19 @@ namespace LevelEditor.Model
         private Point _selectionPointEnd;
         private readonly Rectangle _selectionRect;
         private readonly List<Tile> _tempSelectedTileList;
-        private readonly List<Tile> _tempTiles; 
+        private readonly List<Tile> _tempTiles;
+
+        private LevelEditorDatabaseDataContext db;
+        private readonly List<ImagePath> imagePaths;
 
         public EditorWindow()
         {
+            db = new LevelEditorDatabaseDataContext();
+            imagePaths =
+                (from a in db.ImagePaths orderby a.Id select a).ToList();
+            db.Connection.Close();
+
+
             Editor = new Editor();
             _scaleFactor = 1;
             _tempSelectedTileList = new List<Tile>();
@@ -140,10 +149,13 @@ namespace LevelEditor.Model
 
         private void placeTiles(List<Tile> tiles)
         {
+
+
             Queue<Tile> toDoList = new Queue<Tile>();
-            
             foreach (Tile t in tiles)
             {
+                if (getTileType(t) == "Object") continue;
+                
                 if (!toDoList.Contains(t))
                     toDoList.Enqueue(t);
 
@@ -177,71 +189,131 @@ namespace LevelEditor.Model
             
             while (toDoList.Count > 0)
             {
-                bool tileOver = false,
-                 tileUnder = false,
-                 tileLeft = false,
-                 tileRight = false;
-
                 Tile t = toDoList.Dequeue();
+
+                string type = getTileType(t);
+
+                if (type != "Object")
+                {
+                    if (imagePaths[t.Id].Description.Contains("Half"))
+                        placeHalf(t, type);
+                    else
+                        placeSolidTerrain(t, type);
+                    
+                }
+                
+                Editor.SetTile(t.X, t.Y, t.Id);
+            }
+        }
+
+        private void placeHalf(Tile t, string tiletype)
+        {
+            string type = tiletype + " Half";
+            bool tileOver = false,
+                tileLeft = false,
+                tileRight = false;
+
+
+            for (int i = 1; i <= 3; i++)
+            {
+                switch (i)
+                {
+                    case 1:
+                        tileOver = Editor.GetTile(t.X, t.Y - 1)?.Source != null;
+                        break;
+                    case 2:
+                        tileLeft = Editor.GetTile(t.X - 1, t.Y)?.Source != null;
+                        break;
+                    case 3:
+                        tileRight = Editor.GetTile(t.X + 1, t.Y)?.Source != null;
+                        break;
+                }
+            }
+
+            if (tileOver)
+            {
+                t.Id = getImageId(type + " Center");
+            }
+            else
+            {
+                if (tileLeft)
+                {
+                    if (tileRight)
+                        t.Id = getImageId(type + " Mid");
+                    else
+                        t.Id = getImageId(type + " Right");
+                }
+                else if (tileRight)
+                {
+                    t.Id = getImageId(type + " Left");
+                }
+                else
+                {
+                    t.Id = getImageId(type);
+                }
+            }
+        }
+
+        private void placeSolidTerrain(Tile t, string type)
+        {
+            bool tileOver = false,
+                     tileUnder = false,
+                     tileLeft = false,
+                     tileRight = false;
+
 
                 for (int i = 1; i <= 4; i++)
                 {
-                    Tile tempTile = null;
-
                     switch (i)
                     {
                         case 1:
-                            tempTile = Editor.GetTile(t.X, t.Y - 1);
-                            tileOver = tempTile?.Source != null;
+                            tileOver = Editor.GetTile(t.X, t.Y - 1)?.Source != null;
                             break;
                         case 2:
-                            tempTile = Editor.GetTile(t.X, t.Y + 1);
-                            tileUnder = tempTile?.Source != null;
+                            tileUnder = Editor.GetTile(t.X, t.Y + 1)?.Source != null;
                             break;
                         case 3:
-                            tempTile = Editor.GetTile(t.X - 1, t.Y);
-                            tileLeft = tempTile?.Source != null;
+                            tileLeft = Editor.GetTile(t.X - 1, t.Y)?.Source != null;
                             break;
                         case 4:
-                            tempTile = Editor.GetTile(t.X + 1, t.Y);
-                            tileRight = tempTile?.Source != null;
+                            tileRight = Editor.GetTile(t.X + 1, t.Y)?.Source != null;
                             break;
                     }
                 }
+                bool isHalf = imagePaths[t.Id].Description.Contains("Half");
 
 
                 if (tileOver)
                 {
-                    t.Id = getImageId("grassCenter");
+                    t.Id = getImageId(type + " Center");
                 }
                 else
                 {
                     if (tileLeft)
                     {
                         if (tileRight)
-                            t.Id = getImageId("grassMid");
+                            t.Id = getImageId(type + " Mid");
                         else if (tileUnder)
-                            t.Id = getImageId("grassRight");
+                            t.Id = getImageId(type + " Right");
                         else
-                            t.Id = getImageId("grassCliffRight");
+                            t.Id = getImageId(type + " Cliff Right");
                     }
                     else if (!tileUnder)
                     {
                         if (tileRight)
-                            t.Id = getImageId("grassCliffLeft");
+                            t.Id = getImageId(type + " Cliff Left");
                         else
-                            t.Id = getImageId("grass");
+                            t.Id = getImageId(type + " Platform");
                     }
                     else if (!tileRight)
-                        t.Id = getImageId("grassTop");
+                        t.Id = getImageId(type + " Top");
                     else
-                        t.Id = getImageId("grassLeft");
+                        t.Id = getImageId(type + " Left");
 
-                }
-                Editor.SetTile(t.X, t.Y, t.Id);
-
+                
             }
         }
+
 
         private void placeTiles_old(List<Tile> tiles)
         {
@@ -328,13 +400,23 @@ namespace LevelEditor.Model
 
         private int getImageId(string name)
         {
-            for (int i = 0; i < Model.ImgPaths.Count; i++)
+            for (int i = 0; i < imagePaths.Count; i++)
             {
-                if (Model.ImgPaths[i].Contains(name))
+                if (imagePaths[i].Description.Contains(name))
                     return i;
             }
             return -1;
-        } 
+        }
+
+        private string getTileType(Tile t)
+        {
+            string d = imagePaths[t.Id].Description;
+            string s = "";
+
+            for (int i = 0; d[i] != ' '; i++)
+                s += d[i];
+            return s;
+        }
 
 
         private void Click(object sender, RoutedEventArgs e)
