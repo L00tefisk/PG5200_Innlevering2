@@ -193,7 +193,7 @@ namespace LevelEditor.Model
 
                 string type = getTileType(t);
 
-                if (type != "Object")
+                if (!type.Equals("Object"))
                 {
                     if (imagePaths[t.Id].Description.Contains("Half"))
                         placeHalf(t, type);
