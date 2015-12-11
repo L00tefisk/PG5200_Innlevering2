@@ -21,27 +21,23 @@ namespace LevelEditor.Model
         private readonly Map _map;
         private List<Selection> _selectedTiles;
         private readonly CommandController _commandController;
-        private bool _removeTool;
 
         public Editor()
         {
             _commandController = new CommandController();
             _selectedTiles = new List<Selection>();
-            _images = new ImageSource[Model.ImgPaths.Count];
-            _removeTool = false;
+            _images = new ImageSource[Model.Instance.ImagePaths.Count];
 
-            for (int i = 0; i < Model.ImgPaths.Count; i++)
+            for (int i = 0; i < Model.Instance.ImagePaths.Count; i++)
             {
-                _images[i] = new BitmapImage(new Uri(Model.ImgPaths[i], UriKind.Relative));
+                _images[i] = new BitmapImage(new Uri(Model.Instance.ImagePaths[i].Path, UriKind.Relative));
                 _images[i].Freeze();
+                //_images[i] = null;
             }
 
             _map = new Map(100, 100);
             SelectedTileId = 0;
         }
-        /// <summary>
-        /// Performs the action of the currently selected tool.
-        /// </summary>
         public void PerformAction()
         {
             if (_selectedTiles.Count <= 0)
@@ -67,8 +63,8 @@ namespace LevelEditor.Model
         {
             if (x >= 0 && _map.Width > x && y >= 0 && _map.Width > y)
                 return _map.GetTile(x, y);
-            else
-                return null;
+        
+            return null;
         }
         public void SetTile(int x, int y, int id)
         {
@@ -81,27 +77,10 @@ namespace LevelEditor.Model
             }
 
         }
-        public void SetTile(Tile t)
-        {
-            if (t.X >= 0 && _map.Width > t.X && t.Y >= 0 && _map.Width > t.Y)
-            {
-                if (t.Id >= _images.Length || t.Id < 0)
-                    _map.SetTile(t.X, t.Y, int.MaxValue, null);
-                else
-                    _map.SetTile(t.X, t.Y, t.Id, _images[t.Id]);
-            }
-
-        }
-        /// <summary>
-        /// Redoes an action if there is one to redo.
-        /// </summary>
         public void Redo()
         {
             _commandController.Execute();
         }
-        /// <summary>
-        /// Undoes an action if there is one to undo.
-        /// </summary>
         public void Undo()
         {
             _commandController.Undo();

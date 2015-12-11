@@ -22,7 +22,6 @@ namespace LevelEditor.ViewModel
             SimpleIoc.Default.Register<TileSelectionViewModel>();
 
         }
-
         /// <summary>
         /// Gets the Main property.
         /// </summary>

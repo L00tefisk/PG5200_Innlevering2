@@ -12,27 +12,18 @@ namespace LevelEditor.Model
         public int Width { get; set; }
         public int Height { get; set; }
         private Tile[] _level;
-        private int _tileSize;
+        private readonly int _tileSize;
         public Map(int width, int height)
         {
             Width = width;
             Height = height;
             _level = new Tile[height * width];
-            Random randomId = new Random();
-            for (int i = 0; i < height * width; i++)
-            {
-                _level[i] = new Tile(null, (i - (i / width) * width) , i / width, int.MaxValue);
-            }
-            _tileSize = 32;
 
-            // index = y * width + x
-            // x = index / y ' width
+            for (int i = 0; i < height * width; i++)
+                _level[i] = new Tile(null, (i - (i / width) * width) , i / width, int.MaxValue);
+
+            _tileSize = 32;
         }
-        /// <summary>
-        /// Set tile in the level
-        /// </summary>
-        /// <param name="p">The position of the tile you want to set</param>
-        /// <param name="image">TODO</param>
         public void SetTile(int x, int y, int id, ImageSource image) //Set tile burde kanskje ha samme rekkefølge for parameterene? ikke at det har noe å si
         {
             int index = y*Width + x;
@@ -43,11 +34,6 @@ namespace LevelEditor.Model
             }
 
         }
-        /// <summary>
-        /// Returns the tile at the specified point.x
-        /// </summary>
-        /// <param name="p">TODO</param>
-        /// <returns></returns>
         public Tile GetTile(int x, int y)
         {
             return _level[y * Width + x];
@@ -57,9 +43,6 @@ namespace LevelEditor.Model
         {
             return _tileSize;
         }
-        /// <summary>
-        /// Saves the map to file in binary format, Filename must be set.
-        /// </summary>
         public void Save()
         {
             using (BinaryWriter binaryWriter = new BinaryWriter(File.Open(Filename, FileMode.Create)))
@@ -75,9 +58,6 @@ namespace LevelEditor.Model
                 }
             }
         }
-        /// <summary>
-        /// Loads the map from file, Filename must be set.
-        /// </summary>
         public void Load()
         {
             using (BinaryReader binaryReader = new BinaryReader(File.Open(Filename, FileMode.Open)))

@@ -39,16 +39,14 @@ namespace LevelEditor.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
+            //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
             LayerViewModel = ServiceLocator.Current.GetInstance<LayerViewModel>();
             MapViewModel = ServiceLocator.Current.GetInstance<MapViewModel>();
             TileSelectionViewModel = ServiceLocator.Current.GetInstance<TileSelectionViewModel>();
 
             CreateCommands();
-            _mainModel = Model.Model.Instance;
-
-            
+            _mainModel = Model.Model.Instance;            
         }
 
         private void Exit()

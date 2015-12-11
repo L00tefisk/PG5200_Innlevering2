@@ -103,13 +103,13 @@ namespace LevelEditor.ViewModel
             //Remove background from previously selected tile
             foreach (TileButton t in TilePanel.Children)
             {
-                if (t.Equals(_model.MapView.Editor.SelectedTileId))
+                if (t.Equals(_model._editor.SelectedTileId))
                 {
                     t.Background = Brushes.Transparent;
                     break;
                 }
             }
-            _model.MapView.Editor.SelectedTileId = tileButton.TileId;
+            _model._editor.SelectedTileId = tileButton.TileId;
             tileButton.Background = new SolidColorBrush(new Color { A = 50 });
         }
     }

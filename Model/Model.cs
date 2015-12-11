@@ -12,35 +12,40 @@ namespace LevelEditor.Model
     public class Model
     {
         private static Model _instance;
-
         public static Model Instance
         {
-            get { return _instance ?? (_instance = new Model()); }
-            set { _instance = value; }
+            get
+            {
+                if (_instance != null)
+                    return _instance;
+
+                _instance = new Model();
+                _instance.Init();
+                return _instance;
+            }
+            set
+            {
+                _instance = value;
+            }
         }
 
-        static public List<String> ImgPaths { get; set; }
-        public EditorWindow MapView { get; set; }
-
+        public List<ImagePath> ImagePaths; 
         public ObservableCollection<Layer> Layers;
+        public Editor _editor;
 
         public Model()
         {
+            ImagePaths = new List<ImagePath>();
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
-            IOrderedQueryable<ImagePath> imagePaths =
-                (from a in db.ImagePaths orderby a.Id select a);
+            IOrderedQueryable<ImagePath> imagePaths = (from a in db.ImagePaths orderby a.Id select a);
+            ImagePaths.AddRange(imagePaths);
             db.Connection.Close();
-            
-            ImgPaths = new List<string>();
+        }
 
-            foreach (ImagePath ip in imagePaths)
-            {
-                ImgPaths.Add("../../" + ip.Path);
-            }
-            MapView = new EditorWindow();
-
+        private void Init()
+        {
+            _editor = new Editor();
             Layers = new ObservableCollection<Layer>();
-
         }
     }
 }

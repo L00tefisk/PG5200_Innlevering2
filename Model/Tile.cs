@@ -22,7 +22,6 @@ namespace LevelEditor.Model
             Source = image;
         }
 
-
         public bool Equals(Tile other)
         {
             return X == other.X && Y == other.Y;

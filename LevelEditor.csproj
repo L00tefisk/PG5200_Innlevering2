@@ -96,9 +96,7 @@
     <Compile Include="Model\Commands\CommandController.cs" />
     <Compile Include="Model\Commands\SelectTileCommand.cs" />
     <Compile Include="Model\Commands\SetTileCommand.cs" />
-    <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Editor.cs" />
-    <Compile Include="Model\EditorWindow.cs" />
     <Compile Include="Model\Layer.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Map.cs" />
