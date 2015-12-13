@@ -48,7 +48,7 @@
                         <Image Source="../Sprites/Icons/actions/document-new.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open" InputGestureText="Ctrl+O" Command="{Binding OpenCommand}">
+                <MenuItem Header="_Load" InputGestureText="Ctrl+O" DataContext="{Binding Layer, Source={StaticResource Locator}}"  Command="{Binding LoadCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Sprites/Icons/actions/document-open.png" />
                     </MenuItem.Icon>

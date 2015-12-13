@@ -11,9 +11,7 @@ namespace LevelEditor.Model
         public string Name { get; set; }
         public bool IsVisible { get; set; }
         public bool IsLocked { get; set; }
-
-
-        public Map Level;
+        public Map Map { get; set; }
 
         public Layer(string name)
         {
@@ -21,7 +19,7 @@ namespace LevelEditor.Model
             IsVisible = true;
             IsLocked = false;
 
-            Level = new Map(100, 100);
+            Map = new Map(100, 100);
         }
 
     }

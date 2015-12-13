@@ -61,6 +61,9 @@
       <HintPath>packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -100,6 +103,7 @@
     <Compile Include="Model\Layer.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\SaveModel.cs" />
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\TileButton.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />

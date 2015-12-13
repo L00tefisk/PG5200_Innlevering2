@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using LevelEditor.Model.Commands;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Serialization;
 using LevelEditor.ViewModel;
 
 namespace LevelEditor.Model
 {
     public class Editor
     {
+        public string Filename { get; set; }
+
         public struct Selection
         {
             public int X;
@@ -63,19 +68,19 @@ namespace LevelEditor.Model
         }
         public Tile GetTile(int x, int y)
         {
-            if (x >= 0 && CurrentLayer.Level.Width > x && y >= 0 && CurrentLayer.Level.Width > y)
-                return CurrentLayer.Level.GetTile(x, y);
+            if (x >= 0 && CurrentLayer.Map.Width > x && y >= 0 && CurrentLayer.Map.Width > y)
+                return CurrentLayer.Map.GetTile(x, y);
         
             return null;
         }
         public void SetTile(int x, int y, int id)
         {
-            if (x >= 0 && CurrentLayer.Level.Width > x && y >= 0 && CurrentLayer.Level.Width > y)
+            if (x >= 0 && CurrentLayer.Map.Width > x && y >= 0 && CurrentLayer.Map.Width > y)
             {
                 if (id >= _images.Length || id < 0)
-                    CurrentLayer.Level.SetTile(x, y, int.MaxValue, null);
+                    CurrentLayer.Map.SetTile(x, y, int.MaxValue, null);
                 else
-                    CurrentLayer.Level.SetTile(x, y, id, _images[id]);
+                    CurrentLayer.Map.SetTile(x, y, id, _images[id]);
             }
 
         }
@@ -89,15 +94,18 @@ namespace LevelEditor.Model
         }
         public int GetMapWidth()
         {
-            return CurrentLayer.Level.Width;
+            return CurrentLayer.Map.Width;
         }
         public int GetMapHeight()
         {
-            return CurrentLayer.Level.Height;
+            return CurrentLayer.Map.Height;
         }
         public int GetTileSize()
         {
-            return CurrentLayer.Level.GetTileSize();
+            return CurrentLayer.Map.GetTileSize();
         }
+
+
+        
     }
 }

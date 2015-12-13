@@ -105,6 +105,8 @@ namespace LevelEditor.ViewModel
             _selectionRect.Height = 32;
             _selectionRect.Opacity = 0.5;
         }
+
+
         private void Undo()
         {
             _editor.Undo();
@@ -113,6 +115,32 @@ namespace LevelEditor.ViewModel
         {
             _editor.Redo();
         }
+
+        public void AddLayer()
+        {
+            int mapWidth = _editor.GetMapWidth();
+            int mapHeight = _editor.GetMapHeight();
+
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    Tile t = _editor.GetTile(x, y);
+                    _mapCanvas.Children.Add(t);
+                    Canvas.SetTop(t, y * 32);
+                    Canvas.SetLeft(t, x * 32);
+                }
+            }
+        }
+
+        public void RemoveLayer()
+        {
+            foreach (Tile t in _editor.CurrentLayer.Map.GetLevel())
+            {
+                _mapCanvas.Children.Remove(t);
+            }
+        }
+
         private void SelectBegin(object sender, RoutedEventArgs e)
         {
             if (Mouse.RightButton == MouseButtonState.Pressed && Keyboard.IsKeyDown(Key.LeftCtrl))
