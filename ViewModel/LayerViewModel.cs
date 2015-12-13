@@ -25,18 +25,17 @@ namespace LevelEditor.ViewModel
                 }
             }
         }
-        Layer _selectedLayer { get; set; }
         public Layer SelectedLayer
         {
             get
             {
-                return _selectedLayer;
+                return Model.Model.Instance._editor.CurrentLayer;
             }
             set
             {
-                if (_selectedLayer != value)
+                if (Model.Model.Instance._editor.CurrentLayer != value)
                 {
-                    _selectedLayer = value;
+                    Model.Model.Instance._editor.CurrentLayer = value;
                     RaisePropertyChanged(() => SelectedLayer);
 
                     //MessageBox.Show(_selectedLayer.Name +" is "+_selectedLayer.IsVisisble);

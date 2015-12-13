@@ -38,6 +38,7 @@ namespace LevelEditor.Model
             ImagePaths = new List<ImagePath>();
             LevelEditorDatabaseDataContext db = new LevelEditorDatabaseDataContext();
             IOrderedQueryable<ImagePath> imagePaths = (from a in db.ImagePaths orderby a.Id select a);
+
             ImagePaths.AddRange(imagePaths);
             db.Connection.Close();
         }

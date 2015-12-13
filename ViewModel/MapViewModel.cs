@@ -17,6 +17,7 @@ namespace LevelEditor.ViewModel
 {
     public class MapViewModel : ViewModelBase 
     {
+        public readonly LayerViewModel LayerViewModel;
         public Canvas LevelView
         {
             get
@@ -56,6 +57,9 @@ namespace LevelEditor.ViewModel
         public MapViewModel()
         {
             CreateCommands();
+            LayerViewModel = ServiceLocator.Current.GetInstance<LayerViewModel>();
+
+
 
             _mapCanvas = new Canvas();
             MousePosition = new Point();
@@ -111,7 +115,7 @@ namespace LevelEditor.ViewModel
         }
         private void SelectBegin(object sender, RoutedEventArgs e)
         {
-            if (Mouse.RightButton == MouseButtonState.Pressed)
+            if (Mouse.RightButton == MouseButtonState.Pressed && Keyboard.IsKeyDown(Key.LeftCtrl))
             {
                 foreach (Tile t in _tempSelectedTileList)
                     _mapCanvas.Children.Remove(t);
@@ -172,7 +176,7 @@ namespace LevelEditor.ViewModel
                     }
                 }
             }
-            if (Mouse.RightButton == MouseButtonState.Pressed)
+            if (Mouse.RightButton == MouseButtonState.Pressed && Keyboard.IsKeyDown(Key.LeftCtrl))
             {
                 _selectionPointEnd = MousePosition;
                 double dX = _selectionPointEnd.X - _selectionPointStart.X;
@@ -380,89 +384,6 @@ namespace LevelEditor.ViewModel
                     t.Id = getImageId(type + " Left");
             }
         }
-        private void placeTiles_old(List<Tile> tiles)
-        {
-            bool tileOver = false,
-                 tileUnder = false,
-                 tileLeft = false,
-                 tileRight = false;
-
-            LinkedList<Tile> visitedList = new LinkedList<Tile>();
-            Queue<Tile> toDoList = new Queue<Tile>();
-
-            foreach (Tile t in tiles)
-            {
-                toDoList.Enqueue(t);
-                visitedList.AddLast(t);
-            }
-
-            Tile tempTile = null;
-
-            while (toDoList.Count > 0)
-            {
-                Tile t = toDoList.Dequeue();
-                visitedList.AddLast(t);
-
-                for (int i = 1; i <= 4; i++)
-                {
-                    switch (i)
-                    {
-                        case 1:
-                            tempTile = _editor.GetTile(t.X, t.Y - 1);
-                            tileOver = tempTile?.Source != null;
-                            break;
-                        case 2:
-                            tempTile = _editor.GetTile(t.X, t.Y + 1);
-                            tileUnder = tempTile?.Source != null;
-                            break;
-                        case 3:
-                            tempTile = _editor.GetTile(t.X - 1, t.Y);
-                            tileLeft = tempTile?.Source != null;
-                            break;
-                        case 4:
-                            tempTile = _editor.GetTile(t.X + 1, t.Y);
-                            tileRight = tempTile?.Source != null;
-                            break;
-                    }
-                    if (tempTile?.Source != null)
-                    {
-                        if (!visitedList.Contains(tempTile))
-                            toDoList.Enqueue(tempTile);
-                    }
-                }
-
-                if (tileOver)
-                {
-                    t.Id = getImageId("grassCenter");
-                }
-                else
-                {
-                    if (tileLeft)
-                    {
-                        if (tileRight)
-                            t.Id = getImageId("grassMid");
-                        else if (tileUnder)
-                            t.Id = getImageId("grassRight");
-                        else
-                            t.Id = getImageId("grassCliffRight");
-                    }
-                    else if (!tileUnder)
-                    {
-                        if (tileRight)
-                            t.Id = getImageId("grassCliffLeft");
-                        else
-                            t.Id = getImageId("grass");
-                    }
-                    else if (!tileRight)
-                        t.Id = getImageId("grassTop");
-                    else
-                        t.Id = getImageId("grassLeft");
-
-                }
-                _editor.SetTile(t.X, t.Y, t.Id);
-
-            }
-        }
         private int getImageId(string name)
         {
             for (int i = 0; i < _modelInstance.ImagePaths.Count; i++)
@@ -477,6 +398,7 @@ namespace LevelEditor.ViewModel
             string d = _modelInstance.ImagePaths[t.Id].Description;
             string s = "";
 
+            //Get the first word in the string
             for (int i = 0; d[i] != ' '; i++)
                 s += d[i];
             return s;

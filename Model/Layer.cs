@@ -11,24 +11,18 @@ namespace LevelEditor.Model
         public string Name { get; set; }
         public bool IsVisible { get; set; }
         public bool IsLocked { get; set; }
-        // the tiles in this layer.
-        private List<Tile> tiles;
+
+
+        public Map Level;
 
         public Layer(string name)
         {
             Name = name;
             IsVisible = true;
             IsLocked = false;
+
+            Level = new Map(100, 100);
         }
 
-        void AddTile(Tile t)
-        {
-            tiles.Add(t);
-        }
-
-        void RemoveTile(Tile t)
-        {
-            tiles.Remove(t);
-        }
     }
 }

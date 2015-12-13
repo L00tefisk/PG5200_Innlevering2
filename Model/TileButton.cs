@@ -17,8 +17,7 @@ namespace LevelEditor.Model
             img.Height = 50;
             img.Margin = new Thickness(10);
             ToolTip = description;
-            img.Focusable = true; //Is this needed?
-            img.Source = new BitmapImage(new Uri(Model.Instance.ImagePaths[id].Path, UriKind.Relative));
+            img.Source = new BitmapImage(new Uri("../" + Model.Instance.ImagePaths[id].Path, UriKind.Relative));
             Content = img;
         }
         public bool Equals(TileButton other)

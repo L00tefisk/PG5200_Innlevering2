@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using GalaSoft.MvvmLight;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +22,7 @@ namespace LevelEditor.ViewModel
 
         private Model.Model _mainModel { get; set; }
 
-        public readonly LayerViewModel LayerViewModel;
+        
         public readonly MapViewModel MapViewModel;
         public readonly TileSelectionViewModel TileSelectionViewModel;
 
@@ -41,7 +42,6 @@ namespace LevelEditor.ViewModel
         {
             //DatabaseHelper.ExportToDatabase(); //Uncomment this to generate the database
 
-            LayerViewModel = ServiceLocator.Current.GetInstance<LayerViewModel>();
             MapViewModel = ServiceLocator.Current.GetInstance<MapViewModel>();
             TileSelectionViewModel = ServiceLocator.Current.GetInstance<TileSelectionViewModel>();
 
